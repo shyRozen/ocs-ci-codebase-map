@@ -9,7 +9,7 @@ test_areas: [Regional DR, Metro DR, SC Arbiter]
 DR orchestration (Ramen/ODF-DR). Regional DR (failover/relocate across sites), Metro DR (active-active metro distance), SC Arbiter (stretch cluster with arbiter).
 
 ## Test Coverage
-- [[tests-functional-disaster-recovery]] — 45 tests across 39 files
+- [[tests_functional_disaster_recovery]] — 45 tests across 39 files
   - Regional DR: failover, relocate, sequential, CNV, discovered apps, CG config
   - Metro DR: app failover/relocate, zone down, hub down
   - SC Arbiter: stretch cluster operations, MON/OSD failures, device replacement

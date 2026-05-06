@@ -33,4 +33,4 @@ StorageClass creation, validation, RBD pools, CephFS, replica configurations, re
 ## Related
 - [[green_squad]]
 - [[ceph-csi]]
-- [[tests-functional-pv]]
+- [[tests_functional_pv]]

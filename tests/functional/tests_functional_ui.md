@@ -29,4 +29,4 @@ ODF console UI tests: PV encryption, capacity breakdown, health overview, alerts
 ## Related
 - [[black_squad]]
 - [[odf-console]]
-- [[tests-cross_functional-ui]]
+- [[tests_cross_functional_ui]]

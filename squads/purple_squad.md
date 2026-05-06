@@ -8,9 +8,9 @@ primary_areas: [Deployment, Upgrade, ACM]
 # Purple Squad
 
 ## Test Areas
-- [[tests-functional-deployment]] — 4 tests (2 files: test_deployment, test_acm)
-- [[tests-functional-upgrade]] — 39 tests (3 files: test_upgrade, test_upgrade_ocp, test_resources)
-- [[tests-libtest]] — 111 tests (2 files: test_metallb, test_provider_create_hosted_cluster)
+- [[tests_functional_deployment]] — 4 tests (2 files: test_deployment, test_acm)
+- [[tests_functional_upgrade]] — 39 tests (3 files: test_upgrade, test_upgrade_ocp, test_resources)
+- [[tests_libtest]] — 111 tests (2 files: test_metallb, test_provider_create_hosted_cluster)
 
 ## ODF Components
 - [[ocs-operator]] — OCS operator deployment

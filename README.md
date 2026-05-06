@@ -63,15 +63,15 @@ ocs-ci-map/
 │   └── ...
 ├── tests/
 │   ├── functional/            ← 19 functional test area notes
-│   │   ├── tests-functional-pv.md
-│   │   ├── tests-functional-object-mcg.md
+│   │   ├── tests_functional_pv.md
+│   │   ├── tests_functional_object_mcg.md
 │   │   └── ...
 │   ├── cross_functional/      ← 10 cross-functional test area notes
-│   │   ├── tests-cross_functional-scale.md
-│   │   ├── tests-cross_functional-performance.md
+│   │   ├── tests_cross_functional_scale.md
+│   │   ├── tests_cross_functional_performance.md
 │   │   └── ...
 │   └── libtest/               ← 1 library test note
-│       └── tests-libtest.md
+│       └── tests_libtest.md
 └── framework/                 ← 6 framework module notes
     ├── framework-core.md
     ├── framework-ocs.md

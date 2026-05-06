@@ -39,4 +39,4 @@ Bucket operations, replication, namespace stores, NSFS, S3 routes, lifecycle, ve
 - [[red_squad]]
 - [[black_squad]] (UI tests)
 - [[mcg-noobaa]]
-- [[tests-functional-object-rgw]]
+- [[tests_functional_object_rgw]]

@@ -8,7 +8,7 @@ primary_areas: [Performance, CSI Performance, IO Workload]
 # Grey Squad
 
 ## Test Areas
-- [[tests-cross_functional-performance]] — 34 tests across 16 files
+- [[tests_cross_functional_performance]] — 34 tests across 16 files
   - CSI tests: 11 files, 26 tests (PVC creation/deletion, clone, snapshot, pod attach/reattach)
   - IO workload: 4 files, 7 tests (FIO, small file, PGSQL, IO perf)
 

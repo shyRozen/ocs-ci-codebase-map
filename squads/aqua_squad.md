@@ -8,7 +8,7 @@ primary_areas: [LVMO, LVM Operator]
 # Aqua Squad
 
 ## Test Areas
-- [[tests-functional-lvmo]] — 9 files, ~24 parametrized test cases
+- [[tests_functional_lvmo]] — 9 files, ~24 parametrized test cases
   - LVM clone base, snapshot base
   - LVM clone/snapshot bigger than disk
   - LVM multi-clone, multi-snapshot

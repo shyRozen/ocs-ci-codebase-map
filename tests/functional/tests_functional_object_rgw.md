@@ -21,4 +21,4 @@ Ceph RADOS Gateway operations, S3 operations via RGW, RGW bucket management, mul
 ## Related
 - [[red_squad]]
 - [[rook-ceph]]
-- [[tests-functional-object-mcg]]
+- [[tests_functional_object_mcg]]

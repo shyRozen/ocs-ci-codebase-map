@@ -8,7 +8,7 @@ primary_areas: [Monitoring, Prometheus, PagerDuty, Alerts]
 # Blue Squad
 
 ## Test Areas
-- [[tests-functional-monitoring]] — 44 tests across 26 files
+- [[tests_functional_monitoring]] — 44 tests across 26 files
   - Prometheus alerts/metrics (18 files, 32 tests)
   - PagerDuty alerts (2 files)
   - SendGrid alerts (1 file)

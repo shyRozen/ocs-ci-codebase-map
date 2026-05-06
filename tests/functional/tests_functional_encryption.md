@@ -25,4 +25,4 @@ In-transit encryption sanity, encryption configuration dashboard, key rotation, 
 ## Related
 - [[green_squad]]
 - [[ceph-csi]]
-- [[tests-functional-pv]]
+- [[tests_functional_pv]]

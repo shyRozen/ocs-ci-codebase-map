@@ -9,7 +9,7 @@ test_areas: [Monitoring, Prometheus, PagerDuty, Alerts]
 Prometheus metrics/alerts, PagerDuty integration, SendGrid alerts, ODF health monitoring, capacity alerts.
 
 ## Test Coverage
-- [[tests-functional-monitoring]] — 44 tests across 26 files
+- [[tests_functional_monitoring]] — 44 tests across 26 files
   - Prometheus alerts: Ceph health, capacity, RGW, NooBaa, HPA, encryption, deployment
   - Prometheus metrics: RBD usage, OCS utilization, MCG HPA, monitoring defaults
   - PagerDuty alerts: Ceph, deployment status

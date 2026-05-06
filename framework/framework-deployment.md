@@ -46,4 +46,4 @@ AWS, Azure, GCP, IBM Cloud, VMware, Bare Metal, ROSA, Flexy, Assisted Installer,
 ## Related
 - [[framework-core]]
 - [[framework-ocs]]
-- [[tests-functional-deployment]]
+- [[tests_functional_deployment]]

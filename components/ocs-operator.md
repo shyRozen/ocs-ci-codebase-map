@@ -9,11 +9,11 @@ test_areas: [Deployment, Upgrade, Provider Mode, External Mode]
 OCS/ODF operator. Manages StorageCluster CR, operator lifecycle, upgrades, provider/client mode, external mode.
 
 ## Test Coverage
-- [[tests-functional-deployment]] — 4 tests, operator deployment
-- [[tests-functional-upgrade]] — 39 tests, OCS/ODF/OCP upgrade
-- [[tests-functional-provider_mode]] — 1 test, provider mode
-- [[tests-functional-external_mode]] — 1 test, external mode
-- [[tests-functional-z_cluster]] — 115 tests (cluster expansion/operations)
+- [[tests_functional_deployment]] — 4 tests, operator deployment
+- [[tests_functional_upgrade]] — 39 tests, OCS/ODF/OCP upgrade
+- [[tests_functional_provider_mode]] — 1 test, provider mode
+- [[tests_functional_external_mode]] — 1 test, external mode
+- [[tests_functional_z_cluster]] — 115 tests (cluster expansion/operations)
 
 ## Framework Classes
 - `ocs_ci/ocs/resources/storage_cluster.py` (3608 lines) — StorageCluster CR

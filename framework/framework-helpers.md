@@ -40,4 +40,4 @@ Test helpers for common operations: DR, performance, key rotation, disruptions, 
 ## Related
 - [[framework-ocs]]
 - [[framework-utility]]
-- [[tests-functional-disaster-recovery]]
+- [[tests_functional_disaster_recovery]]

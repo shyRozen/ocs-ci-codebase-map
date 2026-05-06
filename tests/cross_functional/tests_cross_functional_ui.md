@@ -25,4 +25,4 @@ Cross-functional UI tests: ODF topology, validation UI, add capacity UI, block p
 ## Related
 - [[black_squad]]
 - [[odf-console]]
-- [[tests-functional-ui]]
+- [[tests_functional_ui]]

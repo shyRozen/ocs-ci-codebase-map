@@ -37,5 +37,5 @@ Persistent volume operations, cloning, resizing, snapshots, encryption, space re
 ## Related
 - [[green_squad]]
 - [[ceph-csi]]
-- [[tests-functional-storageclass]]
-- [[tests-functional-encryption]]
+- [[tests_functional_storageclass]]
+- [[tests_functional_encryption]]

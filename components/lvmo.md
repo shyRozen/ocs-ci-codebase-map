@@ -9,7 +9,7 @@ test_areas: [LVMO]
 LVM-based local storage provisioning. Thin provisioning, snapshots, clones, PVC resize, capacity alerts, manual disk path configuration.
 
 ## Test Coverage
-- [[tests-functional-lvmo]] — 9 files, ~24 parametrized test cases
+- [[tests_functional_lvmo]] — 9 files, ~24 parametrized test cases
   - Clone operations (base, multi-clone, bigger-than-disk)
   - Snapshot operations (base, multi-snapshot, bigger-than-disk)
   - PVC resize

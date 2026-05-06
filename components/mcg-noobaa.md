@@ -9,12 +9,12 @@ test_areas: [MCG, RGW, Scale NooBaa, Performance MCG]
 Multi-Cloud Gateway (NooBaa). S3-compatible object storage, bucket management, namespace stores, replication, NSFS, lifecycle policies.
 
 ## Test Coverage
-- [[tests-functional-object-mcg]] — 228 tests, core MCG operations
-- [[tests-functional-object-rgw]] — 16 tests, RGW integration
-- [[tests-cross_functional-scale]] — 36 tests (12 NooBaa scale files)
-- [[tests-cross_functional-performance]] — 34 tests (1 MCG CosBench file)
-- [[tests-cross_functional-kcs]] — 8 tests (NooBaa rebuild, DB backup, password reset)
-- [[tests-cross_functional-system_test]] — 23 tests (MCG recovery, replication, NSFS)
+- [[tests_functional_object_mcg]] — 228 tests, core MCG operations
+- [[tests_functional_object_rgw]] — 16 tests, RGW integration
+- [[tests_cross_functional_scale]] — 36 tests (12 NooBaa scale files)
+- [[tests_cross_functional_performance]] — 34 tests (1 MCG CosBench file)
+- [[tests_cross_functional_kcs]] — 8 tests (NooBaa rebuild, DB backup, password reset)
+- [[tests_cross_functional_system_test]] — 23 tests (MCG recovery, replication, NSFS)
 
 ## Framework Classes
 - `ocs_ci/ocs/resources/mcg.py` (1359 lines) — MCG resource management

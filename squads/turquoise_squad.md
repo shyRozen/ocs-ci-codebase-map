@@ -8,7 +8,7 @@ primary_areas: [Disaster Recovery, Regional DR, Metro DR, SC Arbiter]
 # Turquoise Squad
 
 ## Test Areas
-- [[tests-functional-disaster-recovery]] — 45 tests across 39 files
+- [[tests_functional_disaster_recovery]] — 45 tests across 39 files
   - Regional DR: 22 files, 26 tests (failover, relocate, CNV, discovered apps)
   - SC Arbiter: 10 files, 12 tests (add capacity, node drain, device replacement)
   - Metro DR: 7 files, 7 tests (app failover/relocate, zone down, hub down)

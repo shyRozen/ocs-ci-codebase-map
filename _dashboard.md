@@ -43,43 +43,43 @@
 ### Functional Tests
 | Area | Tests | Files | Squad | Link |
 |------|-------|-------|-------|------|
-| PV | 113 | 84 | green | [[tests-functional-pv]] |
-| Object/MCG | 228 | 76 | red | [[tests-functional-object-mcg]] |
-| Z-Cluster | 115 | 62 | brown | [[tests-functional-z_cluster]] |
-| Monitoring | 44 | 26 | blue | [[tests-functional-monitoring]] |
-| Upgrade | 39 | 10 | mixed | [[tests-functional-upgrade]] |
-| StorageClass | 29 | 23 | green | [[tests-functional-storageclass]] |
-| UI | 28 | 10 | black | [[tests-functional-ui]] |
-| Workloads | 71 | 47 | magenta | [[tests-functional-workloads]] |
-| Disaster Recovery | 45 | 39 | turquoise | [[tests-functional-disaster-recovery]] |
-| Pod & Daemons | 20 | 9 | brown | [[tests-functional-pod_and_daemons]] |
-| Object/RGW | 16 | 12 | red | [[tests-functional-object-rgw]] |
-| NFS | 14 | 1 | brown | [[tests-functional-nfs_feature]] |
-| Encryption | 11 | 5 | green | [[tests-functional-encryption]] |
-| ODF-CLI | 7 | 4 | brown | [[tests-functional-odf-cli]] |
-| Deployment | 4 | 3 | purple | [[tests-functional-deployment]] |
-| Data Replication | 4 | 2 | yellow | [[tests-functional-data_replication_separation]] |
-| External Mode | 1 | 1 | brown | [[tests-functional-external_mode]] |
-| Provider Mode | 1 | 1 | yellow | [[tests-functional-provider_mode]] |
+| PV | 113 | 84 | green | [[tests_functional_pv]] |
+| Object/MCG | 228 | 76 | red | [[tests_functional_object_mcg]] |
+| Z-Cluster | 115 | 62 | brown | [[tests_functional_z_cluster]] |
+| Monitoring | 44 | 26 | blue | [[tests_functional_monitoring]] |
+| Upgrade | 39 | 10 | mixed | [[tests_functional_upgrade]] |
+| StorageClass | 29 | 23 | green | [[tests_functional_storageclass]] |
+| UI | 28 | 10 | black | [[tests_functional_ui]] |
+| Workloads | 71 | 47 | magenta | [[tests_functional_workloads]] |
+| Disaster Recovery | 45 | 39 | turquoise | [[tests_functional_disaster_recovery]] |
+| Pod & Daemons | 20 | 9 | brown | [[tests_functional_pod_and_daemons]] |
+| Object/RGW | 16 | 12 | red | [[tests_functional_object_rgw]] |
+| NFS | 14 | 1 | brown | [[tests_functional_nfs_feature]] |
+| Encryption | 11 | 5 | green | [[tests_functional_encryption]] |
+| ODF-CLI | 7 | 4 | brown | [[tests_functional_odf_cli]] |
+| Deployment | 4 | 3 | purple | [[tests_functional_deployment]] |
+| Data Replication | 4 | 2 | yellow | [[tests_functional_data_replication_separation]] |
+| External Mode | 1 | 1 | brown | [[tests_functional_external_mode]] |
+| Provider Mode | 1 | 1 | yellow | [[tests_functional_provider_mode]] |
 
 ### Cross-Functional Tests
 | Area | Tests | Files | Squad | Link |
 |------|-------|-------|-------|------|
-| Scale | 36 | 28 | orange | [[tests-cross_functional-scale]] |
-| Performance | 34 | 16 | grey | [[tests-cross_functional-performance]] |
-| Krkn Chaos | 24 | 6 | green | [[tests-cross_functional-krkn_chaos]] |
-| System Test | 23 | 14 | magenta | [[tests-cross_functional-system_test]] |
-| UI | 11 | 5 | black | [[tests-cross_functional-ui]] |
-| KCS | 8 | 8 | magenta | [[tests-cross_functional-kcs]] |
-| Longevity | 6 | 6 | magenta | [[tests-cross_functional-longevity]] |
-| Resilience | 5 | 4 | green | [[tests-cross_functional-resilience]] |
-| Stress | 5 | 5 | magenta | [[tests-cross_functional-stress]] |
-| FlowTest | 5 | 3 | magenta | [[tests-cross_functional-flowtest]] |
+| Scale | 36 | 28 | orange | [[tests_cross_functional_scale]] |
+| Performance | 34 | 16 | grey | [[tests_cross_functional_performance]] |
+| Krkn Chaos | 24 | 6 | green | [[tests_cross_functional_krkn_chaos]] |
+| System Test | 23 | 14 | magenta | [[tests_cross_functional_system_test]] |
+| UI | 11 | 5 | black | [[tests_cross_functional_ui]] |
+| KCS | 8 | 8 | magenta | [[tests_cross_functional_kcs]] |
+| Longevity | 6 | 6 | magenta | [[tests_cross_functional_longevity]] |
+| Resilience | 5 | 4 | green | [[tests_cross_functional_resilience]] |
+| Stress | 5 | 5 | magenta | [[tests_cross_functional_stress]] |
+| FlowTest | 5 | 3 | magenta | [[tests_cross_functional_flowtest]] |
 
 ### Library Tests
 | Area | Tests | Files | Link |
 |------|-------|-------|------|
-| Libtest | 111 | 41 | [[tests-libtest]] |
+| Libtest | 111 | 41 | [[tests_libtest]] |
 
 ---
 

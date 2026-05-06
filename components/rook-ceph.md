@@ -9,13 +9,13 @@ test_areas: [z_cluster, Pod/Daemons, Nodes, Cluster Expansion]
 Rook operator for Ceph. Manages Ceph daemons (OSD, MON, MDS, MGR), cluster health, node operations, capacity management.
 
 ## Test Coverage
-- [[tests-functional-z_cluster]] — 115 tests, cluster ops, daemons, health
-- [[tests-functional-pod_and_daemons]] — 20 tests, daemon management
-- [[tests-functional-nfs_feature]] — 14 tests, NFS on Ceph
-- [[tests-functional-disaster-recovery]] — 45 tests, stretch cluster, DR
-- [[tests-cross_functional-krkn_chaos]] — 24 tests, chaos on Ceph
-- [[tests-cross_functional-resilience]] — 5 tests, failure scenarios
-- [[tests-cross_functional-longevity]] — 6 tests, sustained operations
+- [[tests_functional_z_cluster]] — 115 tests, cluster ops, daemons, health
+- [[tests_functional_pod_and_daemons]] — 20 tests, daemon management
+- [[tests_functional_nfs_feature]] — 14 tests, NFS on Ceph
+- [[tests_functional_disaster_recovery]] — 45 tests, stretch cluster, DR
+- [[tests_cross_functional_krkn_chaos]] — 24 tests, chaos on Ceph
+- [[tests_cross_functional_resilience]] — 5 tests, failure scenarios
+- [[tests_cross_functional_longevity]] — 6 tests, sustained operations
 
 ## Framework Classes
 - `ocs_ci/ocs/cluster.py` (4160 lines) — CephCluster, CephHealthMonitor
