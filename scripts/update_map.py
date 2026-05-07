@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Generate per-version test indexes from ocs-ci release branches.
+"""Generate per-version map branches from ocs-ci release branches.
 
-Scans each release-X.Y branch in the ocs-ci repo using AST parsing and
-produces test-index-X.Y.json files for the codebase map.
+For each ocs-ci release branch, creates a matching branch in the map repo
+with test-index.json + full Obsidian notes (dashboard, squads, components,
+test areas, framework).
 
 Usage:
     python scripts/update_map.py --ocs-ci-path ~/codcod/new-ocs-ci/ocs-ci --all
@@ -18,12 +19,13 @@ import re
 import shutil
 import subprocess
 import sys
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
 
 # ---------------------------------------------------------------------------
-# AST scanner (adapted from odf-zstream-agents/tools/ocs_ci_scanner.py)
+# AST scanner
 # ---------------------------------------------------------------------------
 
 
@@ -32,16 +34,54 @@ def scan_all_tests(ocs_ci_root: Path) -> list[dict]:
     if not tests_dir.exists():
         print(f"  WARNING: tests/ not found in {ocs_ci_root}")
         return []
-
     test_files = sorted(tests_dir.rglob("test_*.py"))
     results = []
     for test_file in test_files:
         try:
-            file_info = _parse_test_file(test_file, ocs_ci_root)
-            if file_info and file_info.get("test_functions"):
-                results.append(file_info)
-        except Exception as e:
-            pass  # skip unparseable files silently
+            info = _parse_test_file(test_file, ocs_ci_root)
+            if info and info.get("test_functions"):
+                results.append(info)
+        except Exception:
+            pass
+    return results
+
+
+def scan_framework(ocs_ci_root: Path) -> list[dict]:
+    fw_dirs = {
+        "core": ocs_ci_root / "ocs_ci" / "framework",
+        "ocs": ocs_ci_root / "ocs_ci" / "ocs",
+        "deployment": ocs_ci_root / "ocs_ci" / "deployment",
+        "utility": ocs_ci_root / "ocs_ci" / "utility",
+        "helpers": ocs_ci_root / "ocs_ci" / "helpers",
+    }
+    results = []
+    for name, fdir in fw_dirs.items():
+        if not fdir.exists():
+            continue
+        modules = []
+        total_lines = 0
+        for pf in sorted(fdir.glob("*.py")):
+            try:
+                lines = len(pf.read_text(errors="ignore").splitlines())
+                total_lines += lines
+                modules.append({"file": pf.name, "lines": lines})
+            except Exception:
+                pass
+        subdirs = sorted(
+            d.name
+            for d in fdir.iterdir()
+            if d.is_dir() and not d.name.startswith("__")
+        )
+        results.append(
+            {
+                "name": name,
+                "path": str(fdir.relative_to(ocs_ci_root)),
+                "module_count": len(modules),
+                "total_lines": total_lines,
+                "modules": sorted(modules, key=lambda m: -m["lines"])[:15],
+                "subdirs": subdirs,
+            }
+        )
     return results
 
 
@@ -64,13 +104,12 @@ def _parse_test_file(file_path: Path, ocs_ci_root: Path) -> dict | None:
             if class_squad:
                 file_squad = class_squad
             file_marks.extend(class_marks)
-
             for item in node.body:
                 if isinstance(item, (ast.FunctionDef, ast.AsyncFunctionDef)):
                     if item.name.startswith("test_"):
-                        func_info = _extract_function_info(item, node.name, class_marks)
-                        test_functions.append(func_info)
-
+                        test_functions.append(
+                            _extract_function_info(item, node.name, class_marks)
+                        )
         elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
             if node.name.startswith("test_") and node.col_offset == 0:
                 func_marks = _extract_decorators(node)
@@ -78,8 +117,7 @@ def _parse_test_file(file_path: Path, ocs_ci_root: Path) -> dict | None:
                 if func_squad and not file_squad:
                     file_squad = func_squad
                 file_marks.extend(func_marks)
-                func_info = _extract_function_info(node, None, [])
-                test_functions.append(func_info)
+                test_functions.append(_extract_function_info(node, None, []))
 
     if not test_functions:
         return None
@@ -114,11 +152,7 @@ def _parse_test_file(file_path: Path, ocs_ci_root: Path) -> dict | None:
     }
 
 
-def _extract_function_info(
-    node: ast.FunctionDef | ast.AsyncFunctionDef,
-    class_name: str | None,
-    class_marks: list[str],
-) -> dict:
+def _extract_function_info(node, class_name, class_marks):
     marks = _extract_decorators(node)
     all_marks = list(set(marks + class_marks))
     docstring = ast.get_docstring(node) or ""
@@ -134,86 +168,489 @@ def _extract_function_info(
     }
 
 
-def _extract_decorators(node: ast.AST) -> list[str]:
+def _extract_decorators(node):
     marks = []
     for dec in getattr(node, "decorator_list", []):
-        mark_str = _decorator_to_string(dec)
-        if mark_str:
-            marks.append(mark_str)
+        s = _decorator_to_string(dec)
+        if s:
+            marks.append(s)
     return marks
 
 
-def _decorator_to_string(dec: ast.AST) -> str:
+def _decorator_to_string(dec):
     if isinstance(dec, ast.Name):
         return dec.id
-    elif isinstance(dec, ast.Attribute):
+    if isinstance(dec, ast.Attribute):
         parts = []
-        current = dec
-        while isinstance(current, ast.Attribute):
-            parts.append(current.attr)
-            current = current.value
-        if isinstance(current, ast.Name):
-            parts.append(current.id)
+        cur = dec
+        while isinstance(cur, ast.Attribute):
+            parts.append(cur.attr)
+            cur = cur.value
+        if isinstance(cur, ast.Name):
+            parts.append(cur.id)
         return ".".join(reversed(parts))
-    elif isinstance(dec, ast.Call):
+    if isinstance(dec, ast.Call):
         func_str = _decorator_to_string(dec.func)
         args = []
-        for arg in dec.args:
-            if isinstance(arg, ast.Constant):
-                args.append(repr(arg.value))
-            elif isinstance(arg, ast.Name):
-                args.append(arg.id)
+        for a in dec.args:
+            if isinstance(a, ast.Constant):
+                args.append(repr(a.value))
+            elif isinstance(a, ast.Name):
+                args.append(a.id)
         if args:
             return f"{func_str}({', '.join(args)})"
         return func_str
     return ""
 
 
-def _find_squad(marks: list[str]) -> str:
-    for mark in marks:
-        if "_squad" in mark and not mark.startswith("pytest.mark."):
-            return mark
-        if "pytest.mark." in mark and "_squad" in mark:
-            return mark.split("pytest.mark.")[-1].split("(")[0]
+def _find_squad(marks):
+    for m in marks:
+        if "_squad" in m and not m.startswith("pytest.mark."):
+            return m
+        if "pytest.mark." in m and "_squad" in m:
+            return m.split("pytest.mark.")[-1].split("(")[0]
     return ""
 
 
-def _extract_tiers(marks: list[str]) -> list[str]:
-    tiers = []
-    for mark in marks:
-        for tier in ["tier0", "tier1", "tier2", "tier3", "tier4", "tier4a", "tier4b", "tier4c"]:
-            if tier in mark.lower():
-                tiers.append(tier)
-    return sorted(set(tiers))
+def _extract_tiers(marks):
+    tiers = set()
+    for m in marks:
+        for t in (
+            "tier0",
+            "tier1",
+            "tier2",
+            "tier3",
+            "tier4",
+            "tier4a",
+            "tier4b",
+            "tier4c",
+        ):
+            if t in m.lower():
+                tiers.add(t)
+    return sorted(tiers)
 
 
-def _extract_polarion_ids(marks: list[str]) -> list[str]:
+def _extract_polarion_ids(marks):
     ids = []
-    for mark in marks:
-        match = re.findall(r"OCS-\d+", mark)
-        ids.extend(match)
+    for m in marks:
+        ids.extend(re.findall(r"OCS-\d+", m))
     return ids
 
 
-def _extract_skip_conditions(marks: list[str]) -> list[str]:
-    conditions = []
-    for mark in marks:
-        if "skipif" in mark.lower() or "skip_" in mark.lower():
-            conditions.append(mark)
-    return conditions
+def _extract_skip_conditions(marks):
+    return [m for m in marks if "skipif" in m.lower() or "skip_" in m.lower()]
 
 
-def _file_description(test_functions: list[dict], rel_path: str) -> str:
-    if not test_functions:
-        return ""
+def _file_description(test_functions, rel_path):
     for func in test_functions:
         ds = func.get("docstring", "")
         if ds and len(ds) > 10:
             first_line = ds.split("\n")[0].strip()
             if len(first_line) > 10:
                 return first_line[:150]
-    func_names = [f["name"].replace("test_", "") for f in test_functions[:5]]
-    return ", ".join(func_names)[:150]
+    names = [f["name"].replace("test_", "") for f in test_functions[:5]]
+    return ", ".join(names)[:150]
+
+
+# ---------------------------------------------------------------------------
+# Obsidian note generation
+# ---------------------------------------------------------------------------
+
+COMPONENT_SQUAD_MAP = {
+    "ceph-csi": {
+        "squad": "green_squad",
+        "areas": ["PV", "StorageClass", "Encryption"],
+    },
+    "rook-ceph": {"squad": "green_squad", "areas": ["PV", "Pod & Daemons"]},
+    "mcg-noobaa": {"squad": "red_squad", "areas": ["MCG", "RGW"]},
+    "disaster-recovery": {
+        "squad": "turquoise_squad",
+        "areas": ["Disaster Recovery"],
+    },
+    "lvmo": {"squad": "aqua_squad", "areas": ["LVMO"]},
+    "odf-console": {"squad": "black_squad", "areas": ["UI"]},
+    "monitoring": {"squad": "blue_squad", "areas": ["Monitoring"]},
+    "ocs-operator": {
+        "squad": "brown_squad",
+        "areas": ["Deployment", "Upgrade", "Z-Cluster"],
+    },
+}
+
+
+def _safe_area_key(subcategory):
+    return subcategory.replace("-", "_").replace("/", "_")
+
+
+def generate_notes(
+    output_dir, test_results, framework_results, version
+):
+    areas = _aggregate_areas(test_results)
+    squads = _aggregate_squads(test_results, areas)
+    total_files = len(test_results)
+    total_tests = sum(r["test_count"] for r in test_results)
+
+    for d in (
+        "squads",
+        "components",
+        "tests/functional",
+        "tests/cross_functional",
+        "tests/libtest",
+        "framework",
+    ):
+        (output_dir / d).mkdir(parents=True, exist_ok=True)
+
+    _gen_dashboard(
+        output_dir, areas, squads, framework_results,
+        total_files, total_tests, version,
+    )
+    _gen_readme(output_dir, areas, squads, total_files, total_tests, version)
+
+    for sq_name, sq_data in squads.items():
+        _gen_squad_note(
+            output_dir / "squads" / f"{sq_name}.md", sq_name, sq_data
+        )
+
+    for comp_name, comp_info in COMPONENT_SQUAD_MAP.items():
+        _gen_component_note(
+            output_dir / "components" / f"{comp_name}.md",
+            comp_name, comp_info, areas,
+        )
+
+    for area_key, data in areas.items():
+        cat = data["category"]
+        if cat == "libtest":
+            path = output_dir / "tests" / "libtest" / f"tests_{area_key}.md"
+        elif cat in ("functional", "cross_functional"):
+            path = output_dir / "tests" / cat / f"tests_{cat}_{area_key}.md"
+        else:
+            continue
+        _gen_test_area_note(path, area_key, data)
+
+    for fw in framework_results:
+        _gen_framework_note(
+            output_dir / "framework" / f"framework-{fw['name']}.md", fw
+        )
+
+
+def _aggregate_areas(test_results):
+    areas = defaultdict(
+        lambda: {
+            "category": "",
+            "files": [],
+            "test_count": 0,
+            "file_count": 0,
+            "squads": defaultdict(int),
+            "tiers": defaultdict(int),
+            "subdirs": defaultdict(lambda: {"files": 0, "tests": 0}),
+        }
+    )
+    for r in test_results:
+        cat = r["category"]
+        sub = r["subcategory"] or r["category"]
+        key = _safe_area_key(sub) if cat != "libtest" else "libtest"
+        a = areas[key]
+        a["category"] = cat
+        a["files"].append(r)
+        a["file_count"] += 1
+        a["test_count"] += r["test_count"]
+        if r["squad"]:
+            a["squads"][r["squad"]] += r["test_count"]
+        for t in r["tiers"]:
+            a["tiers"][t] += 1
+        fp = r["file_path"].split("/")
+        if len(fp) > 3:
+            sd = fp[3] if cat != "libtest" else fp[2]
+            a["subdirs"][sd]["files"] += 1
+            a["subdirs"][sd]["tests"] += r["test_count"]
+    return dict(areas)
+
+
+def _aggregate_squads(test_results, areas):
+    squads = defaultdict(
+        lambda: {"test_count": 0, "file_count": 0, "areas": defaultdict(int)}
+    )
+    for r in test_results:
+        sq = r["squad"]
+        if not sq:
+            continue
+        s = squads[sq]
+        s["file_count"] += 1
+        s["test_count"] += r["test_count"]
+        cat = r["category"]
+        sub = r["subcategory"] or r["category"]
+        key = _safe_area_key(sub) if cat != "libtest" else "libtest"
+        if cat == "libtest":
+            note = "tests_libtest"
+        elif cat in ("functional", "cross_functional"):
+            note = f"tests_{cat}_{key}"
+        else:
+            note = key
+        s["areas"][note] += r["test_count"]
+    return dict(squads)
+
+
+def _gen_dashboard(
+    out_dir, areas, squads, fw_results, total_files, total_tests, version
+):
+    lines = [
+        f"# OCS-CI Codebase Map (release-{version})",
+        "",
+        f"> Auto-generated map for ODF {version}.",
+        "",
+        "---",
+        "",
+        "## Quick Stats",
+        "",
+        "| Metric | Value |",
+        "|--------|-------|",
+        f"| Test files | {total_files} |",
+        f"| Test functions | {total_tests} |",
+        f"| Squads | {len(squads)} |",
+        f"| Test areas | {len(areas)} |",
+        "",
+        "---",
+        "",
+        "## Squads",
+        "",
+        "| Squad | Tests |",
+        "|-------|-------|",
+    ]
+    for sq in sorted(squads, key=lambda s: -squads[s]["test_count"]):
+        lines.append(f"| [[{sq}]] | {squads[sq]['test_count']} |")
+
+    for section, cat_name in [
+        ("Functional Tests", "functional"),
+        ("Cross-Functional Tests", "cross_functional"),
+    ]:
+        lines.extend(
+            [
+                "",
+                f"## {section}",
+                "",
+                "| Area | Tests | Files | Squad | Link |",
+                "|------|-------|-------|-------|------|",
+            ]
+        )
+        for key, data in sorted(
+            areas.items(), key=lambda x: -x[1]["test_count"]
+        ):
+            if data["category"] != cat_name:
+                continue
+            top_sq = "mixed"
+            if data["squads"]:
+                top_sq = max(
+                    data["squads"], key=data["squads"].get
+                ).replace("_squad", "")
+            lines.append(
+                f"| {key} | {data['test_count']} | {data['file_count']} "
+                f"| {top_sq} | [[tests_{cat_name}_{key}]] |"
+            )
+
+    if "libtest" in areas:
+        d = areas["libtest"]
+        lines.extend(
+            [
+                "",
+                "## Library Tests",
+                "",
+                "| Area | Tests | Files | Link |",
+                "|------|-------|-------|------|",
+                f"| Libtest | {d['test_count']} | {d['file_count']}"
+                f" | [[tests_libtest]] |",
+            ]
+        )
+
+    if fw_results:
+        lines.extend(
+            [
+                "",
+                "## Framework",
+                "",
+                "| Module | Files | Lines | Link |",
+                "|--------|-------|-------|------|",
+            ]
+        )
+        for fw in fw_results:
+            lines.append(
+                f"| {fw['name']} | {fw['module_count']} | "
+                f"{fw['total_lines']} | [[framework-{fw['name']}]] |"
+            )
+
+    (out_dir / "_dashboard.md").write_text("\n".join(lines) + "\n")
+
+
+def _gen_readme(out_dir, areas, squads, total_files, total_tests, version):
+    lines = [
+        f"# OCS-CI Codebase Map (release-{version})",
+        "",
+        "Structured knowledge base of the "
+        "[ocs-ci](https://github.com/red-hat-storage/ocs-ci) "
+        f"test framework for ODF {version}.",
+        "",
+        "| Section | Count |",
+        "|---------|-------|",
+        f"| Squads | {len(squads)} |",
+        f"| Test Areas | {len(areas)} |",
+        f"| Test Files | {total_files} |",
+        f"| Test Functions | {total_tests} |",
+        f"| Components | {len(COMPONENT_SQUAD_MAP)} |",
+        "",
+        "Start at `_dashboard.md` for navigation.",
+        "",
+        "## Usage",
+        "",
+        "- **Obsidian**: Clone, open as vault, Ctrl+G for graph view",
+        "- **GitHub**: Browse markdown directly",
+        "- **AI agents**: Consumed by "
+        "[odf-zstream-agents]"
+        "(https://github.com/shyRozen/odf-zstream-agents)",
+        "",
+        f"Branch `release-{version}` maps ocs-ci `release-{version}`.",
+        "",
+        "Source: [red-hat-storage/ocs-ci]"
+        "(https://github.com/red-hat-storage/ocs-ci)"
+        f" `release-{version}`",
+    ]
+    (out_dir / "README.md").write_text("\n".join(lines) + "\n")
+
+
+def _gen_squad_note(path, name, data):
+    lines = [
+        "---",
+        f"squad: {name}",
+        f"test_count: {data['test_count']}",
+        f"file_count: {data['file_count']}",
+        "---",
+        "",
+        f"# {name.replace('_', ' ').title()}",
+        "",
+        "## Test Areas",
+    ]
+    for note, count in sorted(data["areas"].items(), key=lambda x: -x[1]):
+        lines.append(f"- [[{note}]] -- {count} tests")
+    lines.extend(
+        [
+            "",
+            "## Key Marks",
+            f"`@{name}`, `@tier1`..`@tier4`, `@polarion_id`",
+        ]
+    )
+    path.write_text("\n".join(lines) + "\n")
+
+
+def _gen_component_note(path, comp_name, comp_info, areas):
+    lines = [
+        "---",
+        f"component: {comp_name}",
+        f"squad: {comp_info['squad']}",
+        f"test_areas: {comp_info['areas']}",
+        "---",
+        "",
+        f"# {comp_name}",
+        "",
+        "## Test Coverage",
+    ]
+    for area_name in comp_info["areas"]:
+        area_lower = (
+            area_name.lower()
+            .replace("/", "_")
+            .replace("-", "_")
+            .replace(" ", "_")
+        )
+        for key, data in areas.items():
+            if area_lower in key.lower() or key.lower() in area_lower:
+                cat = data["category"]
+                if cat == "libtest":
+                    note = "tests_libtest"
+                else:
+                    note = f"tests_{cat}_{key}"
+                lines.append(f"- [[{note}]] -- {data['test_count']} tests")
+                break
+    lines.extend(["", "## Related", f"- [[{comp_info['squad']}]]"])
+    path.write_text("\n".join(lines) + "\n")
+
+
+def _gen_test_area_note(path, area_key, data):
+    cat = data["category"]
+    top_sq = "mixed"
+    if data["squads"]:
+        top_sq = max(data["squads"], key=data["squads"].get)
+    tier_str = ", ".join(
+        f"{t}: {c}" for t, c in sorted(data["tiers"].items())
+    )
+    if cat == "libtest":
+        directory = f"tests/{area_key}/"
+    else:
+        directory = f"tests/{cat}/{area_key}/"
+    lines = [
+        "---",
+        f"directory: {directory}",
+        f"squad: {top_sq}",
+        f"test_files: {data['file_count']}",
+        f"test_functions: {data['test_count']}",
+        f"tiers: {{{tier_str}}}" if tier_str else "tiers: {}",
+        "---",
+        "",
+        f"# {area_key.replace('_', ' ').title()}",
+        "",
+    ]
+    if data["subdirs"]:
+        lines.extend(
+            [
+                "## Subdirectories",
+                "",
+                "| Dir | Files | Tests |",
+                "|-----|-------|-------|",
+            ]
+        )
+        for sd, info in sorted(
+            data["subdirs"].items(), key=lambda x: -x[1]["tests"]
+        ):
+            lines.append(f"| {sd}/ | {info['files']} | {info['tests']} |")
+        lines.append("")
+    top_files = sorted(data["files"], key=lambda f: -f["test_count"])[:10]
+    if top_files:
+        lines.extend(
+            [
+                "## Key Test Files",
+                "",
+                "| File | Tests | Squad |",
+                "|------|-------|-------|",
+            ]
+        )
+        for f in top_files:
+            fname = f["file_path"].split("/")[-1]
+            lines.append(
+                f"| {fname} | {f['test_count']}"
+                f" | {f['squad'] or 'mixed'} |"
+            )
+        lines.append("")
+    lines.extend(["## Related", f"- [[{top_sq}]]"])
+    path.write_text("\n".join(lines) + "\n")
+
+
+def _gen_framework_note(path, fw):
+    lines = [
+        "---",
+        f"path: {fw['path']}",
+        f"modules: {fw['module_count']}",
+        f"total_lines: {fw['total_lines']}",
+        "---",
+        "",
+        f"# Framework: {fw['name'].title()}",
+        "",
+        "## Key Modules",
+        "",
+        "| File | Lines |",
+        "|------|-------|",
+    ]
+    for m in fw["modules"][:15]:
+        lines.append(f"| {m['file']} | {m['lines']} |")
+    if fw["subdirs"]:
+        lines.extend(["", "## Subdirectories"])
+        for sd in fw["subdirs"]:
+            lines.append(f"- {sd}/")
+    path.write_text("\n".join(lines) + "\n")
 
 
 # ---------------------------------------------------------------------------
@@ -221,65 +658,104 @@ def _file_description(test_functions: list[dict], rel_path: str) -> str:
 # ---------------------------------------------------------------------------
 
 
-def get_current_ref(repo_path: Path) -> str:
-    result = subprocess.run(
-        ["git", "rev-parse", "HEAD"],
-        cwd=repo_path, capture_output=True, text=True, timeout=10,
+def _run(cmd, cwd, timeout=30):
+    return subprocess.run(
+        cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout
     )
-    return result.stdout.strip()
 
 
-def is_dirty(repo_path: Path) -> bool:
-    result = subprocess.run(
-        ["git", "status", "--porcelain"],
-        cwd=repo_path, capture_output=True, text=True, timeout=10,
+def get_current_ref(repo_path):
+    return _run(["git", "rev-parse", "HEAD"], repo_path, 10).stdout.strip()
+
+
+def get_current_branch(repo_path):
+    return _run(
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"], repo_path, 10
+    ).stdout.strip()
+
+
+def is_dirty(repo_path):
+    return bool(
+        _run(["git", "status", "--porcelain"], repo_path, 10).stdout.strip()
     )
-    return bool(result.stdout.strip())
 
 
-def stash_changes(repo_path: Path) -> bool:
-    result = subprocess.run(
+def stash_changes(repo_path):
+    r = _run(
         ["git", "stash", "push", "-m", "update_map.py auto-stash"],
-        cwd=repo_path, capture_output=True, text=True, timeout=30,
+        repo_path,
     )
-    return "Saved working directory" in result.stdout
+    return "Saved working directory" in r.stdout
 
 
-def stash_pop(repo_path: Path):
-    subprocess.run(
-        ["git", "stash", "pop"],
-        cwd=repo_path, capture_output=True, text=True, timeout=30,
-    )
+def stash_pop(repo_path):
+    _run(["git", "stash", "pop"], repo_path)
 
 
-def checkout_branch(repo_path: Path, version: str) -> bool:
-    branch = f"upstream/release-{version}"
-    subprocess.run(
+def ocs_ci_checkout(repo_path, version):
+    _run(
         ["git", "fetch", "upstream", f"release-{version}"],
-        cwd=repo_path, capture_output=True, text=True, timeout=120,
+        repo_path,
+        120,
     )
-    result = subprocess.run(
-        ["git", "checkout", branch],
-        cwd=repo_path, capture_output=True, text=True, timeout=30,
-    )
-    return result.returncode == 0
+    return _run(
+        ["git", "checkout", f"upstream/release-{version}"], repo_path
+    ).returncode == 0
 
 
-def restore_ref(repo_path: Path, ref: str):
-    subprocess.run(
-        ["git", "checkout", ref],
-        cwd=repo_path, capture_output=True, text=True, timeout=30,
+def restore_ref(repo_path, ref):
+    _run(["git", "checkout", ref], repo_path)
+
+
+def map_create_branch(map_dir, branch_name):
+    r = _run(["git", "branch", "--list", branch_name], map_dir, 10)
+    if r.stdout.strip():
+        _run(["git", "checkout", branch_name], map_dir)
+    else:
+        _run(["git", "checkout", "-b", branch_name, "main"], map_dir)
+
+
+def map_commit_and_push(map_dir, version, push=True):
+    _run(["git", "add", "-A"], map_dir)
+    status = _run(
+        ["git", "status", "--porcelain"], map_dir, 10
+    ).stdout.strip()
+    if not status:
+        print(f"  [map] No changes for release-{version}")
+        return
+    _run(
+        ["git", "commit", "-m", f"Update map for release-{version}"],
+        map_dir,
     )
+    if push:
+        _run(
+            ["git", "push", "-u", "origin", f"release-{version}"],
+            map_dir,
+            60,
+        )
 
 
 # ---------------------------------------------------------------------------
-# Index generation
+# Clean generated content (keep .git, scripts/)
 # ---------------------------------------------------------------------------
 
 
-def build_index_json(
-    results: list[dict], ocs_ci_root: Path, version: str,
-) -> dict:
+def clean_generated(out_dir):
+    for item in out_dir.iterdir():
+        if item.name in (".git", ".gitignore", "scripts"):
+            continue
+        if item.is_dir():
+            shutil.rmtree(item)
+        else:
+            item.unlink()
+
+
+# ---------------------------------------------------------------------------
+# CLI + main
+# ---------------------------------------------------------------------------
+
+
+def build_index_json(results, version):
     return {
         "source": "https://github.com/red-hat-storage/ocs-ci",
         "branch": f"release-{version}",
@@ -290,174 +766,118 @@ def build_index_json(
     }
 
 
-def generate_version_summary(indexes: dict[str, dict]) -> dict:
-    versions = sorted(
-        indexes.keys(), key=lambda v: tuple(int(x) for x in v.split(".")),
-    )
-
-    per_version = []
-    for v in versions:
-        idx = indexes[v]
-        per_version.append({
-            "version": v,
-            "branch": f"release-{v}",
-            "total_files": idx["total_files"],
-            "total_tests": idx["total_tests"],
-            "scanned_at": idx["scanned_at"],
-        })
-
-    diffs = []
-    for i in range(1, len(versions)):
-        prev_v, curr_v = versions[i - 1], versions[i]
-        prev_files = {f["file_path"] for f in indexes[prev_v]["files"]}
-        curr_files = {f["file_path"] for f in indexes[curr_v]["files"]}
-        diffs.append({
-            "from_version": prev_v,
-            "to_version": curr_v,
-            "added_files": sorted(curr_files - prev_files),
-            "removed_files": sorted(prev_files - curr_files),
-            "added_count": len(curr_files - prev_files),
-            "removed_count": len(prev_files - curr_files),
-        })
-
-    return {"versions": per_version, "diffs": diffs}
-
-
-# ---------------------------------------------------------------------------
-# CLI
-# ---------------------------------------------------------------------------
-
-
-def parse_args() -> argparse.Namespace:
+def parse_args():
     p = argparse.ArgumentParser(
-        description="Generate per-version test indexes from ocs-ci release branches.",
+        description=(
+            "Generate per-version map branches from "
+            "ocs-ci release branches."
+        ),
     )
     p.add_argument(
-        "--ocs-ci-path", type=Path, required=True,
+        "--ocs-ci-path",
+        type=Path,
+        required=True,
         help="Path to local ocs-ci git repo",
     )
-
-    group = p.add_mutually_exclusive_group(required=True)
-    group.add_argument(
-        "--version", type=str,
+    g = p.add_mutually_exclusive_group(required=True)
+    g.add_argument(
+        "--version",
+        type=str,
         help="Scan a single release branch (e.g., 4.20)",
     )
-    group.add_argument(
-        "--all", action="store_true",
+    g.add_argument(
+        "--all",
+        action="store_true",
         help="Scan all release branches",
     )
-
     p.add_argument("--min-version", type=str, default="4.10")
     p.add_argument("--max-version", type=str, default="4.21")
     p.add_argument(
-        "--output-dir", type=Path, default=None,
-        help="Output directory (default: map repo root)",
+        "--no-push",
+        action="store_true",
+        help="Don't push branches to origin",
     )
     return p.parse_args()
 
 
-def version_range(min_v: str, max_v: str) -> list[str]:
-    min_major, min_minor = (int(x) for x in min_v.split("."))
-    max_major, max_minor = (int(x) for x in max_v.split("."))
-    versions = []
-    for minor in range(min_minor, max_minor + 1):
-        versions.append(f"{min_major}.{minor}")
-    return versions
+def version_range(min_v, max_v):
+    _, lo = (int(x) for x in min_v.split("."))
+    hi_major, hi = (int(x) for x in max_v.split("."))
+    return [f"{hi_major}.{m}" for m in range(lo, hi + 1)]
 
 
 def main():
     args = parse_args()
     ocs_ci_path = args.ocs_ci_path.expanduser().resolve()
+    map_dir = Path(__file__).resolve().parent.parent
 
     if not (ocs_ci_path / ".git").exists():
-        print(f"ERROR: {ocs_ci_path} is not a git repository")
+        print(f"ERROR: {ocs_ci_path} is not a git repo")
+        sys.exit(1)
+    if not (map_dir / ".git").exists():
+        print(f"ERROR: {map_dir} is not a git repo")
         sys.exit(1)
 
-    did_stash = False
+    ocs_ci_stashed = False
     if is_dirty(ocs_ci_path):
-        print("Stashing uncommitted changes in ocs-ci repo...")
-        did_stash = stash_changes(ocs_ci_path)
-        if not did_stash:
-            print("ERROR: Failed to stash changes. Commit or stash manually first.")
+        print("Stashing ocs-ci changes...")
+        ocs_ci_stashed = stash_changes(ocs_ci_path)
+        if not ocs_ci_stashed:
+            print("ERROR: Failed to stash.")
             sys.exit(1)
 
-    output_dir = args.output_dir or Path(__file__).resolve().parent.parent
-    original_ref = get_current_ref(ocs_ci_path)
+    ocs_ci_ref = get_current_ref(ocs_ci_path)
+    map_branch = get_current_branch(map_dir)
+    versions = (
+        [args.version]
+        if args.version
+        else version_range(args.min_version, args.max_version)
+    )
 
-    if args.version:
-        versions = [args.version]
-    else:
-        versions = version_range(args.min_version, args.max_version)
-
-    print(f"ocs-ci repo: {ocs_ci_path}")
-    print(f"Output dir:  {output_dir}")
-    print(f"Versions:    {', '.join(versions)}")
-    print()
-
-    indexes: dict[str, dict] = {}
+    print(f"ocs-ci: {ocs_ci_path}")
+    print(f"map:    {map_dir}")
+    print(f"versions: {', '.join(versions)}\n")
 
     try:
         for version in versions:
-            print(f"[{version}] Checking out upstream/release-{version}...")
-            if not checkout_branch(ocs_ci_path, version):
+            print(
+                f"[{version}] Checking out ocs-ci "
+                f"upstream/release-{version}..."
+            )
+            if not ocs_ci_checkout(ocs_ci_path, version):
                 print(f"[{version}] WARNING: branch not found, skipping")
                 continue
 
-            print(f"[{version}] Scanning test files...")
-            results = scan_all_tests(ocs_ci_path)
-            index_data = build_index_json(results, ocs_ci_path, version)
-            indexes[version] = index_data
+            print(f"[{version}] Scanning...")
+            test_results = scan_all_tests(ocs_ci_path)
+            fw_results = scan_framework(ocs_ci_path)
+            index = build_index_json(test_results, version)
 
-            out_file = output_dir / f"test-index-{version}.json"
-            with open(out_file, "w") as f:
-                json.dump(index_data, f, indent=2)
+            print(f"[{version}] Creating map branch release-{version}...")
+            map_create_branch(map_dir, f"release-{version}")
+            clean_generated(map_dir)
 
+            with open(map_dir / "test-index.json", "w") as f:
+                json.dump(index, f, indent=2)
+
+            generate_notes(map_dir, test_results, fw_results, version)
             print(
-                f"[{version}] -> {out_file.name} "
-                f"({index_data['total_files']} files, "
-                f"{index_data['total_tests']} tests)"
+                f"[{version}] {index['total_files']} files, "
+                f"{index['total_tests']} tests"
             )
 
-        if not indexes:
-            print("\nNo indexes generated.")
-            return
-
-        # Update default test-index.json with the latest version
-        latest = max(
-            indexes.keys(),
-            key=lambda v: tuple(int(x) for x in v.split(".")),
-        )
-        default_index = output_dir / "test-index.json"
-        shutil.copy2(
-            output_dir / f"test-index-{latest}.json", default_index,
-        )
-        print(f"\ntest-index.json updated to release-{latest}")
-
-        # Generate version summary
-        if len(indexes) > 1:
-            summary = generate_version_summary(indexes)
-            summary_file = output_dir / "version-summary.json"
-            with open(summary_file, "w") as f:
-                json.dump(summary, f, indent=2)
-            print(f"version-summary.json written ({len(summary['diffs'])} diffs)")
-
-            # Print diff highlights
-            print("\nVersion diffs:")
-            for d in summary["diffs"]:
-                added = d["added_count"]
-                removed = d["removed_count"]
-                if added or removed:
-                    print(
-                        f"  {d['from_version']} -> {d['to_version']}: "
-                        f"+{added} -{removed} files"
-                    )
+            map_commit_and_push(
+                map_dir, version, push=not args.no_push
+            )
 
     finally:
-        print(f"\nRestoring original ref {original_ref[:12]}...")
-        restore_ref(ocs_ci_path, original_ref)
-        if did_stash:
-            print("Restoring stashed changes...")
+        print(f"\nRestoring ocs-ci {ocs_ci_ref[:12]}...")
+        restore_ref(ocs_ci_path, ocs_ci_ref)
+        if ocs_ci_stashed:
+            print("Restoring stashed ocs-ci changes...")
             stash_pop(ocs_ci_path)
+        print(f"Restoring map to {map_branch}...")
+        _run(["git", "checkout", map_branch], map_dir)
 
     print("Done.")
 
