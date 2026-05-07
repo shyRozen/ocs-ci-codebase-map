@@ -46,6 +46,47 @@ def scan_all_tests(ocs_ci_root: Path) -> list[dict]:
     return results
 
 
+def scan_markers(ocs_ci_root: Path) -> dict:
+    """Parse pytest.ini and marks.py to extract marker info."""
+    result = {"ini_markers": [], "marks_py_markers": [], "squad_marks": [], "skip_marks": []}
+
+    # Parse pytest.ini
+    ini_path = ocs_ci_root / "pytest.ini"
+    if ini_path.exists():
+        in_markers = False
+        for line in ini_path.read_text(errors="ignore").splitlines():
+            if line.strip().startswith("markers"):
+                in_markers = True
+                continue
+            if in_markers:
+                stripped = line.strip()
+                if not stripped or (not line.startswith(" ") and not line.startswith("\t")):
+                    in_markers = False
+                    continue
+                parts = stripped.split(":", 1)
+                name = parts[0].strip()
+                desc = parts[1].strip() if len(parts) > 1 else ""
+                result["ini_markers"].append({"name": name, "description": desc})
+
+    # Parse marks.py for variable assignments
+    marks_path = ocs_ci_root / "ocs_ci" / "framework" / "pytest_customization" / "marks.py"
+    if marks_path.exists():
+        content = marks_path.read_text(errors="ignore")
+        for line in content.splitlines():
+            stripped = line.strip()
+            if "pytest.mark." in stripped and "=" in stripped and not stripped.startswith("#"):
+                name = stripped.split("=")[0].strip()
+                if name and name.isidentifier():
+                    if "_squad" in name:
+                        result["squad_marks"].append(name)
+                    elif "skipif" in name or "skip_" in name:
+                        result["skip_marks"].append(name)
+                    else:
+                        result["marks_py_markers"].append(name)
+
+    return result
+
+
 def scan_framework(ocs_ci_root: Path) -> list[dict]:
     fw_dirs = {
         "core": ocs_ci_root / "ocs_ci" / "framework",
@@ -282,7 +323,8 @@ def _safe_area_key(subcategory):
 
 
 def generate_notes(
-    output_dir, test_results, framework_results, version
+    output_dir, test_results, framework_results, version,
+    markers_data=None,
 ):
     areas = _aggregate_areas(test_results)
     squads = _aggregate_squads(test_results, areas)
@@ -330,6 +372,9 @@ def generate_notes(
         _gen_framework_note(
             output_dir / "framework" / f"framework-{fw['name']}.md", fw
         )
+
+    if markers_data:
+        _gen_markers_note(output_dir / "markers.md", markers_data, version)
 
 
 def _aggregate_areas(test_results):
@@ -653,6 +698,108 @@ def _gen_framework_note(path, fw):
     path.write_text("\n".join(lines) + "\n")
 
 
+def _gen_markers_note(path, markers_data, version):
+    ini = markers_data.get("ini_markers", [])
+    marks_py = markers_data.get("marks_py_markers", [])
+    squad_marks = markers_data.get("squad_marks", [])
+    skip_marks = markers_data.get("skip_marks", [])
+
+    lines = [
+        "---",
+        f"version: {version}",
+        f"total_markers: {len(ini)}",
+        f"marks_py_count: {len(marks_py)}",
+        f"squad_marks: {len(squad_marks)}",
+        "---",
+        "",
+        f"# Pytest Markers (release-{version})",
+        "",
+        "Markers are registered in two places:",
+        "",
+        "1. **`pytest.ini`** -- the `markers =` list. Required for "
+        "`--strict-markers` to accept the marker at collection time.",
+        "2. **`ocs_ci/framework/pytest_customization/marks.py`** -- "
+        "Python variables (e.g. `tier1 = pytest.mark.tier1(value=1)`) "
+        "that tests import and use as decorators.",
+        "",
+        "To add a new marker, register it in **both** files.",
+        "",
+        "## How to add a z-stream marker",
+        "",
+        "The z-stream pipeline adds a temporary marker for test selection:",
+        "",
+        "1. Append to `pytest.ini` markers list: "
+        "`zstream_4_16_13: z-stream 4.16.13 test enablement`",
+        "2. Add `@pytest.mark.zstream_4_16_13` to each selected test file",
+        "3. Run with `pytest -m zstream_4_16_13`",
+        "",
+        "No `marks.py` entry needed -- z-stream markers are used directly "
+        "as `@pytest.mark.name`, not imported as Python variables.",
+        "",
+    ]
+
+    # Squad marks
+    if squad_marks:
+        lines.extend([
+            "## Squad Marks",
+            "",
+            "| Marker | Usage |",
+            "|--------|-------|",
+        ])
+        for m in sorted(squad_marks):
+            lines.append(
+                f"| `@{m}` | `from ocs_ci.framework.pytest_customization"
+                f".marks import {m}` |"
+            )
+        lines.append("")
+
+    # Tier / component marks from marks.py
+    tier_marks = [m for m in marks_py if m.startswith("tier")]
+    component_marks = [
+        m for m in marks_py
+        if m not in tier_marks
+        and not m.startswith("skipif")
+        and not m.startswith("order_")
+        and not m.startswith("pre_")
+        and not m.startswith("post_")
+    ]
+
+    if tier_marks:
+        lines.extend([
+            "## Tier Marks",
+            "",
+            ", ".join(f"`@{m}`" for m in sorted(tier_marks)),
+            "",
+        ])
+
+    if component_marks:
+        lines.extend([
+            "## Component & Category Marks",
+            "",
+            ", ".join(f"`@{m}`" for m in sorted(component_marks)),
+            "",
+        ])
+
+    # All pytest.ini markers
+    if ini:
+        lines.extend([
+            "## All Registered Markers (pytest.ini)",
+            "",
+            "| Marker | Description |",
+            "|--------|-------------|",
+        ])
+        for m in ini:
+            lines.append(f"| `{m['name']}` | {m['description']} |")
+        lines.append("")
+
+    lines.extend([
+        "## Related",
+        "- [[framework-core]]",
+    ])
+
+    path.write_text("\n".join(lines) + "\n")
+
+
 # ---------------------------------------------------------------------------
 # Git helpers
 # ---------------------------------------------------------------------------
@@ -851,6 +998,7 @@ def main():
             print(f"[{version}] Scanning...")
             test_results = scan_all_tests(ocs_ci_path)
             fw_results = scan_framework(ocs_ci_path)
+            markers_data = scan_markers(ocs_ci_path)
             index = build_index_json(test_results, version)
 
             print(f"[{version}] Creating map branch release-{version}...")
@@ -860,7 +1008,10 @@ def main():
             with open(map_dir / "test-index.json", "w") as f:
                 json.dump(index, f, indent=2)
 
-            generate_notes(map_dir, test_results, fw_results, version)
+            generate_notes(
+                map_dir, test_results, fw_results, version,
+                markers_data=markers_data,
+            )
             print(
                 f"[{version}] {index['total_files']} files, "
                 f"{index['total_tests']} tests"
