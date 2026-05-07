@@ -1,38 +1,37 @@
 ---
 directory: tests/functional/monitoring/
 squad: blue_squad
-test_files: 26
-test_functions: 44
-tiers: {tier1: 11, tier2: 11, tier3: 4, tier4: 27}
+test_files: 21
+test_functions: 47
+tiers: {tier1: 4, tier2: 5, tier3: 1, tier4: 10, tier4a: 4, tier4b: 1, tier4c: 6}
 ---
 
 # Monitoring
 
-Prometheus alerts/metrics, PagerDuty integration, SendGrid alerts, monitoring workloads, operator probe resilience.
-
 ## Subdirectories
-| Dir | Files | Tests | Focus |
-|-----|-------|-------|-------|
-| prometheus/alerts/ | 12 | ~20 | Ceph, capacity, RGW, NooBaa, HPA, encryption alerts |
-| prometheus/metrics/ | 6 | ~12 | RBD usage, OCS utilization, MCG HPA, defaults |
-| pagerduty/alerts/ | 2 | 0 | PagerDuty alert integration |
-| sendgrid/alerts/ | 1 | 0 | SendGrid capacity alerts |
-| libtest/ | 2 | 7 | Workload examples/fixtures |
-| workload/ | 1 | 3 | Workload with disruptions |
+
+| Dir | Files | Tests |
+|-----|-------|-------|
+| prometheus/ | 15 | 30 |
+| libtest/ | 2 | 7 |
+| pagerduty/ | 2 | 6 |
+| workload/ | 1 | 3 |
+| sendgrid/ | 1 | 1 |
 
 ## Key Test Files
-| File | Tests | Key Tests |
-|------|-------|-----------|
-| prometheus/alerts/test_ceph.py | ~5 | Ceph health alerts |
-| prometheus/alerts/test_capacity.py | ~3 | Capacity warning/critical |
-| prometheus/metrics/test_ocs_utilization.py | ~3 | OCS utilization metrics |
-| test_monitoring_tool.py | ~2 | Monitoring tool validation |
-| test_operator_probe_resilience.py | ~2 | Operator probe tests |
 
-## Marks Used
-`@blue_squad`, `@tier1`, `@tier2`, `@tier3`, `@tier4`, `@polarion_id`
+| File | Tests | Squad |
+|------|-------|-------|
+| test_monitoring_defaults.py | 6 | blue_squad |
+| test_workload_fixture.py | 5 | blue_squad |
+| test_deployment_status.py | 5 | blue_squad |
+| test_deployment_status.py | 4 | blue_squad |
+| test_ceph.py | 3 | blue_squad |
+| test_monitoring_negative.py | 3 | blue_squad |
+| test_workload_with_distruptions.py | 3 | blue_squad |
+| test_workload_example.py | 2 | blue_squad |
+| test_alerting_works.py | 2 | blue_squad |
+| test_capacity.py | 2 | blue_squad |
 
 ## Related
 - [[blue_squad]]
-- [[monitoring]]
-- [[rook-ceph]]

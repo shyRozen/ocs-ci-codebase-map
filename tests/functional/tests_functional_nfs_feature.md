@@ -2,23 +2,23 @@
 directory: tests/functional/nfs_feature/
 squad: brown_squad
 test_files: 1
-test_functions: 14
-tiers: {tier1: 7, tier2: 4, tier3: 0, tier4: 3}
+test_functions: 11
+tiers: {tier1: 1}
 ---
 
-# NFS Feature
+# Nfs Feature
 
-NFS feature enablement for ODF clusters. Single test file covering NFS provisioning, access, and feature toggle.
+## Subdirectories
 
-## Test Files
-| File                                        | Tests | Key Tests                              |
-| ------------------------------------------- | ----- | -------------------------------------- |
-| test_nfs_feature_enable_for_ODF_clusters.py | 14    | NFS enable, provisioning, access modes |
+| Dir | Files | Tests |
+|-----|-------|-------|
+| test_nfs_feature_enable_for_ODF_clusters.py/ | 1 | 11 |
 
-## Marks Used
-`@brown_squad`, `@tier1`, `@tier2`, `@tier4`, `@polarion_id`
+## Key Test Files
+
+| File | Tests | Squad |
+|------|-------|-------|
+| test_nfs_feature_enable_for_ODF_clusters.py | 11 | brown_squad |
 
 ## Related
 - [[brown_squad]]
-- [[rook-ceph]]
-- [[ceph-csi]]

@@ -1,27 +1,26 @@
 ---
-directory: tests/functional/odf-cli/
+directory: tests/functional/odf_cli/
 squad: brown_squad
-test_files: 4
-test_functions: 7
-tiers: {tier1: 2, tier2: 3, tier3: 1, tier4: 0}
+test_files: 2
+test_functions: 2
+tiers: {tier2: 1}
 ---
 
-# ODF CLI
+# Odf Cli
 
-ODF CLI tool testing: command validation, output verification, diagnostics.
+## Subdirectories
 
-## Test Files
-| File | Tests | Key Tests |
-|------|-------|-----------|
-| test_*.py | 7 | ODF CLI commands, diagnostics |
+| Dir | Files | Tests |
+|-----|-------|-------|
+| test_debug_verbocity_of_ceph_component.py/ | 1 | 1 |
+| test_pvc_stale_volume_cleanup_cli.py/ | 1 | 1 |
 
-## Multi-Squad Ownership
-- **brown_squad**: 3 files
-- **green_squad**: 1 file
+## Key Test Files
 
-## Marks Used
-`@brown_squad`, `@green_squad`, `@tier1`, `@tier2`, `@tier3`, `@polarion_id`
+| File | Tests | Squad |
+|------|-------|-------|
+| test_debug_verbocity_of_ceph_component.py | 1 | brown_squad |
+| test_pvc_stale_volume_cleanup_cli.py | 1 | green_squad |
 
 ## Related
 - [[brown_squad]]
-- [[ocs-operator]]

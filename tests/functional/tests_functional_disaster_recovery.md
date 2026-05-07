@@ -1,37 +1,35 @@
 ---
-directory: tests/functional/disaster-recovery/
+directory: tests/functional/disaster_recovery/
 squad: turquoise_squad
-test_files: 39
-test_functions: 45
-tiers: {tier1: 21, tier2: 5, tier3: 3, tier4: 12}
+test_files: 20
+test_functions: 25
+tiers: {tier1: 10, tier2: 1, tier3: 3, tier4: 4, tier4a: 2, tier4b: 2}
 ---
 
 # Disaster Recovery
 
-Regional DR (failover, relocate, discovered apps, CNV), Metro DR (app failover, zone down, hub down), SC Arbiter (stretch cluster, node drain, device replacement).
-
 ## Subdirectories
-| Dir | Files | Tests | Focus |
-|-----|-------|-------|-------|
-| regional-dr/ | 22 | 26 | Failover, relocate, sequential, CNV, CG config |
-| sc_arbiter/ | 10 | 12 | Stretch cluster, MON/OSD failures, add capacity |
-| metro-dr/ | 7 | 7 | Metro failover/relocate, zone down, hub down |
+
+| Dir | Files | Tests |
+|-----|-------|-------|
+| regional-dr/ | 10 | 12 |
+| sc_arbiter/ | 6 | 9 |
+| metro-dr/ | 4 | 4 |
 
 ## Key Test Files
-| File | Tests | Key Tests |
-|------|-------|-----------|
-| regional-dr/test_failover_and_relocate.py | ~2 | Basic failover + relocate |
-| regional-dr/test_failover.py | ~1 | Standalone failover |
-| regional-dr/test_relocate.py | ~1 | Standalone relocate |
-| regional-dr/test_cnv_app_failover_and_relocate.py | ~1 | CNV DR |
-| metro-dr/test_app_failover_and_relocate.py | ~1 | Metro DR basic |
-| sc_arbiter/test_mon_osd_failures.py | ~2 | MON/OSD failure in stretch |
-| sc_arbiter/test_noobaa_in_stretch.py | ~1 | NooBaa in stretch (@red_squad) |
 
-## Marks Used
-`@turquoise_squad`, `@red_squad` (NooBaa/RGW in stretch), `@tier1`, `@tier2`, `@tier3`, `@tier4`, `@polarion_id`
+| File | Tests | Squad |
+|------|-------|-------|
+| test_mon_osd_failures.py | 3 | turquoise_squad |
+| test_managed_cluster_node_failure.py | 2 | turquoise_squad |
+| test_negative_failover_relocate_ui.py | 2 | turquoise_squad |
+| test_zone_shutdown_and_crash.py | 2 | turquoise_squad |
+| test_active_hub_down_and_restore.py | 1 | turquoise_squad |
+| test_app_failover_and_relocate.py | 1 | turquoise_squad |
+| test_cnv_app_failover_relocate.py | 1 | turquoise_squad |
+| test_no_data_loss_and_corruption_on_failures.py | 1 | turquoise_squad |
+| test_cnv_app_failover_and_relocate.py | 1 | turquoise_squad |
+| test_failover.py | 1 | turquoise_squad |
 
 ## Related
 - [[turquoise_squad]]
-- [[disaster-recovery]]
-- [[rook-ceph]]

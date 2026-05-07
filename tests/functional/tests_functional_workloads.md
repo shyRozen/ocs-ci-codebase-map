@@ -1,38 +1,39 @@
 ---
 directory: tests/functional/workloads/
 squad: magenta_squad
-test_files: 47
-test_functions: 71
-tiers: {tier1: 8, tier2: 9, tier3: 0, tier4: 0}
+test_files: 37
+test_functions: 62
+tiers: {tier1: 3, tier2: 4}
 ---
 
 # Workloads
 
-Application workloads on ODF storage: CNV (virtual machines), OCP (registry, monitoring, logging), AMQ, PGSQL, Jenkins, Couchbase, CosBench, Quay, BDI.
-
 ## Subdirectories
-| Dir | Files | Tests | Focus |
-|-----|-------|-------|-------|
-| cnv/ | 12 | 16 | CNV VM workloads |
-| ocp/ | 9 | 18 | OCP registry, monitoring, logging |
-| app/amq/ | 5 | ~5 | AMQ messaging workloads |
-| app/pgsql/ | 4 | ~4 | PostgreSQL workloads |
-| app/jenkins/ | 4 | ~4 | Jenkins CI workloads |
-| app/couchbase/ | 4 | ~4 | Couchbase workloads |
-| pvc_snapshot_and_clone/ | 2 | 3 | PVC snapshot/clone with workloads |
-| app/ (other) | ~3 | ~3 | CosBench, Quay, BDI |
+
+| Dir | Files | Tests |
+|-----|-------|-------|
+| app/ | 21 | 27 |
+| ocp/ | 9 | 21 |
+| test_create_scale_pods_and_pvcs_using_kube_job.py/ | 1 | 7 |
+| pvc_snapshot_and_clone/ | 2 | 3 |
+| cnv/ | 2 | 2 |
+| test_data_consistency.py/ | 1 | 1 |
+| test_new_sc_rbd_e2e_workloads.py/ | 1 | 1 |
 
 ## Key Test Files
-| File | Tests | Key Tests |
-|------|-------|-----------|
-| test_create_scale_pods_and_pvcs_using_kube_job.py | ~3 | Scale pod/PVC creation (@orange_squad) |
-| test_data_consistency.py | ~2 | Data consistency validation |
-| test_new_sc_rbd_e2e_workloads.py | ~2 | E2E RBD workloads |
 
-## Marks Used
-`@magenta_squad`, `@orange_squad` (scale), `@tier1`, `@tier2`, `@polarion_id`
+| File | Tests | Squad |
+|------|-------|-------|
+| test_monitoring_on_negative_scenarios.py | 10 | magenta_squad |
+| test_create_scale_pods_and_pvcs_using_kube_job.py | 7 | magenta_squad |
+| test_openshift-logging.py | 3 | magenta_squad |
+| test_amq_node_reboot_and_shutdown.py | 2 | magenta_squad |
+| test_amq_streamer_creation.py | 2 | magenta_squad |
+| test_amq_streams.py | 2 | magenta_squad |
+| test_rgw_kafka_notifications.py | 2 | magenta_squad |
+| test_cosbench.py | 2 | magenta_squad |
+| test_quay_operator.py | 2 | magenta_squad |
+| test_registry_reboot_node.py | 2 | magenta_squad |
 
 ## Related
 - [[magenta_squad]]
-- [[ceph-csi]]
-- [[rook-ceph]]

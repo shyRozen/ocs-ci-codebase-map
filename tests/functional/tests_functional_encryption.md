@@ -1,28 +1,30 @@
 ---
 directory: tests/functional/encryption/
 squad: green_squad
-test_files: 5
-test_functions: 11
-tiers: {tier1: 7, tier2: 2, tier3: 0, tier4: 1}
+test_files: 4
+test_functions: 5
+tiers: {tier1: 1, tier4: 1, tier4a: 1}
 ---
 
 # Encryption
 
-In-transit encryption sanity, encryption configuration dashboard, key rotation, MON failure during in-transit encryption, data integrity.
+## Subdirectories
 
-## Test Files
-| File | Tests | Tier | Key Tests |
-|------|-------|------|-----------|
-| test_intransit_encryption_sanity.py | ~3 | tier1 | In-transit encryption basic validation |
-| test_encryption_configuration_dashboard.py | ~2 | tier1 | Dashboard encryption config |
-| test_encryption_keyrotation.py | ~2 | tier1 | Key rotation operations |
-| test_mon_failure_in_intransit_encryption.py | ~2 | tier2 | MON failure during encryption |
-| test_intransit_encryption_data_integrity.py | ~2 | tier4 | Data integrity with encryption |
+| Dir | Files | Tests |
+|-----|-------|-------|
+| test_encryption_keyrotation.py/ | 1 | 2 |
+| test_intransit_encryption_data_integrity.py/ | 1 | 1 |
+| test_intransit_encryption_sanity.py/ | 1 | 1 |
+| test_mon_failure_in_intransit_encryption.py/ | 1 | 1 |
 
-## Marks Used
-`@green_squad`, `@tier1`, `@tier2`, `@tier4`, `@polarion_id`
+## Key Test Files
+
+| File | Tests | Squad |
+|------|-------|-------|
+| test_encryption_keyrotation.py | 2 | green_squad |
+| test_intransit_encryption_data_integrity.py | 1 | green_squad |
+| test_intransit_encryption_sanity.py | 1 | green_squad |
+| test_mon_failure_in_intransit_encryption.py | 1 | green_squad |
 
 ## Related
 - [[green_squad]]
-- [[ceph-csi]]
-- [[tests_functional_pv]]
