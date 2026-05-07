@@ -1,0 +1,34 @@
+---
+directory: tests/functional/object/
+squad: red_squad
+test_files: 85
+test_functions: 243
+tiers: {tier1: 10, tier2: 13, tier3: 1, tier4: 3, tier4b: 2, tier4c: 1}
+---
+
+# Object
+
+## Subdirectories
+
+| Dir | Files | Tests |
+|-----|-------|-------|
+| mcg/ | 74 | 227 |
+| rgw/ | 11 | 16 |
+
+## Key Test Files
+
+| File | Tests | Squad |
+|------|-------|-------|
+| test_bucket_policy.py | 19 | red_squad |
+| test_namespace_crd.py | 15 | red_squad |
+| test_namespace_rpc.py | 15 | red_squad |
+| test_cors_config_elements.py | 8 | red_squad |
+| test_mcg_ui.py | 8 | black_squad |
+| test_pv_pool.py | 7 | red_squad |
+| test_write_to_bucket.py | 7 | red_squad |
+| test_admission_control.py | 6 | red_squad |
+| test_lifecycle_configuration.py | 6 | red_squad |
+| test_log_based_bucket_replication.py | 6 | red_squad |
+
+## Related
+- [[red_squad]]

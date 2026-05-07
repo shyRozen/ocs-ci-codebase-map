@@ -3,25 +3,26 @@ directory: tests/functional/deployment/
 squad: purple_squad
 test_files: 3
 test_functions: 4
-tiers: {tier1: 1, tier2: 1, tier3: 0, tier4: 0}
+tiers: {}
 ---
 
 # Deployment
 
-OCS operator deployment validation, ACM (Advanced Cluster Management) deployment tests.
+## Subdirectories
 
-## Test Files
-| File | Squad | Tests | Key Tests |
-|------|-------|-------|-----------|
-| test_deployment.py | purple | ~2 | OCS deployment validation |
-| test_acm.py | purple | ~1 | ACM deployment |
-| test_operator.py | brown | ~1 | Operator validation |
+| Dir | Files | Tests |
+|-----|-------|-------|
+| test_operator.py/ | 1 | 2 |
+| test_acm.py/ | 1 | 1 |
+| test_deployment.py/ | 1 | 1 |
 
-## Marks Used
-`@purple_squad`, `@brown_squad`, `@tier1`, `@tier2`, `@polarion_id`
+## Key Test Files
+
+| File | Tests | Squad |
+|------|-------|-------|
+| test_operator.py | 2 | brown_squad |
+| test_acm.py | 1 | purple_squad |
+| test_deployment.py | 1 | purple_squad |
 
 ## Related
 - [[purple_squad]]
-- [[brown_squad]]
-- [[ocs-operator]]
-- [[framework-deployment]]

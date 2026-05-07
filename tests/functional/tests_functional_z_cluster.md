@@ -1,38 +1,66 @@
 ---
 directory: tests/functional/z_cluster/
 squad: brown_squad
-test_files: 62
+test_files: 60
 test_functions: 115
-tiers: {tier1: 12, tier2: 31, tier3: 1, tier4: 59}
+tiers: {tier1: 3, tier2: 17, tier4: 20, tier4a: 6, tier4b: 10, tier4c: 5}
 ---
 
-# Z-Cluster (Cluster Operations)
-
-Cluster health, OSD/MON management, capacity, node operations, cluster expansion/reduction, device replacement, Ceph daemon operations, SCC, log rotation.
+# Z Cluster
 
 ## Subdirectories
-| Dir | Files | Tests | Focus |
-|-----|-------|-------|-------|
-| (root) | 32 | 40 | Cluster health checks, Ceph defaults, MON ops, log trim |
-| nodes/ | 18 | 44 | Node drain, restart, failure, recovery |
-| cluster_expansion/ | 11 | 29 | Add capacity, resize OSD, device classes (@black_squad) |
-| upgrade/ | 1 | 2 | Upgrade-related cluster checks |
+
+| Dir | Files | Tests |
+|-----|-------|-------|
+| nodes/ | 17 | 44 |
+| cluster_expansion/ | 11 | 29 |
+| test_ceph_default_values_check.py/ | 1 | 5 |
+| test_storagecluster_ceph_full_thresholds_params.py/ | 1 | 3 |
+| test_multiple_mds.py/ | 1 | 2 |
+| test_performance_profile_validation.py/ | 1 | 2 |
+| test_scc.py/ | 1 | 2 |
+| upgrade/ | 1 | 2 |
+| test_add_mds_to_cluster.py/ | 1 | 1 |
+| test_ceph_mon_healthcheck.py/ | 1 | 1 |
+| test_ceph_pg_log_dups_trim.py/ | 1 | 1 |
+| test_coredump_check_for_ceph_daemon_crash.py/ | 1 | 1 |
+| test_delete_local_volume_sym_link.py/ | 1 | 1 |
+| test_delete_osd_deployment.py/ | 1 | 1 |
+| test_delete_rook_ceph_mon_pod.py/ | 1 | 1 |
+| test_enable_multus_existing_cluster.py/ | 1 | 1 |
+| test_hugepages.py/ | 1 | 1 |
+| test_mon_data_avail_warn.py/ | 1 | 1 |
+| test_mon_healthcheck_passthrough.py/ | 1 | 1 |
+| test_mon_log_trimming.py/ | 1 | 1 |
+| test_ms_pod_disruptions.py/ | 1 | 1 |
+| test_must_gather.py/ | 1 | 1 |
+| test_must_gather_minimal_crds.py/ | 1 | 1 |
+| test_must_gather_modular.py/ | 1 | 1 |
+| test_no_liveness_probe.py/ | 1 | 1 |
+| test_noobaa_xss_vulnerability.py/ | 1 | 1 |
+| test_osd_heap_profile.py/ | 1 | 1 |
+| test_remove_mon_from_cluster.py/ | 1 | 1 |
+| test_restart_mgr_while_two_mons_down.py/ | 1 | 1 |
+| test_rook_ceph_log_rotate.py/ | 1 | 1 |
+| test_rook_ceph_operator_log_type.py/ | 1 | 1 |
+| test_rook_ceph_osd_flapping.py/ | 1 | 1 |
+| test_rook_operator_restart_during_mon_failover.py/ | 1 | 1 |
+| test_storagesystem.py/ | 1 | 1 |
 
 ## Key Test Files
-| File | Tests | Key Tests |
-|------|-------|-----------|
-| cluster_expansion/test_add_capacity.py | ~5 | Add capacity (@black_squad) |
-| nodes/test_node_*.py | ~44 | Node operations |
-| test_ceph_default_values_check.py | ~3 | Ceph default validation |
-| test_remove_mon_from_cluster.py | ~2 | MON removal |
-| test_storagesystem.py | ~2 | Storage system validation |
-| test_must_gather_modular.py | ~2 | Must-gather |
 
-## Marks Used
-`@brown_squad`, `@black_squad` (expansion), `@yellow_squad`, `@tier1`, `@tier2`, `@tier3`, `@tier4`, `@polarion_id`
+| File | Tests | Squad |
+|------|-------|-------|
+| test_nodes_restart_hci.py | 9 | brown_squad |
+| test_resize_osd.py | 6 | brown_squad |
+| test_nodes_maintenance.py | 6 | brown_squad |
+| test_add_capacity.py | 5 | brown_squad |
+| test_storage_auto_scaling.py | 5 | brown_squad |
+| test_nodes_restart.py | 5 | brown_squad |
+| test_ceph_default_values_check.py | 5 | brown_squad |
+| test_nodes_with_hcp.py | 4 | mixed |
+| test_disk_failures.py | 4 | brown_squad |
+| test_non_ocs_taint_and_toleration.py | 4 | brown_squad |
 
 ## Related
 - [[brown_squad]]
-- [[black_squad]] (cluster expansion)
-- [[rook-ceph]]
-- [[ocs-operator]]

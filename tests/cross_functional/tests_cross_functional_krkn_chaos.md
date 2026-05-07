@@ -1,29 +1,32 @@
 ---
 directory: tests/cross_functional/krkn_chaos/
 squad: green_squad
-test_files: 6
-test_functions: 24
-tiers: {tier1: 0, tier2: 0, tier3: 0, tier4: 0}
+test_files: 5
+test_functions: 19
+tiers: {}
 ---
 
 # Krkn Chaos
 
-Chaos engineering using Krkn framework: application outage, node scenarios, network chaos, hog scenarios, container chaos, random chaos.
+## Subdirectories
 
-## Test Files
-| File | Tests | Key Tests |
-|------|-------|-----------|
-| test_krkn_application_outage_scenarios.py | ~4 | Application outage injection |
-| test_krkn_node_scenarios.py | ~5 | Node failure scenarios |
-| test_krkn_network_chaos_scenarios.py | ~4 | Network chaos/partition |
-| test_krkn_hog_scenarios.py | ~4 | Resource hog (CPU/memory/IO) |
-| test_krkn_container_chaos.py | ~4 | Container kill/restart chaos |
-| test_random_chaos.py | ~3 | Random chaos selection |
+| Dir | Files | Tests |
+|-----|-------|-------|
+| test_krkn_network_chaos_scenarios.py/ | 1 | 7 |
+| test_krkn_node_scenarios.py/ | 1 | 6 |
+| test_krkn_application_outage_scenarios.py/ | 1 | 2 |
+| test_krkn_container_chaos.py/ | 1 | 2 |
+| test_krkn_hog_scenarios.py/ | 1 | 2 |
 
-## Marks Used
-`@green_squad`, `@polarion_id`
+## Key Test Files
+
+| File | Tests | Squad |
+|------|-------|-------|
+| test_krkn_network_chaos_scenarios.py | 7 | green_squad |
+| test_krkn_node_scenarios.py | 6 | green_squad |
+| test_krkn_application_outage_scenarios.py | 2 | green_squad |
+| test_krkn_container_chaos.py | 2 | green_squad |
+| test_krkn_hog_scenarios.py | 2 | green_squad |
 
 ## Related
 - [[green_squad]]
-- [[rook-ceph]]
-- [[ceph-csi]]
