@@ -1,9 +1,9 @@
 {
   "source": "https://github.com/red-hat-storage/ocs-ci",
-  "branch": "release-4.21",
-  "scanned_at": "2026-05-07T10:19:49.054254+00:00",
-  "total_files": 528,
-  "total_tests": 1050,
+  "branch": "release-4.20",
+  "scanned_at": "2026-05-07T10:19:43.331732+00:00",
+  "total_files": 507,
+  "total_tests": 1001,
   "files": [
     {
       "file_path": "tests/cross_functional/flowtest/pvc_snapshot_and_clone/test_pgsql_pvc_snapshot_and_clone.py",
@@ -359,20 +359,18 @@
           "name": "test_monitor_recovery",
           "node_id": "TestMonitorRecovery::test_monitor_recovery",
           "marks": [
-            "jira('DFBUGS-4322')",
             "skipif_ocs_version('<4.6')",
             "skipif_openshift_dedicated",
-            "magenta_squad",
             "pytest.mark.polarion_id('OCS-3911')",
+            "magenta_squad",
             "pytest.mark.order('last')",
             "skipif_external_mode",
-            "pytest.mark.skip",
             "skipif_ocp_version('<4.10')",
             "system_test",
             "ignore_leftovers"
           ],
           "docstring": "Verifies Monitor recovery procedure as per:\nhttps://access.redhat.com/documentation/en-us/red_hat_openshift_container_storage/4.8/html/troubleshooting_openshift_container_storage/restoring-the-monitor...",
-          "line": 119
+          "line": 114
         }
       ],
       "marks": [
@@ -689,7 +687,7 @@
             "green_squad"
           ],
           "docstring": "Random pod kill chaos testing with multiple stress levels.\n\nThis test creates pod kill scenarios targeting the openshift-storage namespace\nwith different stress levels:\n\n\ud83c\udfaf **Stress Levels:**\n- **BASIC...",
-          "line": 255
+          "line": 254
         }
       ],
       "marks": [
@@ -762,7 +760,7 @@
             "green_squad"
           ],
           "docstring": "EXTREME cluster strength testing with apocalyptic resource exhaustion scenarios.\n\nThis test pushes cluster resilience to absolute limits with devastating chaos patterns:\n- Cascading resource exhaustio...",
-          "line": 327
+          "line": 322
         }
       ],
       "marks": [
@@ -835,7 +833,7 @@
             "green_squad"
           ],
           "docstring": "Test network chaos scenarios using Krkn network_chaos template.\n\nThis test validates network resilience by injecting network chaos\n(latency and packet loss) into different Ceph components and verifyin...",
-          "line": 305
+          "line": 299
         },
         {
           "name": "test_krkn_network_chaos_ingress",
@@ -846,7 +844,7 @@
             "green_squad"
           ],
           "docstring": "Test network chaos ingress scenarios using Krkn network_chaos_ingress template.\n\nThis test validates network resilience by injecting ingress network chaos\n(latency, packet loss, bandwidth limitation) ...",
-          "line": 518
+          "line": 506
         },
         {
           "name": "test_krkn_pod_traffic_shaping",
@@ -857,7 +855,7 @@
             "green_squad"
           ],
           "docstring": "Test pod traffic shaping scenarios (both egress and ingress) using Krkn templates.\n\nThis test validates network resilience by applying traffic shaping\n(latency, packet loss, bandwidth limitation) to d...",
-          "line": 769
+          "line": 757
         },
         {
           "name": "test_krkn_targeted_port_network_outage",
@@ -868,7 +866,7 @@
             "green_squad"
           ],
           "docstring": "Test targeted network outage scenarios focusing on dynamically discovered Ceph service ports.\n\nThis test validates network resilience by blocking specific ports used by\nCeph components and verifying t...",
-          "line": 1015
+          "line": 997
         },
         {
           "name": "test_krkn_osd_replication_port_chaos",
@@ -880,7 +878,7 @@
             "green_squad"
           ],
           "docstring": "Test OSD replication port chaos scenarios using dynamically discovered ports.\n\nThis test specifically targets OSD communication ports discovered from\nthe actual cluster to validate data replication re...",
-          "line": 1181
+          "line": 1163
         },
         {
           "name": "test_krkn_interface_specific_network_chaos",
@@ -891,7 +889,7 @@
             "green_squad"
           ],
           "docstring": "Test interface-specific network chaos using detected physical interfaces.\n\nThis test uses the actual physical network interface (e.g., ens192 on vSphere)\ninstead of assuming eth0, and applies network ...",
-          "line": 1298
+          "line": 1280
         }
       ],
       "marks": [
@@ -934,121 +932,6 @@
         "ingress"
       ],
       "description": "Test network outage scenarios for different Rook Ceph components."
-    },
-    {
-      "file_path": "tests/cross_functional/krkn_chaos/test_krkn_node_scenarios.py",
-      "category": "cross_functional",
-      "subcategory": "krkn_chaos",
-      "squad": "green_squad",
-      "test_count": 6,
-      "test_functions": [
-        {
-          "name": "test_krkn_platform_node_scenarios",
-          "node_id": "TestKrknNodeScenarios::test_krkn_platform_node_scenarios",
-          "marks": [
-            "polarion_id('OCS-7491')",
-            "chaos",
-            "green_squad"
-          ],
-          "docstring": "Test node scenarios for the detected cloud platform.\n\nThis test automatically:\n1. Detects the cloud platform from ENV_DATA['platform']\n2. Uses the platform-specific node scenario generator\n3. Applies ...",
-          "line": 49
-        },
-        {
-          "name": "test_krkn_single_node_action",
-          "node_id": "TestKrknNodeScenarios::test_krkn_single_node_action",
-          "marks": [
-            "pytest.mark.parametrize('action')",
-            "chaos",
-            "green_squad"
-          ],
-          "docstring": "Test individual node chaos actions on the detected cloud platform.\n\nThis parameterized test runs individual node chaos actions:\n- node_stop_start_scenario: Stop and start a node\n- node_reboot_scenario...",
-          "line": 222
-        },
-        {
-          "name": "test_krkn_aws_node_stop_start_parallel",
-          "node_id": "TestKrknAWSNodeScenarios::test_krkn_aws_node_stop_start_parallel",
-          "marks": [
-            "polarion_id('OCS-7490')",
-            "chaos",
-            "green_squad"
-          ],
-          "docstring": "Test AWS node stop/start scenario with parallel execution.\n\nBased on krkn aws_node_scenarios.yml:\n- instance_count: 2\n- parallel: true\n- kube_check: true\n- poll_interval: 15\n- duration: 20",
-          "line": 374
-        },
-        {
-          "name": "test_krkn_ibmcloud_node_scenarios",
-          "node_id": "TestKrknIBMCloudNodeScenarios::test_krkn_ibmcloud_node_scenarios",
-          "marks": [
-            "polarion_id('OCS-7487')",
-            "chaos",
-            "green_squad"
-          ],
-          "docstring": "Test IBM Cloud node scenarios with SSL verification disabled.\n\nBased on krkn ibmcloud_node_scenarios.yml:\n- node_stop_start_scenario (timeout: 360, duration: 120)\n- node_reboot_scenario (timeout: 120)...",
-          "line": 484
-        },
-        {
-          "name": "test_krkn_vmware_node_scenarios",
-          "node_id": "TestKrknVMwareNodeScenarios::test_krkn_vmware_node_scenarios",
-          "marks": [
-            "chaos",
-            "polarion_id('OCS-7488')",
-            "green_squad"
-          ],
-          "docstring": "Test VMware node scenarios.\n\nBased on krkn vmware_node_scenarios.yml:\n- node_reboot_scenario (timeout: 120)\n- node_stop_start_scenario (timeout: 360, duration: 10, parallel: false)",
-          "line": 568
-        },
-        {
-          "name": "test_krkn_baremetal_node_scenarios",
-          "node_id": "TestKrknBaremetalNodeScenarios::test_krkn_baremetal_node_scenarios",
-          "marks": [
-            "chaos",
-            "polarion_id('OCS-7489')",
-            "green_squad"
-          ],
-          "docstring": "Test BareMetal node scenarios with IPMI/BMC support.\n\nBased on krkn baremetal_node_scenarios.yml:\n- node_stop_start_scenario (runs: 1, timeout: 360, duration: 120)\n- parallel: false\n- kube_check: true...",
-          "line": 655
-        }
-      ],
-      "marks": [
-        "chaos",
-        "green_squad"
-      ],
-      "tiers": [],
-      "polarion_ids": [],
-      "skip_conditions": [],
-      "keywords": [
-        "(runs:",
-        "(timeout:",
-        "120)",
-        "120)...",
-        "360,",
-        "action",
-        "actions",
-        "actions:",
-        "applies",
-        "automatically:",
-        "aws",
-        "aws_node_scenarios.yml:",
-        "baremetal",
-        "baremetal_node_scenarios.yml:",
-        "based",
-        "chaos",
-        "cloud",
-        "detected",
-        "detects",
-        "disabled.",
-        "duration:",
-        "env_data['platform']",
-        "execution.",
-        "false",
-        "false)",
-        "from",
-        "generator",
-        "ibmcloud",
-        "ibmcloud_node_scenarios.yml:",
-        "individual"
-      ],
-      "description": "Test node scenarios for the detected cloud platform."
     },
     {
       "file_path": "tests/cross_functional/longevity/test_all_stages.py",
@@ -2530,8 +2413,8 @@
             "resiliency",
             "green_squad"
           ],
-          "docstring": "Test that validates ODF platform resiliency under storage component\nfailures while I/O workloads are actively running and scaling in parallel.\n\nThis test uses the workload_ops fixture which automatica...",
-          "line": 64
+          "docstring": "Test that validates ODF platform resiliency under application component\nfailures while I/O workloads are actively running and scaling in parallel.\n\nSteps:\n1. Create a mix of CephFS and RBD PVCs with m...",
+          "line": 213
         }
       ],
       "marks": [
@@ -2544,30 +2427,31 @@
       "keywords": [
         "actively",
         "app",
-        "automatica...",
+        "application",
+        "cephfs",
         "component",
+        "create",
         "failure",
         "failures",
-        "fixture",
+        "m...",
         "parallel.",
         "platform",
+        "pvcs",
         "resiliency",
         "running",
         "scale",
         "scaling",
+        "steps:",
         "storage",
         "test",
         "that",
-        "this",
         "under",
-        "uses",
         "validates",
-        "which",
         "while",
-        "workload_ops",
+        "with",
         "workloads"
       ],
-      "description": "Test that validates ODF platform resiliency under storage component"
+      "description": "Test that validates ODF platform resiliency under application component"
     },
     {
       "file_path": "tests/cross_functional/resilience/test_platfrom_failures_scenarios.py",
@@ -2584,8 +2468,8 @@
             "resiliency",
             "green_squad"
           ],
-          "docstring": "Test that validates ODF platform resiliency against various failure\nscenarios while I/O workloads are actively running.\n\nThis test uses the workload_ops fixture which automatically:\n- Creates VDBENCH ...",
-          "line": 47
+          "docstring": "Parametrized test that validates resiliency of the platform\nagainst various failure scenarios while workloads are running.\n\nArgs:\n    failure_case (str): The failure method to inject.",
+          "line": 84
         },
         {
           "name": "test_platform_failures_with_stress",
@@ -2595,8 +2479,8 @@
             "resiliency",
             "green_squad"
           ],
-          "docstring": "Test that validates ODF platform resiliency under stress conditions\nlike high CPU, memory, I/O, and network load while failure scenarios\nare injected.\n\nThis test uses the workload_ops fixture which au...",
-          "line": 135
+          "docstring": "Validates platform resiliency under stress conditions\nlike high CPU, memory, I/O, and network load.\nEnsures workloads continue running during failure scenarios.",
+          "line": 132
         }
       ],
       "marks": [
@@ -2607,38 +2491,38 @@
       "polarion_ids": [],
       "skip_conditions": [],
       "keywords": [
-        "actively",
+        "(str):",
         "against",
-        "au...",
-        "automatically:",
+        "args:",
         "conditions",
+        "continue",
         "cpu,",
-        "creates",
+        "during",
+        "ensures",
         "failure",
+        "failure_case",
         "failures",
-        "fixture",
         "high",
         "i/o,",
-        "injected.",
+        "inject.",
         "like",
-        "load",
+        "load.",
         "memory,",
+        "method",
         "network",
+        "parametrized",
         "platform",
         "resiliency",
+        "running",
         "running.",
         "scenarios",
+        "scenarios.",
         "stress",
         "test",
         "that",
-        "this",
-        "under",
-        "uses",
-        "validates",
-        "various",
-        "vdbench"
+        "under"
       ],
-      "description": "Test that validates ODF platform resiliency against various failure"
+      "description": "Parametrized test that validates resiliency of the platform"
     },
     {
       "file_path": "tests/cross_functional/resilience/test_storage_component_failure_scenarios.py",
@@ -2655,8 +2539,8 @@
             "resiliency",
             "green_squad"
           ],
-          "docstring": "Test that validates ODF storage cluster component resiliency under\nfailure scenarios while I/O workloads are actively running.\n\nThis test uses the workload_ops fixture which automatically:\n- Creates V...",
-          "line": 64
+          "docstring": "Test that validates ODF platform resiliency under application component\nfailures while I/O workloads are actively running.\n\nSteps:\n1. Create a mix of CephFS and RBD PVCs with multiple access modes.\n2....",
+          "line": 101
         }
       ],
       "marks": [
@@ -2667,30 +2551,33 @@
       "polarion_ids": [],
       "skip_conditions": [],
       "keywords": [
+        "2....",
+        "access",
         "actively",
-        "automatically:",
-        "cluster",
+        "application",
+        "cephfs",
         "component",
-        "creates",
+        "create",
         "failure",
-        "fixture",
+        "failures",
+        "modes.",
+        "multiple",
+        "platform",
+        "pvcs",
         "resiliency",
         "running.",
         "scenarios",
+        "steps:",
         "storage",
         "test",
         "that",
-        "this",
         "under",
-        "uses",
-        "v...",
         "validates",
-        "which",
         "while",
-        "workload_ops",
+        "with",
         "workloads"
       ],
-      "description": "Test that validates ODF storage cluster component resiliency under"
+      "description": "Test that validates ODF platform resiliency under application component"
     },
     {
       "file_path": "tests/cross_functional/scale/noobaa/test_delete_objects.py",
@@ -4132,7 +4019,7 @@
       "description": "Create buckets with and without objects using RGW storage class before upgrade."
     },
     {
-      "file_path": "tests/cross_functional/stress/cephfs/test_cephfs_breakpoint.py",
+      "file_path": "tests/cross_functional/stress/cephfs/test_breakpoint.py",
       "category": "cross_functional",
       "subcategory": "stress",
       "squad": "magenta_squad",
@@ -4142,16 +4029,14 @@
           "name": "test_cephfs_breakpoint",
           "node_id": "TestCephfsStress::test_cephfs_breakpoint",
           "marks": [
-            "magenta_squad",
-            "stress"
+            "magenta_squad"
           ],
           "docstring": "The primary objective of this test is to find the system's breaking point which is the critical\nthreshold at which ODF operations cease to complete successfully within the defined resource limits\n\nThe...",
-          "line": 20
+          "line": 26
         }
       ],
       "marks": [
-        "magenta_squad",
-        "stress"
+        "magenta_squad"
       ],
       "tiers": [],
       "polarion_ids": [],
@@ -4183,54 +4068,7 @@
       "description": "The primary objective of this test is to find the system's breaking point which is the critical"
     },
     {
-      "file_path": "tests/cross_functional/stress/cephfs/test_cephfs_incremental_bulk_ops_cleanup.py",
-      "category": "cross_functional",
-      "subcategory": "stress",
-      "squad": "magenta_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_cephfs_stress_cleanup",
-          "node_id": "TestCephfsStressCleanUp::test_cephfs_stress_cleanup",
-          "marks": [
-            "magenta_squad",
-            "stress"
-          ],
-          "docstring": "Stress the cluster by performing bulk Cephfs data operations - Data creation, deletion and File operations\nin incremental stages and perform a stress clean up at the end by executing a parallelized de...",
-          "line": 27
-        }
-      ],
-      "marks": [
-        "magenta_squad",
-        "stress"
-      ],
-      "tiers": [],
-      "polarion_ids": [],
-      "skip_conditions": [],
-      "keywords": [
-        "bulk",
-        "cephfs",
-        "clean",
-        "cleanup",
-        "cluster",
-        "creation,",
-        "data",
-        "de...",
-        "deletion",
-        "executing",
-        "file",
-        "incremental",
-        "operations",
-        "parallelized",
-        "perform",
-        "performing",
-        "stages",
-        "stress"
-      ],
-      "description": "Stress the cluster by performing bulk Cephfs data operations - Data creation, deletion and File operations"
-    },
-    {
-      "file_path": "tests/cross_functional/stress/mcg/test_noobaa_under_stress.py",
+      "file_path": "tests/cross_functional/stress/test_noobaa_under_stress.py",
       "category": "cross_functional",
       "subcategory": "stress",
       "squad": "magenta_squad",
@@ -4241,16 +4079,14 @@
           "node_id": "TestNoobaaUnderStress::test_noobaa_under_stress",
           "marks": [
             "pytest.mark.parametrize",
-            "magenta_squad",
-            "stress"
+            "magenta_squad"
           ],
           "docstring": "Stress Noobaa by performing bulk s3 operations under non-disruptive, disruptive and breakpoint\nsituations. This consists mainly 3 stages\nmentioned below\n    1. Base setup: Here we create the buckets o...",
-          "line": 40
+          "line": 39
         }
       ],
       "marks": [
-        "magenta_squad",
-        "stress"
+        "magenta_squad"
       ],
       "tiers": [],
       "polarion_ids": [],
@@ -4280,60 +4116,6 @@
         "under"
       ],
       "description": "Stress Noobaa by performing bulk s3 operations under non-disruptive, disruptive and breakpoint"
-    },
-    {
-      "file_path": "tests/cross_functional/stress/test_memory_stress_with_csiaddon.py",
-      "category": "cross_functional",
-      "subcategory": "stress",
-      "squad": "green_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_memory_stress_with_pvc_reconciler",
-          "node_id": "TestMemoryStressWithCSIAddon::test_memory_stress_with_pvc_reconciler",
-          "marks": [
-            "skipif_disconnected_cluster",
-            "tier1",
-            "polarion_id('OCS-7447')",
-            "green_squad"
-          ],
-          "docstring": "Verify PVC reconciler memory usage remains stable with 100 encrypted PVCs.\n\nTest Steps:\n1. Capture initial memory/CPU metrics of PVC reconciler pod\n2. Monitor memory/CPU metrics over time (20 iteratio...",
-          "line": 98
-        }
-      ],
-      "marks": [
-        "skipif_disconnected_cluster",
-        "green_squad"
-      ],
-      "tiers": [],
-      "polarion_ids": [],
-      "skip_conditions": [
-        "skipif_disconnected_cluster"
-      ],
-      "keywords": [
-        "capture",
-        "encrypted",
-        "initial",
-        "iteratio...",
-        "memory",
-        "memory/cpu",
-        "metrics",
-        "monitor",
-        "over",
-        "pvc",
-        "pvcs.",
-        "reconciler",
-        "remains",
-        "stable",
-        "steps:",
-        "stress",
-        "test",
-        "time",
-        "usage",
-        "verify",
-        "with"
-      ],
-      "description": "Verify PVC reconciler memory usage remains stable with 100 encrypted PVCs."
     },
     {
       "file_path": "tests/cross_functional/system_test/mon/test_restore_ceph_mon_quorum.py",
@@ -6298,7 +6080,7 @@
           "marks": [
             "post_ocs_upgrade",
             "tier1",
-            "skipif_ocs_version('<4.21')",
+            "skipif_ocs_version('<=4.20')",
             "acceptance",
             "rdr",
             "turquoise_squad"
@@ -6312,7 +6094,7 @@
           "marks": [
             "post_ocs_upgrade",
             "tier1",
-            "skipif_ocs_version('<4.21')",
+            "skipif_ocs_version('<=4.20')",
             "acceptance",
             "rdr",
             "turquoise_squad"
@@ -6324,7 +6106,7 @@
       "marks": [
         "post_ocs_upgrade",
         "tier1",
-        "skipif_ocs_version('<4.21')",
+        "skipif_ocs_version('<=4.20')",
         "acceptance",
         "rdr",
         "turquoise_squad"
@@ -6334,7 +6116,7 @@
       ],
       "polarion_ids": [],
       "skip_conditions": [
-        "skipif_ocs_version('<4.21')"
+        "skipif_ocs_version('<=4.20')"
       ],
       "keywords": [
         "cluster",
@@ -6371,7 +6153,7 @@
             "turquoise_squad"
           ],
           "docstring": "Tests to verify CNV workload deployment using RBD PVC (Both Subscription and ApplicationSet based) and\nfailover/relocate between managed clusters.",
-          "line": 63
+          "line": 41
         }
       ],
       "marks": [
@@ -6668,7 +6450,7 @@
             "rdr",
             "turquoise_squad"
           ],
-          "docstring": "Tests to verify application failover and relocate with discovered applications\nCovers primary cluster up or down, and single or multiple (3) iterations.",
+          "docstring": "Tests to verify application failover and Relocate with Discovered Apps\nThere are two test cases:\n    1) Failover to secondary cluster when primary cluster is UP\n    2) Relocate back to primary",
           "line": 116
         }
       ],
@@ -6685,23 +6467,23 @@
       "keywords": [
         "and",
         "application",
-        "applications",
         "apps",
+        "back",
+        "cases:",
         "cluster",
-        "covers",
         "discovered",
-        "down,",
         "failover",
-        "iterations.",
-        "multiple",
         "primary",
         "relocate",
-        "single",
+        "secondary",
+        "test",
         "tests",
+        "there",
         "verify",
+        "when",
         "with"
       ],
-      "description": "Tests to verify application failover and relocate with discovered applications"
+      "description": "Tests to verify application failover and Relocate with Discovered Apps"
     },
     {
       "file_path": "tests/functional/disaster-recovery/regional-dr/test_failover_and_relocate_discovered_apps_multi_ns.py",
@@ -6711,8 +6493,8 @@
       "test_count": 1,
       "test_functions": [
         {
-          "name": "test_failover_and_relocate_discovered_apps_multi_ns",
-          "node_id": "TestFailoverAndRelocateWithDiscoveredAppsMultiNs::test_failover_and_relocate_discovered_apps_multi_ns",
+          "name": "test_failover_and_relocate_discovered_apps",
+          "node_id": "TestFailoverAndRelocateWithDiscoveredApps::test_failover_and_relocate_discovered_apps",
           "marks": [
             "tier1",
             "acceptance",
@@ -6721,7 +6503,7 @@
             "rdr",
             "turquoise_squad"
           ],
-          "docstring": "Tests to verify failover and relocate with discovered applications spread across multiple namespaces.",
+          "docstring": "Tests to verify application failover and Relocate with Discovered Apps\nThere are two test cases:\n    1) Failover to secondary cluster when primary cluster is UP\n    2) Relocate back to primary",
           "line": 41
         }
       ],
@@ -6730,58 +6512,6 @@
         "acceptance",
         "skipif_ocs_version('<4.16')",
         "rdr",
-        "turquoise_squad"
-      ],
-      "tiers": [
-        "tier1"
-      ],
-      "polarion_ids": [],
-      "skip_conditions": [
-        "skipif_ocs_version('<4.16')"
-      ],
-      "keywords": [
-        "across",
-        "and",
-        "applications",
-        "apps",
-        "discovered",
-        "failover",
-        "multi",
-        "multiple",
-        "namespaces.",
-        "relocate",
-        "spread",
-        "tests",
-        "verify",
-        "with"
-      ],
-      "description": "Tests to verify failover and relocate with discovered applications spread across multiple namespaces."
-    },
-    {
-      "file_path": "tests/functional/disaster-recovery/regional-dr/test_failover_and_relocate_discovered_apps_workloads.py",
-      "category": "functional",
-      "subcategory": "disaster-recovery",
-      "squad": "turquoise_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_failover_and_relocate_discovered_apps_workloads",
-          "node_id": "TestFailoverAndRelocateWithDiscoveredAppsWorkloads::test_failover_and_relocate_discovered_apps_workloads",
-          "marks": [
-            "tier1",
-            "pytest.mark.parametrize",
-            "skipif_ocs_version('<4.16')",
-            "rdr",
-            "turquoise_squad"
-          ],
-          "docstring": "Tests to verify application failover and Relocate with Discovered Apps\nThere are two test cases:\n    1) Failover to secondary cluster when primary cluster is UP\n    2) Relocate back to primary",
-          "line": 35
-        }
-      ],
-      "marks": [
-        "skipif_ocs_version('<4.16')",
-        "rdr",
-        "tier1",
         "turquoise_squad"
       ],
       "tiers": [
@@ -6808,8 +6538,7 @@
         "there",
         "verify",
         "when",
-        "with",
-        "workloads"
+        "with"
       ],
       "description": "Tests to verify application failover and Relocate with Discovered Apps"
     },
@@ -7291,68 +7020,6 @@
         "workloads"
       ],
       "description": "Test to verify failover of all workloads after site-failure where the active hub along with"
-    },
-    {
-      "file_path": "tests/functional/disaster-recovery/regional-dr/test_vm_auto_cleanup.py",
-      "category": "functional",
-      "subcategory": "disaster-recovery",
-      "squad": "turquoise_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_vm_auto_cleanup",
-          "node_id": "TestVMAutoCleanUp::test_vm_auto_cleanup",
-          "marks": [
-            "tier1",
-            "skipif_ocs_version('<4.21')",
-            "acceptance",
-            "pytest.mark.parametrize",
-            "rdr",
-            "turquoise_squad"
-          ],
-          "docstring": "Test to validate automated resource clean up of VM resources such as VMs, PVC,\nDataVolume associated with the VMs that are protected via fleet virtualization.\n\nTest Steps:\n\n1. Deploy VMs using DVT via...",
-          "line": 70
-        }
-      ],
-      "marks": [
-        "turquoise_squad",
-        "tier1",
-        "acceptance",
-        "rdr",
-        "skipif_ocs_version('<4.21')"
-      ],
-      "tiers": [
-        "tier1"
-      ],
-      "polarion_ids": [],
-      "skip_conditions": [
-        "skipif_ocs_version('<4.21')"
-      ],
-      "keywords": [
-        "associated",
-        "auto",
-        "automated",
-        "clean",
-        "cleanup",
-        "datavolume",
-        "deploy",
-        "fleet",
-        "protected",
-        "pvc,",
-        "resource",
-        "resources",
-        "steps:",
-        "such",
-        "test",
-        "that",
-        "using",
-        "validate",
-        "via...",
-        "virtualization.",
-        "vms,",
-        "with"
-      ],
-      "description": "Test to validate automated resource clean up of VM resources such as VMs, PVC,"
     },
     {
       "file_path": "tests/functional/disaster-recovery/regional-dr/test_warning_and_alerting.py",
@@ -8545,10 +8212,10 @@
           "node_id": "TestMdsCpuAlerts::test_mds_cpu_alert_triggered",
           "marks": [
             "pytest.mark.polarion_id('OCS-5581')",
-            "skipif_vsphere_platform",
             "blue_squad",
             "tier2",
-            "skipif_disconnected_cluster",
+            "baremetal_deployment_required",
+            "aws_platform_required",
             "skipif_ocs_version('<4.15')"
           ],
           "docstring": "This test case is to verify the alert for MDS cpu high usage for only vertical scaling,\nalert for Horizontal scaling is skipped as it is not easy to achieve the rate(ceph_mds_request)>=1000.\n\nArgs:\nru...",
@@ -8556,10 +8223,10 @@
         }
       ],
       "marks": [
-        "skipif_vsphere_platform",
         "blue_squad",
         "tier2",
-        "skipif_disconnected_cluster",
+        "baremetal_deployment_required",
+        "aws_platform_required",
         "skipif_ocs_version('<4.15')"
       ],
       "tiers": [
@@ -8567,8 +8234,6 @@
       ],
       "polarion_ids": [],
       "skip_conditions": [
-        "skipif_vsphere_platform",
-        "skipif_disconnected_cluster",
         "skipif_ocs_version('<4.15')"
       ],
       "keywords": [
@@ -8611,7 +8276,7 @@
             "blue_squad"
           ],
           "docstring": "If alerting works then there is at least one alert.",
-          "line": 21
+          "line": 23
         },
         {
           "name": "test_prometheus_rule_failures",
@@ -8621,10 +8286,11 @@
             "blue_squad",
             "tier1",
             "runs_on_provider",
+            "flaky",
             "provider_mode"
           ],
           "docstring": "There should be no PrometheusRuleFailures alert when OCS is configured.\nThis test is extended to check for many-to-many matching errors in Prometheus logs (more in DFBUGS-2571).\nIf such error message ...",
-          "line": 40
+          "line": 43
         }
       ],
       "marks": [
@@ -8632,6 +8298,7 @@
         "blue_squad",
         "tier1",
         "runs_on_provider",
+        "flaky",
         "provider_mode"
       ],
       "tiers": [
@@ -9316,68 +8983,6 @@
       "description": "Test that there is appropriate alert when RGW is unavailable and that"
     },
     {
-      "file_path": "tests/functional/monitoring/prometheus/metrics/test_block_pvc_kubelet_rbd_usage.py",
-      "category": "functional",
-      "subcategory": "monitoring",
-      "squad": "blue_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_rbd_metrics_validation_multi_scenario",
-          "node_id": "test_rbd_metrics_validation_multi_scenario",
-          "marks": [
-            "pytest.mark.parametrize('pvc_size, write_size_mib, volume_mode')",
-            "blue_squad",
-            "tier1",
-            "polarion_id('OCS-7424')"
-          ],
-          "docstring": "Validates that RBD metrics (Used, Capacity, Available) are correctly reported\nby both Kubelet (via Prometheus) and the Ceph backend (rbd du) across\nmultiple write operations and volume modes.",
-          "line": 36
-        }
-      ],
-      "marks": [
-        "pytest.mark.parametrize('pvc_size, write_size_mib, volume_mode')",
-        "blue_squad",
-        "tier1",
-        "polarion_id('OCS-7424')"
-      ],
-      "tiers": [
-        "tier1"
-      ],
-      "polarion_ids": [
-        "OCS-7424"
-      ],
-      "skip_conditions": [],
-      "keywords": [
-        "(rbd",
-        "(used,",
-        "(via",
-        "across",
-        "available)",
-        "backend",
-        "both",
-        "capacity,",
-        "ceph",
-        "correctly",
-        "kubelet",
-        "metrics",
-        "modes.",
-        "multi",
-        "multiple",
-        "operations",
-        "prometheus)",
-        "rbd",
-        "reported",
-        "scenario",
-        "that",
-        "validates",
-        "validation",
-        "volume",
-        "write"
-      ],
-      "description": "Validates that RBD metrics (Used, Capacity, Available) are correctly reported"
-    },
-    {
       "file_path": "tests/functional/monitoring/prometheus/metrics/test_mcg_hpa.py",
       "category": "functional",
       "subcategory": "monitoring",
@@ -9659,7 +9264,7 @@
             "tier3"
           ],
           "docstring": "Make sure simple problems with OSD daemons are reported via OCP Prometheus.",
-          "line": 104
+          "line": 103
         },
         {
           "name": "test_ceph_metrics_presence_when_osd_down",
@@ -9671,7 +9276,7 @@
             "skipif_managed_service"
           ],
           "docstring": "Since ODF 4.9 ceph metrics covering disruptions will be available only\nwhen there are some disruptions to report, as noted in BZ 2028649.\n\nThis test case covers this behaviour for one stopped/disabled...",
-          "line": 175
+          "line": 174
         }
       ],
       "marks": [
@@ -9906,68 +9511,6 @@
       "description": "The comparealert tool is the utility to compare Ceph-based rules in OCS in accordance with the ones found"
     },
     {
-      "file_path": "tests/functional/monitoring/test_operator_probe_resilience.py",
-      "category": "functional",
-      "subcategory": "monitoring",
-      "squad": "blue_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_probe_resilience",
-          "node_id": "TestOperatorProbeResilience::test_probe_resilience",
-          "marks": [
-            "tier4c",
-            "polarion_id('OCS-7421')",
-            "blue_squad",
-            "pytest.mark.parametrize('csv_prefix, probe_type, healthy_path', OPERATOR_PROBE_PARAMS)",
-            "ignore_leftovers"
-          ],
-          "docstring": "Test case to verify operator pod behavior when probes fail.\n1. Patches the operator CSV with an invalid probe path.\n2. Verifies that liveness failure causes a restart.\n3. Verifies that readiness failu...",
-          "line": 100
-        }
-      ],
-      "marks": [
-        "tier4c",
-        "polarion_id('OCS-7421')",
-        "blue_squad",
-        "pytest.mark.parametrize('csv_prefix, probe_type, healthy_path', OPERATOR_PROBE_PARAMS)",
-        "ignore_leftovers"
-      ],
-      "tiers": [
-        "tier4",
-        "tier4c"
-      ],
-      "polarion_ids": [
-        "OCS-7421"
-      ],
-      "skip_conditions": [],
-      "keywords": [
-        "behavior",
-        "case",
-        "causes",
-        "fail.",
-        "failu...",
-        "failure",
-        "invalid",
-        "liveness",
-        "operator",
-        "patches",
-        "path.",
-        "probe",
-        "probes",
-        "readiness",
-        "resilience",
-        "restart.",
-        "test",
-        "that",
-        "verifies",
-        "verify",
-        "when",
-        "with"
-      ],
-      "description": "Test case to verify operator pod behavior when probes fail."
-    },
-    {
       "file_path": "tests/functional/monitoring/workload/test_workload_with_distruptions.py",
       "category": "functional",
       "subcategory": "monitoring",
@@ -10075,26 +9618,25 @@
       "category": "functional",
       "subcategory": "nfs_feature",
       "squad": "brown_squad",
-      "test_count": 14,
+      "test_count": 12,
       "test_functions": [
         {
           "name": "test_nfs_not_enabled_by_default",
           "node_id": "TestDefaultNfsDisabled::test_nfs_not_enabled_by_default",
           "marks": [
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
             "skipif_managed_service",
             "skipif_lean_deployment",
             "skipif_proxy_cluster",
             "tier1",
             "brown_squad",
-            "skipif_hci_client",
+            "skip_for_provider_if_ocs_version('<4.19')",
+            "polarion_id('OCS-4270')",
             "skipif_ocp_version('<4.11')",
             "skipif_disconnected_cluster",
-            "skipif_ocs_version('<4.11')",
-            "polarion_id('OCS-4270')"
+            "skipif_ocs_version('<4.11')"
           ],
           "docstring": "This test is to validate nfs feature is not enabled by default for  ODF(4.11) clusters\n\nSteps:\n1:- Check cephnfs resources not available by default\n2:- Validate no NFS pods exist",
-          "line": 69
+          "line": 66
         },
         {
           "name": "test_nfs_feature_enable",
@@ -10108,14 +9650,14 @@
             "brown_squad",
             "skipif_external_mode",
             "skipif_ocp_version('<4.11')",
-            "skipif_disconnected_cluster",
+            "skip_for_provider_if_ocs_version('<4.19')",
             "skipif_hci_client",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
+            "skipif_disconnected_cluster",
             "skipif_ocs_version('<4.11')",
             "polarion_id('OCS-4269')"
           ],
           "docstring": "This test is to validate nfs feature enable after deployment of  ODF(4.11) cluster\n\nSteps:\n1:- Check cephnfs resource running",
-          "line": 365
+          "line": 355
         },
         {
           "name": "test_incluster_nfs_export",
@@ -10128,14 +9670,14 @@
             "tier1",
             "brown_squad",
             "skipif_external_mode",
-            "skipif_disconnected_cluster",
+            "skip_for_provider_if_ocs_version('<4.19')",
             "skipif_ocs_version('<4.11')",
             "skipif_ocp_version('<4.11')",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
+            "skipif_disconnected_cluster",
             "polarion_id('OCS-4272')"
           ],
           "docstring": "This test is to validate NFS export using a PVC mounted on an app pod (in-cluster)\n\nSteps:\n1:- Create nfs pvcs with storageclass ocs-storagecluster-ceph-nfs\n2:- Create pods with nfs pvcs mounted\n3:- R...",
-          "line": 383
+          "line": 373
         },
         {
           "name": "test_outcluster_nfs_export",
@@ -10149,14 +9691,14 @@
             "brown_squad",
             "skipif_external_mode",
             "polarion_id('OCS-4273')",
-            "skipif_disconnected_cluster",
+            "skip_for_provider_if_ocs_version('<4.19')",
             "skipif_ocp_version('<4.11')",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
+            "skipif_disconnected_cluster",
             "skipif_ocs_version('<4.11')",
             "nfs_outcluster_test_platform_required"
           ],
           "docstring": "This test is to validate export where the export is consumed from outside the Openshift cluster\n- Create a LoadBalancer Service pointing to the CephNFS server\n- Direct external NFS clients to the Serv...",
-          "line": 464
+          "line": 454
         },
         {
           "name": "test_multiple_nfs_based_PVs",
@@ -10167,17 +9709,17 @@
             "polarion_id('OCS-4274')",
             "skipif_proxy_cluster",
             "skipif_rosa_hcp",
-            "skipif_disconnected_cluster",
             "brown_squad",
             "tier2",
             "skipif_external_mode",
+            "skip_for_provider_if_ocs_version('<4.19')",
             "skipif_ocp_version('<4.11')",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
+            "skipif_disconnected_cluster",
             "skipif_ocs_version('<4.11')",
             "nfs_outcluster_test_platform_required"
           ],
           "docstring": "This test is to validate creation of multiple NFS based PVs and verify the creation of\nNFS exports in NFS ganesha server\n\nSteps:\n1:- Create nfs pvcs with storageclass ocs-storagecluster-ceph-nfs\n2:- C...",
-          "line": 638
+          "line": 628
         },
         {
           "name": "test_multiple_mounts_of_same_nfs_volume",
@@ -10187,18 +9729,18 @@
             "skipif_lean_deployment",
             "skipif_proxy_cluster",
             "skipif_rosa_hcp",
-            "skipif_disconnected_cluster",
             "brown_squad",
             "tier2",
             "skipif_external_mode",
+            "skip_for_provider_if_ocs_version('<4.19')",
             "nfs_outcluster_test_platform_required",
             "skipif_ocp_version('<4.11')",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
+            "skipif_disconnected_cluster",
             "skipif_ocs_version('<4.11')",
             "polarion_id('OCS-4293')"
           ],
           "docstring": "This test is to validate multiple mounts of the same NFS volume/export\n\nSteps:\n1:- Create nfs pvc with storageclass ocs-storagecluster-ceph-nfs\n2:- Fetch sharing details for the nfs pvc\n3:- Create mul...",
-          "line": 781
+          "line": 771
         },
         {
           "name": "test_external_nfs_client_can_write_read_new_file",
@@ -10208,18 +9750,18 @@
             "skipif_lean_deployment",
             "skipif_proxy_cluster",
             "skipif_rosa_hcp",
-            "skipif_disconnected_cluster",
             "brown_squad",
             "tier2",
             "skipif_external_mode",
+            "skip_for_provider_if_ocs_version('<4.19')",
             "polarion_id('OCS-4312')",
             "skipif_ocp_version('<4.11')",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
+            "skipif_disconnected_cluster",
             "skipif_ocs_version('<4.11')",
             "nfs_outcluster_test_platform_required"
           ],
           "docstring": "This test is to validate external client can write and read back a new file,\nand the pods can read the external client's written content.\n\nSteps:\n1:- Create nfs pvcs with storageclass ocs-storageclust...",
-          "line": 919
+          "line": 909
         },
         {
           "name": "test_nfs_volume_with_different_accesss_mode",
@@ -10233,13 +9775,13 @@
             "tier1",
             "brown_squad",
             "skipif_external_mode",
-            "skipif_disconnected_cluster",
+            "skip_for_provider_if_ocs_version('<4.19')",
             "skipif_ocp_version('<4.11')",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
+            "skipif_disconnected_cluster",
             "skipif_ocs_version('<4.11')"
           ],
           "docstring": "This test is to validate NFS volumes with different access modes\n\nSteps:\n1:- Create nfs pvcs with storageclass ocs-storagecluster-ceph-nfs with different\naccess modes\n2:- Create pods with the nfs pvcs...",
-          "line": 1063
+          "line": 1053
         },
         {
           "name": "test_respin_of_nfs_plugin_pods_for_incluster_consumer",
@@ -10250,17 +9792,17 @@
             "skipif_lean_deployment",
             "skipif_proxy_cluster",
             "skipif_rosa_hcp",
-            "skipif_disconnected_cluster",
             "brown_squad",
             "skipif_external_mode",
             "skipif_ocp_version('<4.11')",
+            "skip_for_provider_if_ocs_version('<4.19')",
             "skipif_hci_client",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
+            "skipif_disconnected_cluster",
             "skipif_ocs_version('<4.11')",
             "polarion_id('OCS-4284')"
           ],
           "docstring": "This test is to check respin of NFS plugin pods when active I/O is running on in-cluster\nconsumer on the same node\n\nSteps:\n1:- Create nfs pvcs with storageclass ocs-storagecluster-ceph-nfs\n2:- Create ...",
-          "line": 1148
+          "line": 1138
         },
         {
           "name": "test_respin_app_pod_exported_nfs_volume_incluster",
@@ -10272,15 +9814,15 @@
             "polarion_id('OCS-4296')",
             "skipif_proxy_cluster",
             "skipif_rosa_hcp",
-            "skipif_disconnected_cluster",
             "brown_squad",
             "skipif_external_mode",
+            "skip_for_provider_if_ocs_version('<4.19')",
             "skipif_ocp_version('<4.11')",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
+            "skipif_disconnected_cluster",
             "skipif_ocs_version('<4.11')"
           ],
           "docstring": "This test is to test respin of the app pod using the NFS volume/export in in-cluster consumer scenario\n\nSteps:\n1:- Create nfs pvcs with storageclass ocs-storagecluster-ceph-nfs\n2:- Create deployment f...",
-          "line": 1249
+          "line": 1239
         },
         {
           "name": "test_respin_of_cephfs_plugin_provisioner_pods_for_incluster_consumer",
@@ -10292,16 +9834,16 @@
             "skipif_proxy_cluster",
             "skipif_rosa_hcp",
             "polarion_id('OCS-4294')",
-            "skipif_disconnected_cluster",
             "brown_squad",
             "skipif_external_mode",
             "skipif_ocp_version('<4.11')",
+            "skip_for_provider_if_ocs_version('<4.19')",
             "skipif_hci_client",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
+            "skipif_disconnected_cluster",
             "skipif_ocs_version('<4.11')"
           ],
           "docstring": "This test is to check respin of cephfs provisioner pod during active I/O is running on in-cluster\nconsumer\n\nSteps:\n1:- Create nfs pvcs with storageclass ocs-storagecluster-ceph-nfs\n2:- Create pods wit...",
-          "line": 1405
+          "line": 1395
         },
         {
           "name": "test_nfs_pvc_subvolume_deletion",
@@ -10312,63 +9854,20 @@
             "polarion_id('OCS-6193')",
             "skipif_proxy_cluster",
             "skipif_rosa_hcp",
-            "skipif_disconnected_cluster",
             "brown_squad",
             "tier2",
             "skipif_external_mode",
             "skipif_ocp_version('<4.11')",
+            "skip_for_provider_if_ocs_version('<4.19')",
             "skipif_hci_client",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
+            "skipif_disconnected_cluster",
             "skipif_ocs_version('<4.11')"
           ],
           "docstring": "This test is to validate NFS export using a PVC mounted on an app pod (in-cluster) and subvolume\ndeletion using odf-cli\n\nSteps:\n1:- Create nfs pvcs with storageclass ocs-storagecluster-ceph-nfs-retain...",
-          "line": 1511
-        },
-        {
-          "name": "test_default_nfs_server_details_displayed_if_external_endpoint_details_unavailable",
-          "node_id": "TestNfsEnable::test_default_nfs_server_details_displayed_if_external_endpoint_details_unavailable",
-          "marks": [
-            "skipif_managed_service",
-            "skipif_lean_deployment",
-            "skipif_proxy_cluster",
-            "skipif_rosa_hcp",
-            "tier1",
-            "brown_squad",
-            "hci_client_required",
-            "skipif_external_mode",
-            "skipif_disconnected_cluster",
-            "skipif_ocp_version('<4.11')",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
-            "skipif_ocs_version('<4.11')",
-            "skipif_ocs_version('<4.21')"
-          ],
-          "docstring": "Verify if nfs.externalEndpoint is unavailable in StorageCluster then NFS server endpoint details <ip/hostname>\nwill not be available when distributing NFS SC with clients, default server will be displ...",
-          "line": 1644
-        },
-        {
-          "name": "test_incluster_outcluster_nfs_export_for_non_default_nfs_sc",
-          "node_id": "TestNfsEnable::test_incluster_outcluster_nfs_export_for_non_default_nfs_sc",
-          "marks": [
-            "skipif_managed_service",
-            "skipif_lean_deployment",
-            "skipif_proxy_cluster",
-            "skipif_rosa_hcp",
-            "tier1",
-            "brown_squad",
-            "skipif_external_mode",
-            "skipif_disconnected_cluster",
-            "nfs_outcluster_test_platform_required",
-            "skipif_ocp_version('<4.11')",
-            "skip_for_provider_or_client_if_ocs_version('<4.19')",
-            "skipif_ocs_version('<4.11')",
-            "skipif_ocs_version('<4.21')"
-          ],
-          "docstring": "This test is to validate NFS incluster and outcluster exports using\nfor non default nfs storageclass\n\nSteps:\n1:- Create a new nfs storageclass\n and create nfs pvcs with the storageclass\n2:- Create pod...",
-          "line": 1671
+          "line": 1501
         }
       ],
       "marks": [
-        "skip_for_provider_or_client_if_ocs_version('<4.19')",
         "skipif_managed_service",
         "skipif_lean_deployment",
         "skipif_proxy_cluster",
@@ -10376,11 +9875,11 @@
         "tier1",
         "brown_squad",
         "skipif_external_mode",
-        "skipif_hci_client",
+        "skip_for_provider_if_ocs_version('<4.19')",
+        "polarion_id('OCS-4270')",
         "skipif_ocp_version('<4.11')",
         "skipif_disconnected_cluster",
-        "skipif_ocs_version('<4.11')",
-        "polarion_id('OCS-4270')"
+        "skipif_ocs_version('<4.11')"
       ],
       "tiers": [
         "tier1"
@@ -10389,20 +9888,18 @@
         "OCS-4270"
       ],
       "skip_conditions": [
-        "skip_for_provider_or_client_if_ocs_version('<4.19')",
         "skipif_managed_service",
         "skipif_lean_deployment",
         "skipif_proxy_cluster",
         "skipif_rosa_hcp",
         "skipif_external_mode",
-        "skipif_hci_client",
+        "skip_for_provider_if_ocs_version('<4.19')",
         "skipif_ocp_version('<4.11')",
         "skipif_disconnected_cluster",
         "skipif_ocs_version('<4.11')"
       ],
       "keywords": [
         "(in-cluster)",
-        "<ip/hostname>",
         "access",
         "accesss",
         "active",
@@ -10419,7 +9916,6 @@
         "client",
         "client's",
         "clients",
-        "clients,",
         "cluster",
         "clusters",
         "consumed",
@@ -10430,7 +9926,9 @@
         "default",
         "deletion",
         "deployment",
-        "details"
+        "details",
+        "different",
+        "direct"
       ],
       "description": "This test is to validate nfs feature is not enabled by default for  ODF(4.11) clusters"
     },
@@ -12819,7 +12317,7 @@
             "red_squad"
           ],
           "docstring": "",
-          "line": 49
+          "line": 66
         }
       ],
       "marks": [
@@ -14436,91 +13934,6 @@
       "description": "Test coverage for the scenarios mentioned in the"
     },
     {
-      "file_path": "tests/functional/object/mcg/test_noobaa_db_backup_recovery.py",
-      "category": "functional",
-      "subcategory": "object",
-      "squad": "red_squad",
-      "test_count": 3,
-      "test_functions": [
-        {
-          "name": "test_noobaa_db_backup_recovery_op",
-          "node_id": "TestNoobaaDbBackupRecoveryOps::test_noobaa_db_backup_recovery_op",
-          "marks": [
-            "skipif_mcg_only",
-            "mcg",
-            "red_squad",
-            "tier2"
-          ],
-          "docstring": "Test to verify CNPG based noobaa DB backup and recovery is working as expected\n    1: Create OBC and write data\n    2: Validate Noobaa CR is accepting backup configuration in it\n    3: Validate backup...",
-          "line": 267
-        },
-        {
-          "name": "test_noobaa_db_backup_recovery_op_using_cli",
-          "node_id": "TestNoobaaDbBackupRecoveryOps::test_noobaa_db_backup_recovery_op_using_cli",
-          "marks": [
-            "skipif_mcg_only",
-            "mcg",
-            "red_squad",
-            "tier2"
-          ],
-          "docstring": "Test to verify CNPG based noobaa DB backup operation using CLI\n    1: Create OBC and write data\n    2: Add backup info in OCS Storage cluster CR\n    3: Run noobaa cli command to create on demand backu...",
-          "line": 353
-        },
-        {
-          "name": "test_noobaa_db_backup_snapshot_op",
-          "node_id": "TestNoobaaDbBackupRecoveryOps::test_noobaa_db_backup_snapshot_op",
-          "marks": [
-            "skipif_mcg_only",
-            "mcg",
-            "red_squad",
-            "tier4"
-          ],
-          "docstring": "Test to verify CNPG based noobaa DB backup snapshot operation\n    1: Set max snapshot value to 1 in Noobaa CR\n    2: Validate only 1 snapshot entry is getting stored on DB pod node\n    3: Wait for new...",
-          "line": 456
-        }
-      ],
-      "marks": [
-        "mcg",
-        "red_squad"
-      ],
-      "tiers": [],
-      "polarion_ids": [],
-      "skip_conditions": [],
-      "keywords": [
-        "accepting",
-        "backu...",
-        "backup",
-        "backup...",
-        "based",
-        "cli",
-        "cluster",
-        "cnpg",
-        "command",
-        "configuration",
-        "create",
-        "data",
-        "demand",
-        "entry",
-        "expected",
-        "getting",
-        "info",
-        "new...",
-        "node",
-        "noobaa",
-        "only",
-        "operation",
-        "recovery",
-        "snapshot",
-        "storage",
-        "stored",
-        "test",
-        "using",
-        "validate",
-        "value"
-      ],
-      "description": "Test to verify CNPG based noobaa DB backup and recovery is working as expected"
-    },
-    {
       "file_path": "tests/functional/object/mcg/test_noobaa_db_cleartext_postgres_password.py",
       "category": "functional",
       "subcategory": "object",
@@ -14723,70 +14136,6 @@
       "description": "Test to check noobaa db pg PVC is getting expanded using ceph block pool."
     },
     {
-      "file_path": "tests/functional/object/mcg/test_noobaa_metrics.py",
-      "category": "functional",
-      "subcategory": "object",
-      "squad": "red_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_noobaa_space_available_using_cli",
-          "node_id": "TestNoobaaMetrics::test_noobaa_space_available_using_cli",
-          "marks": [
-            "mcg",
-            "polarion_id('OCS-7465')",
-            "tier2",
-            "config.run_with_provider_context_if_available",
-            "red_squad"
-          ],
-          "docstring": "Test that 'bucket update' command with --max-size and --max-object parameters work as expected\n1. Create bucket and check the initial quota status\n2. Set the max quota size and verify that it works as...",
-          "line": 38
-        }
-      ],
-      "marks": [
-        "mcg",
-        "polarion_id('OCS-7465')",
-        "red_squad",
-        "tier2"
-      ],
-      "tiers": [
-        "tier2"
-      ],
-      "polarion_ids": [
-        "OCS-7465"
-      ],
-      "skip_conditions": [],
-      "keywords": [
-        "'bucket",
-        "--max-object",
-        "--max-size",
-        "as...",
-        "available",
-        "bucket",
-        "check",
-        "cli",
-        "command",
-        "create",
-        "expected",
-        "initial",
-        "noobaa",
-        "parameters",
-        "quota",
-        "size",
-        "space",
-        "status",
-        "test",
-        "that",
-        "update'",
-        "using",
-        "verify",
-        "with",
-        "work",
-        "works"
-      ],
-      "description": "Test that 'bucket update' command with --max-size and --max-object parameters work as expected"
-    },
-    {
       "file_path": "tests/functional/object/mcg/test_noobaa_prometheus.py",
       "category": "functional",
       "subcategory": "object",
@@ -14804,7 +14153,7 @@
             "red_squad"
           ],
           "docstring": "This test checks if the Noobaa_bucket_used_bytes prometheus metrics\nreflects the number of bytes in the bucket",
-          "line": 47
+          "line": 44
         }
       ],
       "marks": [
@@ -15994,55 +15343,6 @@
       "description": "Tests S3 upload with Java application"
     },
     {
-      "file_path": "tests/functional/object/mcg/test_secondary_db_optimization.py",
-      "category": "functional",
-      "subcategory": "object",
-      "squad": "red_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_secondary_db_ro_queries",
-          "node_id": "TestSecondaryDbOptimization::test_secondary_db_ro_queries",
-          "marks": [
-            "mcg",
-            "tier2",
-            "config.run_with_provider_context_if_available",
-            "red_squad",
-            "polarion_id('OCS-7410')"
-          ],
-          "docstring": "Test that the secondary DB is now receiving the expected read-only operations instead\nof the primary DB.\n\n1. Increase the frequency relevant noobaa-core background operations\n2. Wait a bit for the exp...",
-          "line": 89
-        }
-      ],
-      "marks": [
-        "mcg",
-        "red_squad"
-      ],
-      "tiers": [],
-      "polarion_ids": [],
-      "skip_conditions": [],
-      "keywords": [
-        "background",
-        "exp...",
-        "expected",
-        "frequency",
-        "increase",
-        "instead",
-        "noobaa-core",
-        "operations",
-        "primary",
-        "queries",
-        "read-only",
-        "receiving",
-        "relevant",
-        "secondary",
-        "test",
-        "that",
-        "wait"
-      ],
-      "description": "Test that the secondary DB is now receiving the expected read-only operations instead"
-    },
-    {
       "file_path": "tests/functional/object/mcg/test_standalone_noobaa_pod_node_affinity.py",
       "category": "functional",
       "subcategory": "object",
@@ -16568,37 +15868,31 @@
       "category": "functional",
       "subcategory": "object",
       "squad": "black_squad",
-      "test_count": 4,
+      "test_count": 3,
       "test_functions": [
         {
           "name": "test_set_bucket_policy_ui",
           "node_id": "TestBucketPolicyUI::test_set_bucket_policy_ui",
           "marks": [
             "post_upgrade",
-            "mcg",
             "pytest.mark.parametrize('policy_config')",
             "tier1",
-            "ui",
-            "red_squad",
             "black_squad"
           ],
           "docstring": "Test setting various bucket policies via UI.\n\nArgs:\n    policy_config (dict): Configuration containing policy name, method, and parameters\n\nRaises:\n    pytest.skip: If no buckets are available for tes...",
-          "line": 77
+          "line": 69
         },
         {
           "name": "test_delete_bucket_policy_ui",
           "node_id": "TestBucketPolicyUI::test_delete_bucket_policy_ui",
           "marks": [
             "post_upgrade",
-            "mcg",
-            "polarion_id('OCS-6893')",
             "tier1",
-            "ui",
-            "red_squad",
-            "black_squad"
+            "black_squad",
+            "polarion_id('OCS-6893')"
           ],
           "docstring": "Test deleting bucket policy via UI.",
-          "line": 153
+          "line": 145
         },
         {
           "name": "test_bucket_policy_workflow_steps",
@@ -16606,38 +15900,17 @@
           "marks": [
             "post_upgrade",
             "pytest.mark.parametrize('policy_name')",
-            "mcg",
             "tier1",
             "polarion_id('OCS-6894')",
-            "ui",
-            "red_squad",
             "black_squad"
           ],
           "docstring": "Test individual steps of bucket policy workflow.\n\nArgs:\n    policy_name (str): Name of the policy to test\n\nRaises:\n    pytest.skip: If no buckets are available for testing",
-          "line": 185
-        },
-        {
-          "name": "test_bucket_public_access_with_policy",
-          "node_id": "TestBucketPolicyUI::test_bucket_public_access_with_policy",
-          "marks": [
-            "post_upgrade",
-            "mcg",
-            "tier1",
-            "ui",
-            "red_squad",
-            "polarion_id('OCS-7414')",
-            "black_squad"
-          ],
-          "docstring": "Tests the correct work of 'Block public access' tab\nThe workflow is as following:\n1. Create a new bucket\n2. Create a new bucket policy with 'Allow All Access'\n3. Test the correct behaviour of 'Block p...",
-          "line": 223
+          "line": 177
         }
       ],
       "marks": [
         "post_upgrade",
-        "mcg",
         "tier1",
-        "ui",
-        "red_squad",
         "black_squad"
       ],
       "tiers": [
@@ -16646,36 +15919,36 @@
       "polarion_ids": [],
       "skip_conditions": [],
       "keywords": [
-        "'allow",
-        "'block",
         "(dict):",
         "(str):",
-        "access",
-        "access'",
         "args:",
         "available",
-        "behaviour",
         "bucket",
         "buckets",
         "configuration",
         "containing",
-        "correct",
-        "create",
         "delete",
         "deleting",
-        "following:",
         "individual",
         "method,",
         "name",
         "name,",
-        "p...",
         "parameters",
         "policies",
         "policy",
         "policy_config",
         "policy_name",
-        "public",
-        "pytest.skip:"
+        "pytest.skip:",
+        "raises:",
+        "set",
+        "setting",
+        "steps",
+        "tes...",
+        "test",
+        "testing",
+        "various",
+        "workflow",
+        "workflow."
       ],
       "description": "Test setting various bucket policies via UI."
     },
@@ -16750,65 +16023,6 @@
       "description": "Test bucket versioning enable functionality via UI."
     },
     {
-      "file_path": "tests/functional/object/mcg/ui/test_dev_user_object_browser_ui.py",
-      "category": "functional",
-      "subcategory": "object",
-      "squad": "red_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_dev_user_login_logout_admin_login",
-          "node_id": "TestDevUserObjectBrowserUI::test_dev_user_login_logout_admin_login",
-          "marks": [
-            "mcg",
-            "tier1",
-            "ui",
-            "red_squad",
-            "polarion_id('OCS-7500')"
-          ],
-          "docstring": "Test dev user login, console logout, and admin re-login flow.\n\nSteps:\n1. Login as non-admin user to OpenShift console\n2. Navigate to Object Storage page\n3. Sign in with S3 secret credentials\n4. Verify...",
-          "line": 89
-        }
-      ],
-      "marks": [
-        "mcg",
-        "red_squad",
-        "tier1",
-        "ui"
-      ],
-      "tiers": [
-        "tier1"
-      ],
-      "polarion_ids": [],
-      "skip_conditions": [],
-      "keywords": [
-        "admin",
-        "console",
-        "credentials",
-        "dev",
-        "flow.",
-        "login",
-        "login,",
-        "logout",
-        "logout,",
-        "navigate",
-        "non-admin",
-        "object",
-        "openshift",
-        "page",
-        "re-login",
-        "secret",
-        "sign",
-        "steps:",
-        "storage",
-        "test",
-        "user",
-        "verify...",
-        "with"
-      ],
-      "description": "Test dev user login, console logout, and admin re-login flow."
-    },
-    {
       "file_path": "tests/functional/object/mcg/ui/test_mcg_ui.py",
       "category": "functional",
       "subcategory": "object",
@@ -16829,7 +16043,7 @@
             "black_squad"
           ],
           "docstring": "Test creation and deletion of MCG stores via the UI\n\nSteps:\n1. Navigate to Data Foundation / Object Storage / (Backing Store | Namespace Store)\n2. Create store with given parameters\n3. Verify via UI t...",
-          "line": 83
+          "line": 82
         },
         {
           "name": "test_standard_bc_creation_and_deletion",
@@ -16846,7 +16060,7 @@
             "black_squad"
           ],
           "docstring": "Test creation and deletion of a BS via the UI",
-          "line": 187
+          "line": 186
         },
         {
           "name": "test_namespace_bc_creation_and_deletion",
@@ -16863,7 +16077,7 @@
             "black_squad"
           ],
           "docstring": "Test creation and deletion of a bucketclass via the UI",
-          "line": 242
+          "line": 241
         },
         {
           "name": "test_obc_creation_and_deletion",
@@ -16879,7 +16093,7 @@
             "black_squad"
           ],
           "docstring": "Test creation and deletion of an OBC via the UI\n\nThe test covers BZ #2097772 Introduce tooltips for contextual information\nThe test covers BZ #2175685 RGW OBC creation via the UI is blocked by \"Addres...",
-          "line": 362
+          "line": 356
         },
         {
           "name": "test_bucket_create",
@@ -16892,7 +16106,7 @@
             "black_squad"
           ],
           "docstring": "Test bucket creation functionality in UI.\n\nCreates both OBC and S3 buckets, then creates a folder in one of them.\nVerifies basic bucket and folder creation workflows through the UI.",
-          "line": 435
+          "line": 429
         },
         {
           "name": "test_empty_bucket_delete",
@@ -16905,7 +16119,7 @@
             "black_squad"
           ],
           "docstring": "Test bucket deletion functionality in UI.\n\nSteps:\n1. Navigate to the Object Storage Buckets page\n2. Create a new bucket with a simple name for deletion testing\n3. Delete the bucket using the three_dot...",
-          "line": 459
+          "line": 453
         },
         {
           "name": "test_bucket_list_comparison",
@@ -16917,7 +16131,7 @@
             "tier2"
           ],
           "docstring": "Test that the bucket list from UI matches the bucket list from CLI.\n\nArgs:\n    setup_ui_class_factory (any): UI setup fixture.\n    mcg_obj (any): MCG CLI client fixture assumed to have a method list_b...",
-          "line": 510
+          "line": 504
         },
         {
           "name": "test_bucket_pagination",
@@ -16929,7 +16143,7 @@
             "ui"
           ],
           "docstring": "Test bucket pagination functionality in UI.\n\nSteps:\n1. Navigate to the Object Storage Buckets page\n2. Check initial bucket count via CLI and wait for stability\n3. Create additional buckets if needed t...",
-          "line": 583
+          "line": 570
         }
       ],
       "marks": [
@@ -17344,60 +16558,6 @@
       "description": "Test case to fail node where RGW and the NooBaa DB are hosted"
     },
     {
-      "file_path": "tests/functional/object/rgw/test_keda_ha.py",
-      "category": "functional",
-      "subcategory": "object",
-      "squad": "red_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_rgw_keda_ha",
-          "node_id": "TestKedaHA::test_rgw_keda_ha",
-          "marks": [
-            "rgw",
-            "tier1",
-            "red_squad",
-            "skipif_disconnected_cluster",
-            "polarion_id('OCS-7408')"
-          ],
-          "docstring": "Test RGW's integration with Keda autoscaler\n\n1. Create a ScaledObject to autoscale the RGW deployment with a low\nthreshold.\n2. Start a warp workload on an RGW bucket to run in the background\n3. Wait f...",
-          "line": 71
-        }
-      ],
-      "marks": [
-        "skipif_disconnected_cluster",
-        "red_squad",
-        "rgw"
-      ],
-      "tiers": [],
-      "polarion_ids": [],
-      "skip_conditions": [
-        "skipif_disconnected_cluster"
-      ],
-      "keywords": [
-        "autoscale",
-        "autoscaler",
-        "background",
-        "bucket",
-        "create",
-        "deployment",
-        "f...",
-        "integration",
-        "keda",
-        "rgw",
-        "rgw's",
-        "scaledobject",
-        "start",
-        "test",
-        "threshold.",
-        "wait",
-        "warp",
-        "with",
-        "workload"
-      ],
-      "description": "Test RGW's integration with Keda autoscaler"
-    },
-    {
       "file_path": "tests/functional/object/rgw/test_multipart_upload.py",
       "category": "functional",
       "subcategory": "object",
@@ -17792,11 +16952,10 @@
             "tier1",
             "brown_squad",
             "skipif_external_mode",
-            "runs_on_provider",
             "skipif_ocs_version('<4.15')"
           ],
           "docstring": "",
-          "line": 30
+          "line": 27
         },
         {
           "name": "test_get_mon_endpoint",
@@ -17805,12 +16964,11 @@
             "tier1",
             "brown_squad",
             "skipif_external_mode",
-            "runs_on_provider",
             "skipif_ocs_version('<4.15')",
             "polarion_id('OCS-6238')"
           ],
           "docstring": "",
-          "line": 42
+          "line": 38
         }
       ],
       "marks": [
@@ -17844,17 +17002,15 @@
           "name": "test_operator_restart",
           "node_id": "TestOperatorRestart::test_operator_restart",
           "marks": [
-            "runs_on_provider",
             "tier3",
             "brown_squad",
             "polarion_id('OCS-6235')"
           ],
           "docstring": "",
-          "line": 37
+          "line": 31
         }
       ],
       "marks": [
-        "runs_on_provider",
         "tier3",
         "brown_squad",
         "polarion_id('OCS-6235')"
@@ -17969,40 +17125,35 @@
           "marks": [
             "polarion_id('OCS-6086')",
             "tier1",
-            "brown_squad",
-            "skipif_external_mode",
-            "runs_on_provider"
+            "brown_squad"
           ],
-          "docstring": "This test verifies whether ceph toolbox failovered or not after applying node affinity\nIn provider-client mode, this runs in the provider cluster where toolbox exists",
-          "line": 72
+          "docstring": "This test verifies whether ceph toolbox failovered or not after applying node affinity",
+          "line": 58
         },
         {
           "name": "test_reboot_node_affinity_node",
           "node_id": "TestCephtoolboxPod::test_reboot_node_affinity_node",
           "marks": [
-            "runs_on_provider",
             "tier4b",
             "polarion_id('OCS-6087')",
             "brown_squad"
           ],
           "docstring": "This test verifies ceph toolbox runs only on the node given in node-affinity.\nReboot the node after applying node-affinity.\nExpectation is the pod should come up only on that node mentioned in affinit...",
-          "line": 89
+          "line": 74
         },
         {
           "name": "test_nodeaffinity_to_ceph_toolbox_with_default_taints",
           "node_id": "TestCephtoolboxPod::test_nodeaffinity_to_ceph_toolbox_with_default_taints",
           "marks": [
-            "runs_on_provider",
             "tier4b",
             "brown_squad",
             "polarion_id('OCS-6090')"
           ],
-          "docstring": "This test verifies whether ceph toolbox failovered or not after applying node affinity on tainted node.\nIn provider-client mode, this runs in the provider cluster where toolbox exists.",
-          "line": 121
+          "docstring": "This test verifies whether ceph toolbox failovered or not after applying node affinity on tainted node",
+          "line": 105
         }
       ],
       "marks": [
-        "runs_on_provider",
         "brown_squad"
       ],
       "tiers": [],
@@ -18014,31 +17165,29 @@
         "after",
         "applying",
         "ceph",
-        "cluster",
         "come",
         "default",
-        "exists",
-        "exists.",
         "expectation",
         "failovered",
         "given",
         "mentioned",
-        "mode,",
         "node",
         "node-affinity.",
-        "node.",
         "nodeaffinity",
         "only",
         "pod",
-        "provider",
-        "provider-client",
         "reboot",
         "runs",
         "should",
         "tainted",
         "taints",
         "test",
-        "that"
+        "that",
+        "this",
+        "toolbox",
+        "verifies",
+        "whether",
+        "with"
       ],
       "description": "This test verifies whether ceph toolbox failovered or not after applying node affinity"
     },
@@ -18114,41 +17263,50 @@
           "name": "test_csi_addon_daemonset_exists",
           "node_id": "TestCSIADDonDaemonset::test_csi_addon_daemonset_exists",
           "marks": [
-            "pytest.mark.parametrize",
-            "skipif_ocs_version('<4.20')"
+            "polarion_id('OCS-7386')",
+            "skipif_ocs_version('<4.20')",
+            "tier1",
+            "green_squad"
           ],
-          "docstring": "Verify that the CSI addon daemonset exists and is properly configured\n\nArgs:\n    storage_type (str): Type of storage system (rbd or cephfs)\n\nsteps:\n1. Check if CSI addon Daemonset exists\n2. Verify dae...",
-          "line": 47
+          "docstring": "Verify that the CSI addon daemonset exists and is properly configured\nsteps:\n1. Check if CSI addon Daemonset exists\n2. Verify daemonset configuration",
+          "line": 37
         },
         {
           "name": "test_csi_addon_pods_containers_ready",
           "node_id": "TestCSIADDonDaemonset::test_csi_addon_pods_containers_ready",
           "marks": [
-            "pytest.mark.parametrize",
-            "skipif_ocs_version('<4.20')"
+            "skipif_ocs_version('<4.20')",
+            "tier1",
+            "green_squad",
+            "polarion_id('OCS-7374')",
+            "acceptance"
           ],
-          "docstring": "Verify that all containers in CSI-addon pods are in ready status\nSteps:\n1. Get all CSI Addons Pods\n2. Check each container in each pod\n3. Verify Container readiness status of each pod\nOCS-7503 is part...",
-          "line": 128
+          "docstring": "Verify that all containers in CSI-addon pods are in ready status\nSteps:\n1. Get all CSI Addons Pods\n2. Check each container in each pod\n3. Verify Container readiness status of each pod",
+          "line": 81
         },
         {
           "name": "test_csi_addon_pods_uses_pod_network",
           "node_id": "TestCSIADDonDaemonset::test_csi_addon_pods_uses_pod_network",
           "marks": [
-            "pytest.mark.parametrize",
-            "skipif_ocs_version('<4.20')"
+            "skipif_ocs_version('<4.20')",
+            "polarion_id('OCS-7373')",
+            "tier1",
+            "green_squad"
           ],
-          "docstring": "Verify that CSI-addon used pod network instead of host network\nOCS-7502 is part verification of DFBUGS_5082 automation",
-          "line": 162
+          "docstring": "Verify that CSI-addon used pod network instead of host network",
+          "line": 106
         },
         {
           "name": "test_csi_addon_daemonset_desired_vs_ready",
           "node_id": "TestCSIADDonDaemonset::test_csi_addon_daemonset_desired_vs_ready",
           "marks": [
-            "pytest.mark.parametrize",
-            "skipif_ocs_version('<4.20')"
+            "skipif_ocs_version('<4.20')",
+            "polarion_id('OCS-7375')",
+            "tier1",
+            "green_squad"
           ],
-          "docstring": "Verify that CSI addon DaemonSet has desired number of ready and available pods\nStep:\n1. Get CSI-addon DaemonSet status\n2. Compare desired Vs ready pod counts\n3. Verify all pods are available\nOCS-7504 ...",
-          "line": 196
+          "docstring": "Verify that CSI addon DaemonSet has desired number of ready and available pods\nStep:\n1. Get CSI-addon DaemonSet status\n2. Compare desired Vs ready pod counts\n3. Verify all pods are available",
+          "line": 130
         },
         {
           "name": "test_csi_addon_pods_on_worker_nodes",
@@ -18157,41 +17315,46 @@
             "skipif_ocs_version('<4.20')",
             "polarion_id('OCS-7305')",
             "tier1",
-            "pytest.mark.parametrize",
             "green_squad"
           ],
           "docstring": "Verify that the CSI addon pods are running on each worker node\nstep:\n1. Get all worker nodes (including master nodes that also have worker role)\n2. Get CSI addon daemonset pods\n3. Verify each worker n...",
-          "line": 246
+          "line": 165
         },
         {
           "name": "test_csi_addon_pod_restart",
           "node_id": "TestCSIADDonDaemonset::test_csi_addon_pod_restart",
           "marks": [
-            "pytest.mark.parametrize",
-            "skipif_ocs_version('<4.20')"
+            "skipif_ocs_version('<4.20')",
+            "polarion_id('OCS-7387')",
+            "tier1",
+            "green_squad"
           ],
-          "docstring": "Restart a CSI-addons pod and validate it restored to running state.\nOCS-7506 is part verification of DFBUGS_5082 automation",
-          "line": 306
+          "docstring": "Restart a CSI-addons pod and validate it restored to running state.",
+          "line": 215
         },
         {
           "name": "test_csi_addons_socket_creation_per_pods_node",
           "node_id": "TestCSIADDonDaemonset::test_csi_addons_socket_creation_per_pods_node",
           "marks": [
-            "pytest.mark.parametrize",
-            "skipif_ocs_version('<4.20')"
+            "skipif_ocs_version('<4.20')",
+            "polarion_id('OCS-7379')",
+            "tier1",
+            "green_squad"
           ],
           "docstring": "csi-addons.sock are used for communication for csi-addons.\nThis test ensure the socket creation of csi-addons.sock socket\non hostpath for each pods node.\nSteps:\n1. Get all csi-addons pods\n2. Get nodes...",
-          "line": 342
+          "line": 243
         },
         {
           "name": "test_csi_addons_pod_crash_recovery",
           "node_id": "TestCSIADDonDaemonset::test_csi_addons_pod_crash_recovery",
           "marks": [
-            "pytest.mark.parametrize",
-            "skipif_ocs_version('<4.20')"
+            "tier4c",
+            "skipif_ocs_version('<4.20')",
+            "green_squad",
+            "polarion_id('OCS-7376')"
           ],
           "docstring": "Test csi-addons pod recovery after pod crash and ensure the restart count.\n1. Get all csi-addons pods\n2. Pick a random csi-addons pod\n3. Crash the csi-addons pod\n4. Wait for pod to be Running and chec...",
-          "line": 408
+          "line": 273
         }
       ],
       "marks": [
@@ -18204,20 +17367,16 @@
       ],
       "keywords": [
         "(including",
-        "(rbd",
-        "(str):",
         "addon",
         "addons",
         "after",
         "also",
-        "args:",
-        "automation",
         "available",
-        "cephfs)",
         "chec...",
         "check",
         "communication",
         "compare",
+        "configuration",
         "configured",
         "container",
         "containers",
@@ -18230,9 +17389,13 @@
         "csi-addons",
         "csi-addons.",
         "csi-addons.sock",
-        "dae...",
         "daemonset",
-        "desired"
+        "desired",
+        "each",
+        "ensure",
+        "exists",
+        "have",
+        "host"
       ],
       "description": "Verify that the CSI addon daemonset exists and is properly configured"
     },
@@ -18248,17 +17411,15 @@
           "node_id": "TestCSIAddonPodSecurity::test_csi_addon_pod_security",
           "marks": [
             "polarion_id('OCS-6807')",
-            "skipif_ocs_version('<4.20')",
             "tier1",
             "green_squad"
           ],
           "docstring": "Validate that the CSI Addon pods are compliant with the Pod Security Standards.\n\nTest Steps:\n1. Find a CSI addon pod that contains the 'csi-addons' container using ODF 4.20 labels.\n2. Retrieve contain...",
-          "line": 25
+          "line": 23
         }
       ],
       "marks": [
         "polarion_id('OCS-6807')",
-        "skipif_ocs_version('<4.20')",
         "tier1",
         "green_squad"
       ],
@@ -18268,9 +17429,7 @@
       "polarion_ids": [
         "OCS-6807"
       ],
-      "skip_conditions": [
-        "skipif_ocs_version('<4.20')"
-      ],
+      "skip_conditions": [],
       "keywords": [
         "'csi-addons'",
         "4.20",
@@ -18572,18 +17731,16 @@
           "name": "test_live_resources_presence_and_format",
           "node_id": "TestLiveResourcesPresenceAndFormat::test_live_resources_presence_and_format",
           "marks": [
-            "jira('DFBUGS-5080')",
+            "polarion_id('OCS-7362')",
             "skipif_ocs_version('<4.20')",
             "tier1",
-            "brown_squad",
-            "polarion_id('OCS-7362')"
+            "brown_squad"
           ],
           "docstring": "Steps:\n1) Get live ODF pods (exclude transient patterns).\n2) Extract per-container resource details.\n3) Check that each live value exists and starts with a digit.\n4) Assert no invalid values were foun...",
-          "line": 36
+          "line": 35
         }
       ],
       "marks": [
-        "jira('DFBUGS-5080')",
         "tier1",
         "skipif_ocs_version('<4.20')"
       ],
@@ -18909,7 +18066,7 @@
             "green_squad"
           ],
           "docstring": "Test disabling PV key rotation globally by annotating the storage class.\n\nSteps:\n1. Add annotation to the storage class to disable key rotation.\n2. Verify key rotation jobs are deleted.\n3. Remove the ...",
-          "line": 149
+          "line": 121
         },
         {
           "name": "test_disable_pv_keyrotation_by_rbac_user",
@@ -18923,7 +18080,7 @@
             "green_squad"
           ],
           "docstring": "Test disabling specific PV key rotation by RBAC user permissions.\n\nSteps:\n1. Disable key rotation for specific PVCs.\n2. Verify key rotation cronjobs has state suspent = True.\n3. Re-enable key rotation...",
-          "line": 191
+          "line": 160
         }
       ],
       "marks": [
@@ -19594,61 +18751,6 @@
       "description": "encryptedrbd_pvc_status_with_tenant_configmap_override"
     },
     {
-      "file_path": "tests/functional/pv/pv_services/test_azure_performance_plus_csi_parameters.py",
-      "category": "functional",
-      "subcategory": "pv",
-      "squad": "green_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_verify_performance_plus_csi_volume_parameters",
-          "node_id": "TestAzurePerformancePlusCSIParameters::test_verify_performance_plus_csi_volume_parameters",
-          "marks": [
-            "azure_performance_plus_required",
-            "tier1",
-            "runs_on_provider",
-            "azure_platform_required",
-            "polarion_id('OCS-7413')",
-            "green_squad"
-          ],
-          "docstring": "Verify that OSD PVCs have enablePerformancePlus=true in PV CSI volume attributes.\n\nSteps:\n    1. Get all OSD PVCs from the cluster\n    2. For each OSD PVC:\n       a. Verify the PVC is using the Perfor...",
-          "line": 51
-        }
-      ],
-      "marks": [
-        "azure_platform_required",
-        "tier1",
-        "green_squad",
-        "azure_performance_plus_required"
-      ],
-      "tiers": [
-        "tier1"
-      ],
-      "polarion_ids": [],
-      "skip_conditions": [],
-      "keywords": [
-        "attributes.",
-        "cluster",
-        "csi",
-        "each",
-        "enableperformanceplus=true",
-        "from",
-        "have",
-        "parameters",
-        "perfor...",
-        "performance",
-        "plus",
-        "pvc:",
-        "pvcs",
-        "steps:",
-        "that",
-        "using",
-        "verify",
-        "volume"
-      ],
-      "description": "Verify that OSD PVCs have enablePerformancePlus=true in PV CSI volume attributes."
-    },
-    {
       "file_path": "tests/functional/pv/pv_services/test_ceph_capacity_recovery.py",
       "category": "functional",
       "subcategory": "pv",
@@ -20179,7 +19281,7 @@
             "green_squad"
           ],
           "docstring": "Kill ceph daemons while PVCs creation, PVCs deletion, pods creation, pods deletion\nand IO are progressing",
-          "line": 234
+          "line": 233
         }
       ],
       "marks": [
@@ -20405,10 +19507,11 @@
           "marks": [
             "pytest.mark.parametrize",
             "tier1",
+            "acceptance",
             "green_squad"
           ],
           "docstring": "RWO Dynamic PVC creation tests with Reclaim policy set to Retain/Delete",
-          "line": 115
+          "line": 120
         },
         {
           "name": "test_rwx_dynamic_pvc",
@@ -20416,10 +19519,11 @@
           "marks": [
             "pytest.mark.parametrize",
             "tier1",
+            "acceptance",
             "green_squad"
           ],
           "docstring": "RWX Dynamic PVC creation tests with Reclaim policy set to Retain/Delete",
-          "line": 246
+          "line": 252
         }
       ],
       "marks": [
@@ -20571,7 +19675,7 @@
             "green_squad"
           ],
           "docstring": "Test Process:\n    1.Create project with \u201copenshift-quota\u201d label\n    2.Create new Storage Class or use ceph-rbd or ceph-fs\n    3.Add \u201coverprovisionControl\u201d section to storagecluster yaml file [max=8Gi]...",
-          "line": 104
+          "line": 96
         }
       ],
       "marks": [
@@ -20642,7 +19746,7 @@
             "pytest.mark.polarion_id('OCS-3778')"
           ],
           "docstring": "Test Process:\n    1.Add \u201coverprovisionControl\u201d section to storagecluster yaml file with capacity 100Gi.\n    2.Create a namespace with mentioned labels in policy.\n    3.Add one PVC with 50Gi Capacity.\n...",
-          "line": 56
+          "line": 52
         }
       ],
       "marks": [
@@ -20858,7 +19962,7 @@
             "provider_mode"
           ],
           "docstring": "Test case to verify after delete pvc size returned to backend pools",
-          "line": 64
+          "line": 63
         }
       ],
       "marks": [
@@ -21311,7 +20415,7 @@
             "green_squad"
           ],
           "docstring": "Delete certain pods in the storage namespace while PVCs creation, PVCs deletion, pods creation, pods deletion\nand IO are progressing",
-          "line": 245
+          "line": 244
         }
       ],
       "marks": [
@@ -22479,7 +21583,7 @@
             "provider_mode"
           ],
           "docstring": "Verify PVC expand feature",
-          "line": 194
+          "line": 193
         },
         {
           "name": "test_pvc_expand_expanded_pvc",
@@ -22492,7 +21596,7 @@
             "green_squad"
           ],
           "docstring": "Verify PVC expand of already expanded PVC",
-          "line": 212
+          "line": 211
         }
       ],
       "marks": [
@@ -24726,7 +23830,7 @@
             "skipif_external_mode"
           ],
           "docstring": "",
-          "line": 315
+          "line": 284
         },
         {
           "name": "test_configure_replica1",
@@ -24738,7 +23842,7 @@
             "skipif_external_mode"
           ],
           "docstring": "",
-          "line": 351
+          "line": 320
         }
       ],
       "marks": [
@@ -25003,7 +24107,6 @@
           "name": "test_runbooks",
           "node_id": "test_runbooks",
           "marks": [
-            "jira('DFBUGS-5660')",
             "polarion_id('OCS-5509')",
             "tier2",
             "ui",
@@ -25014,11 +24117,10 @@
             "black_squad"
           ],
           "docstring": "Test runbooks for alerts. Texts are validated manually and hash values are created based on the texts.\nThe test will check all runbooks from the list, even if one of them fails.\n\nThe test do the steps...",
-          "line": 94
+          "line": 86
         }
       ],
       "marks": [
-        "jira('DFBUGS-5660')",
         "polarion_id('OCS-5509')",
         "tier2",
         "ui",
@@ -25288,140 +24390,6 @@
       "description": "Test to verify error rules for the name when creating a new backing store"
     },
     {
-      "file_path": "tests/functional/ui/test_health_overview.py",
-      "category": "functional",
-      "subcategory": "ui",
-      "squad": "black_squad",
-      "test_count": 4,
-      "test_functions": [
-        {
-          "name": "test_health_overview_modal",
-          "node_id": "TestHealthOverview::test_health_overview_modal",
-          "marks": [
-            "skipif_managed_service",
-            "tier1",
-            "polarion_id('OCS-7475')",
-            "ui",
-            "runs_on_provider",
-            "skipif_mcg_only",
-            "skipif_external_mode",
-            "skipif_ibm_cloud_managed",
-            "skipif_ocs_version('<4.21')",
-            "black_squad"
-          ],
-          "docstring": "Test to verify Health Score from UI matches the Prometheus metric\n1. Navigate to Data Foundation -> Storage Cluster page\n2. Get Health Score from Prometheus\n3. Get Health Score from UI\n4. Compare both...",
-          "line": 339
-        },
-        {
-          "name": "test_silence_health_alerts",
-          "node_id": "TestHealthOverview::test_silence_health_alerts",
-          "marks": [
-            "skipif_managed_service",
-            "black_squad",
-            "runs_on_provider",
-            "ui",
-            "tier2",
-            "skipif_mcg_only",
-            "skipif_external_mode",
-            "skipif_ibm_cloud_managed",
-            "skipif_ocs_version('<4.21')",
-            "polarion_id('OCS-7476')"
-          ],
-          "docstring": "Test to verify silencing health alerts from UI\n1. Navigate to Data Foundation -> Storage Cluster page\n2. Get Health Score from Prometheus\n3. Verify Health Score from UI before silencing alerts\n4. Open...",
-          "line": 359
-        },
-        {
-          "name": "test_health_score_changes_based_on_alert_severity",
-          "node_id": "TestHealthOverview::test_health_score_changes_based_on_alert_severity",
-          "marks": [
-            "skipif_managed_service",
-            "pytest.mark.parametrize('alert_name, alert_yaml')",
-            "ui",
-            "tier2",
-            "runs_on_provider",
-            "polarion_id('OCS-7509')",
-            "skipif_mcg_only",
-            "skipif_external_mode",
-            "skipif_ibm_cloud_managed",
-            "skipif_ocs_version('<4.21')",
-            "black_squad"
-          ],
-          "docstring": "Test to decrease health score based on alert severity and recover after alert is reversed.\n1. Silence all pre-existing alerts for 1 hour\n2. Map expected drop in health score based on alert severity\n3....",
-          "line": 438
-        },
-        {
-          "name": "test_health_score_with_blackbox_and_metrics_exporter_shutdown",
-          "node_id": "TestHealthOverview::test_health_score_with_blackbox_and_metrics_exporter_shutdown",
-          "marks": [
-            "skipif_managed_service",
-            "ui",
-            "runs_on_provider",
-            "tier2",
-            "skipif_mcg_only",
-            "skipif_external_mode",
-            "polarion_id('OCS-7731')",
-            "skipif_ibm_cloud_managed",
-            "skipif_ocs_version('<4.21')",
-            "black_squad"
-          ],
-          "docstring": "Test to verify health score changes when shutting down and recover blackbox and ocs-metrics-exporter.\n1. Get baseline health score\n2. Shut down odf-blackbox-exporter and ocs-metrics-exporter by scalin...",
-          "line": 527
-        }
-      ],
-      "marks": [
-        "skipif_managed_service",
-        "skipif_external_mode",
-        "runs_on_provider",
-        "skipif_mcg_only",
-        "ui",
-        "skipif_ibm_cloud_managed",
-        "skipif_ocs_version('<4.21')",
-        "black_squad"
-      ],
-      "tiers": [],
-      "polarion_ids": [],
-      "skip_conditions": [
-        "skipif_managed_service",
-        "skipif_external_mode",
-        "skipif_mcg_only",
-        "skipif_ibm_cloud_managed",
-        "skipif_ocs_version('<4.21')"
-      ],
-      "keywords": [
-        "3....",
-        "after",
-        "alert",
-        "alerts",
-        "and",
-        "based",
-        "baseline",
-        "before",
-        "blackbox",
-        "both...",
-        "changes",
-        "cluster",
-        "compare",
-        "data",
-        "decrease",
-        "down",
-        "drop",
-        "expected",
-        "exporter",
-        "foundation",
-        "from",
-        "health",
-        "hour",
-        "matches",
-        "metric",
-        "metrics",
-        "modal",
-        "navigate",
-        "ocs-metrics-exporter",
-        "ocs-metrics-exporter."
-      ],
-      "description": "Test to verify Health Score from UI matches the Prometheus metric"
-    },
-    {
       "file_path": "tests/functional/ui/test_non_admin_user.py",
       "category": "functional",
       "subcategory": "ui",
@@ -25663,20 +24631,18 @@
           "name": "test_for_encrypted_pv_ui",
           "node_id": "TestPVEncryption::test_for_encrypted_pv_ui",
           "marks": [
+            "pytest.mark.parametrize",
             "tier1",
             "skipif_ocs_version('!=4.8')",
-            "ui",
-            "pytest.mark.parametrize",
             "black_squad"
           ],
           "docstring": "UI test to create Encrypted Storage Class with rbd provisioner, creating a Block PVC using\nthe Encrypted Storage Class and performing all the necessary validations for the test.\nVerifying and Deleting...",
-          "line": 100
+          "line": 98
         }
       ],
       "marks": [
         "pytest.mark.parametrize",
-        "black_squad",
-        "ui"
+        "black_squad"
       ],
       "tiers": [],
       "polarion_ids": [],
@@ -25804,95 +24770,6 @@
         "with"
       ],
       "description": "Check that the quickstart with the given title is present in the UI"
-    },
-    {
-      "file_path": "tests/functional/ui/test_scale.py",
-      "category": "functional",
-      "subcategory": "ui",
-      "squad": "",
-      "test_count": 3,
-      "test_functions": [
-        {
-          "name": "test_connect_scale",
-          "node_id": "TestScaleConnection::test_connect_scale",
-          "marks": [
-            "skipif_ocs_version('<4.20')",
-            "polarion_id('OCS-7757')",
-            "fdf_required",
-            "tier2",
-            "ui",
-            "runs_on_provider",
-            "skipif_ibm_cloud_managed",
-            "black_squad"
-          ],
-          "docstring": "Test connecting Scale cluster as External system",
-          "line": 39
-        },
-        {
-          "name": "test_add_delete_filesystem",
-          "node_id": "TestScaleConnection::test_add_delete_filesystem",
-          "marks": [
-            "polarion_id('OCS-7758')",
-            "fdf_required",
-            "tier2",
-            "ui",
-            "runs_on_provider",
-            "skipif_ibm_cloud_managed",
-            "skipif_ocs_version('<4.21')",
-            "black_squad"
-          ],
-          "docstring": "Test connecting an additional filesystem when a scale cluster is connected\nand then deleting it",
-          "line": 64
-        },
-        {
-          "name": "test_disconnect_scale",
-          "node_id": "TestScaleConnection::test_disconnect_scale",
-          "marks": [
-            "polarion_id('OCS-7759')",
-            "skipif_ocs_version('<4.20')",
-            "fdf_required",
-            "tier2",
-            "ui",
-            "runs_on_provider",
-            "skipif_ibm_cloud_managed",
-            "black_squad"
-          ],
-          "docstring": "Test that disconnecting scale removes it from External systems page",
-          "line": 84
-        }
-      ],
-      "marks": [
-        "fdf_required",
-        "runs_on_provider"
-      ],
-      "tiers": [],
-      "polarion_ids": [],
-      "skip_conditions": [],
-      "keywords": [
-        "add",
-        "additional",
-        "cluster",
-        "connect",
-        "connected",
-        "connecting",
-        "delete",
-        "deleting",
-        "disconnect",
-        "disconnecting",
-        "external",
-        "filesystem",
-        "from",
-        "page",
-        "removes",
-        "scale",
-        "system",
-        "systems",
-        "test",
-        "that",
-        "then",
-        "when"
-      ],
-      "description": "Test connecting Scale cluster as External system"
     },
     {
       "file_path": "tests/functional/upgrade/test_configuration.py",
@@ -26320,7 +25197,7 @@
       "category": "functional",
       "subcategory": "upgrade",
       "squad": "brown_squad",
-      "test_count": 4,
+      "test_count": 3,
       "test_functions": [
         {
           "name": "test_storage_pods_running",
@@ -26333,7 +25210,7 @@
             "brown_squad"
           ],
           "docstring": "Test that all pods from openshift-storage namespace have status Running\nor Completed after upgrade is completed.\n\nmultiregion_mirror_setup_session fixture is present during this test to\nmake sure that...",
-          "line": 39
+          "line": 34
         },
         {
           "name": "test_pod_io",
@@ -26345,7 +25222,7 @@
             "pytest.mark.polarion_id('OCS-1862')"
           ],
           "docstring": "Test IO on multiple pods at the same time and finish IO on pods that were\ncreated before upgrade.",
-          "line": 75
+          "line": 70
         },
         {
           "name": "test_pod_log_after_upgrade",
@@ -26356,22 +25233,7 @@
             "pytest.mark.polarion_id('OCS-2629')"
           ],
           "docstring": "Check OSD/MON/MGR pod logs after upgrade and verify the expected log exist",
-          "line": 118
-        },
-        {
-          "name": "test_blackbox_pod_after_upgrade",
-          "node_id": "test_blackbox_pod_after_upgrade",
-          "marks": [
-            "post_upgrade",
-            "pytest.mark.polarion_id('OCS-7419')",
-            "skipif_external_mode",
-            "skipif_mcg_only",
-            "skipif_hci_client",
-            "purple_squad",
-            "jira('DFBUGS-5211')"
-          ],
-          "docstring": "Check blackbox exporter pod exists after upgrade",
-          "line": 177
+          "line": 113
         }
       ],
       "marks": [
@@ -26381,42 +25243,29 @@
         "pytest.mark.polarion_id('OCS-1862')",
         "pytest.mark.polarion_id('OCS-2220')",
         "pytest.mark.polarion_id('OCS-2629')",
-        "purple_squad",
-        "pytest.mark.polarion_id('OCS-7419')",
         "brown_squad",
-        "skipif_external_mode",
-        "skipif_mcg_only",
-        "skipif_hci_client",
-        "pytest.mark.skipif(True)",
-        "jira('DFBUGS-5211')"
+        "pytest.mark.skipif(True)"
       ],
       "tiers": [],
       "polarion_ids": [
         "OCS-1862",
         "OCS-2220",
-        "OCS-2629",
-        "OCS-7419"
+        "OCS-2629"
       ],
       "skip_conditions": [
         "skipif_aws_creds_are_missing",
-        "skipif_external_mode",
-        "skipif_mcg_only",
-        "skipif_hci_client",
         "pytest.mark.skipif(True)"
       ],
       "keywords": [
         "after",
         "before",
-        "blackbox",
         "check",
         "completed",
         "completed.",
         "created",
         "during",
         "exist",
-        "exists",
         "expected",
-        "exporter",
         "finish",
         "fixture",
         "from",
@@ -26434,7 +25283,10 @@
         "present",
         "running",
         "same",
-        "status"
+        "status",
+        "storage",
+        "sure",
+        "test"
       ],
       "description": "Test that all pods from openshift-storage namespace have status Running"
     },
@@ -26694,7 +25546,7 @@
             "ignore_leftovers"
           ],
           "docstring": "Tests OCS stability when upgrading OCP",
-          "line": 113
+          "line": 110
         }
       ],
       "marks": [
@@ -26715,87 +25567,6 @@
         "when"
       ],
       "description": "Tests OCS stability when upgrading OCP"
-    },
-    {
-      "file_path": "tests/functional/upgrade/test_upgrade_precheck_ceph_health.py",
-      "category": "functional",
-      "subcategory": "upgrade",
-      "squad": "brown_squad",
-      "test_count": 2,
-      "test_functions": [
-        {
-          "name": "test_ceph_health_warning_blocks_upgrade",
-          "node_id": "TestODFUpgradePrecheckConditions::test_ceph_health_warning_blocks_upgrade",
-          "marks": [
-            "pytest.mark.polarion_id('OCS-7422')",
-            "brown_squad",
-            "tier2",
-            "runs_on_provider",
-            "skipif_mcg_only"
-          ],
-          "docstring": "Test that ODF upgrade is blocked when Ceph cluster health is in WARN state.\n\nSteps:\n1. Bring one mon down to cause HEALTH_WARN\n2. Verify setup step 1 by checking ceph status\n\nExpected Result:\n1. OCS O...",
-          "line": 131
-        },
-        {
-          "name": "test_storagecluster_not_ready_blocks_upgrade",
-          "node_id": "TestODFUpgradePrecheckConditions::test_storagecluster_not_ready_blocks_upgrade",
-          "marks": [
-            "brown_squad",
-            "tier2",
-            "runs_on_provider",
-            "skipif_mcg_only",
-            "pytest.mark.polarion_id('OCS-4172')"
-          ],
-          "docstring": "Test that ODF upgrade is blocked when StorageCluster is not in Ready\nstate (Progressing, Not Ready, or Degraded).\n\nSteps:\n1. Push a StorageCluster intentionally to a state which is not\n   a \"Ready\" st...",
-          "line": 252
-        }
-      ],
-      "marks": [
-        "runs_on_provider",
-        "skipif_mcg_only",
-        "brown_squad",
-        "tier2"
-      ],
-      "tiers": [
-        "tier2"
-      ],
-      "polarion_ids": [],
-      "skip_conditions": [
-        "skipif_mcg_only"
-      ],
-      "keywords": [
-        "\"ready\"",
-        "(progressing,",
-        "blocked",
-        "blocks",
-        "bring",
-        "cause",
-        "ceph",
-        "checking",
-        "cluster",
-        "degraded).",
-        "down",
-        "expected",
-        "health",
-        "health_warn",
-        "intentionally",
-        "not",
-        "o...",
-        "push",
-        "ready",
-        "ready,",
-        "result:",
-        "setup",
-        "st...",
-        "state",
-        "state.",
-        "status",
-        "step",
-        "steps:",
-        "storagecluster",
-        "test"
-      ],
-      "description": "Test that ODF upgrade is blocked when Ceph cluster health is in WARN state."
     },
     {
       "file_path": "tests/functional/upgrade/test_upgrade_sc_allowexpansion_false.py",
@@ -28248,62 +27019,6 @@
       "description": "This test performs the VM lifecycle operations and IO"
     },
     {
-      "file_path": "tests/functional/workloads/cnv/test_vm_lifecycle_and_io_use_cluster_capacity.py",
-      "category": "functional",
-      "subcategory": "workloads",
-      "squad": "magenta_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_vm_lifecycle_and_io_use_cluster_capacity",
-          "node_id": "TestVmOperationsUseClusterCapacity::test_vm_lifecycle_and_io_use_cluster_capacity",
-          "marks": [
-            "pytest.mark.polarion_id('OCS-5241')",
-            "workloads",
-            "magenta_squad"
-          ],
-          "docstring": "This test performs the VM lifecycle operations and IO with VM count\ncalculated from available cluster capacity (CPU, RAM, storage).\n\nSteps:\n1) Create a VM using a standalone PVC/DV/DVT\n    a) Create a...",
-          "line": 19
-        }
-      ],
-      "marks": [
-        "pytest.mark.polarion_id('OCS-5241')",
-        "workloads",
-        "magenta_squad"
-      ],
-      "tiers": [],
-      "polarion_ids": [
-        "OCS-5241"
-      ],
-      "skip_conditions": [],
-      "keywords": [
-        "(cpu,",
-        "a...",
-        "and",
-        "available",
-        "calculated",
-        "capacity",
-        "cluster",
-        "count",
-        "create",
-        "from",
-        "lifecycle",
-        "operations",
-        "performs",
-        "pvc/dv/dvt",
-        "ram,",
-        "standalone",
-        "steps:",
-        "storage).",
-        "test",
-        "this",
-        "use",
-        "using",
-        "with"
-      ],
-      "description": "This test performs the VM lifecycle operations and IO with VM count"
-    },
-    {
       "file_path": "tests/functional/workloads/cnv/test_vm_snapshot_cloning_ops.py",
       "category": "functional",
       "subcategory": "workloads",
@@ -29361,7 +28076,7 @@
             "acceptance"
           ],
           "docstring": "Add capacity on non-lso cluster via cli on Acceptance suite",
-          "line": 143
+          "line": 142
         },
         {
           "name": "test_add_capacity_ui",
@@ -29374,9 +28089,8 @@
             "skipif_hci_provider_and_client",
             "tier1",
             "polarion_id('OCS-1191')",
-            "ui",
-            "skipif_bm",
             "skipif_lso",
+            "skipif_bm",
             "skipif_external_mode",
             "skipif_bmpsi",
             "pytest.mark.order('second_to_last')",
@@ -29384,7 +28098,7 @@
             "black_squad"
           ],
           "docstring": "Add capacity on non-lso cluster via UI on tier1 suite",
-          "line": 152
+          "line": 150
         },
         {
           "name": "test_add_capacity_lso_cli",
@@ -29407,7 +28121,7 @@
             "acceptance"
           ],
           "docstring": "Add capacity on lso cluster via CLI on Acceptance suite",
-          "line": 179
+          "line": 177
         },
         {
           "name": "test_add_capacity_lso_ui",
@@ -29419,9 +28133,8 @@
             "skipif_lean_deployment",
             "skipif_hci_provider_and_client",
             "tier1",
-            "ui",
-            "skipif_bm",
             "skipif_external_mode",
+            "skipif_bm",
             "skipif_no_lso",
             "skipif_stretch_cluster",
             "skipif_bmpsi",
@@ -29431,7 +28144,7 @@
             "black_squad"
           ],
           "docstring": "Add capacity on lso cluster via UI on tier1 suite",
-          "line": 188
+          "line": 185
         },
         {
           "name": "test_add_capacity_pre_upgrade",
@@ -29451,7 +28164,7 @@
             "pre_upgrade"
           ],
           "docstring": "Test to add variable capacity to the OSD cluster while IOs running",
-          "line": 212
+          "line": 209
         }
       ],
       "marks": [
@@ -29524,7 +28237,6 @@
           "name": "test_add_capacity",
           "node_id": "TestAddCapacity::test_add_capacity",
           "marks": [
-            "skipif_insufficient_resources",
             "skipif_managed_service",
             "skipif_hci_provider_and_client",
             "brown_squad",
@@ -29539,7 +28251,6 @@
         }
       ],
       "marks": [
-        "skipif_insufficient_resources",
         "skipif_managed_service",
         "skipif_hci_provider_and_client",
         "brown_squad",
@@ -29554,7 +28265,6 @@
       ],
       "polarion_ids": [],
       "skip_conditions": [
-        "skipif_insufficient_resources",
         "skipif_managed_service",
         "skipif_hci_provider_and_client",
         "skipif_bm",
@@ -29692,7 +28402,7 @@
       "category": "functional",
       "subcategory": "z_cluster",
       "squad": "brown_squad",
-      "test_count": 3,
+      "test_count": 1,
       "test_functions": [
         {
           "name": "test_add_new_ssd_device_class",
@@ -29703,101 +28413,46 @@
             "tier2",
             "skipif_bm",
             "skipif_no_lso",
-            "skipif_external_mode",
-            "skipif_mcg_only",
             "ignore_leftovers"
           ],
           "docstring": "The test will perform the following steps:\n1. Get the osd nodes.\n2. Create a new LocalVolumeSet for the new deviceclass as defined in the function\n'create_new_lvs_for_new_deviceclass'.\n3. Wait for the...",
-          "line": 84
-        },
-        {
-          "name": "test_add_new_ssd_device_class_same_size",
-          "node_id": "TestMultipleDeviceClasses::test_add_new_ssd_device_class_same_size",
-          "marks": [
-            "skipif_hci_provider_or_client",
-            "brown_squad",
-            "tier2",
-            "skipif_bm",
-            "skipif_no_lso",
-            "skipif_external_mode",
-            "skipif_mcg_only",
-            "ignore_leftovers",
-            "polarion_id('OCS-7431')"
-          ],
-          "docstring": "The test will perform the following steps:\n1. Get the osd nodes.\n2. Add new disks for the new deviceclass using the same existing LocalVolumeSet\nwith the same storage size.\n3. Wait for the PVS in the ...",
-          "line": 164
-        },
-        {
-          "name": "test_add_new_device_class_ui",
-          "node_id": "TestMultipleDeviceClassesUI::test_add_new_device_class_ui",
-          "marks": [
-            "skipif_hci_provider_or_client",
-            "brown_squad",
-            "ui",
-            "tier2",
-            "skipif_no_lso",
-            "skipif_bm",
-            "skipif_external_mode",
-            "skipif_mcg_only",
-            "ignore_leftovers",
-            "polarion_id('OCS-7512')",
-            "black_squad"
-          ],
-          "docstring": "The test will perform the following steps:\n1. Verify that there are available PVs for attaching a new device class.\n2. Navigate to the 'Attach Storage' form in the UI.\n3. Fill the form with the defaul...",
-          "line": 380
+          "line": 64
         }
       ],
       "marks": [
         "skipif_hci_provider_or_client",
         "brown_squad",
-        "skipif_external_mode",
         "skipif_bm",
         "skipif_no_lso",
-        "skipif_mcg_only",
-        "ui",
-        "ignore_leftovers",
-        "black_squad"
+        "ignore_leftovers"
       ],
       "tiers": [],
       "polarion_ids": [],
       "skip_conditions": [
         "skipif_hci_provider_or_client",
-        "skipif_external_mode",
         "skipif_bm",
-        "skipif_no_lso",
-        "skipif_mcg_only"
+        "skipif_no_lso"
       ],
       "keywords": [
-        "'attach",
         "'create_new_lvs_for_new_deviceclass'.",
         "add",
-        "attaching",
-        "available",
         "class",
-        "class.",
         "create",
-        "defaul...",
         "defined",
         "device",
         "deviceclass",
-        "disks",
-        "existing",
-        "fill",
         "following",
-        "form",
         "function",
         "localvolumeset",
-        "navigate",
         "new",
         "nodes.",
         "perform",
-        "same",
-        "size",
-        "size.",
         "ssd",
         "steps:",
-        "storage",
-        "storage'"
+        "test",
+        "the...",
+        "wait",
+        "will"
       ],
       "description": "The test will perform the following steps:"
     },
@@ -29933,11 +28588,11 @@
       "description": "Test to add ocs nodes and wait till rebalance is completed."
     },
     {
-      "file_path": "tests/functional/z_cluster/cluster_expansion/test_nodes_with_hcp.py",
+      "file_path": "tests/functional/z_cluster/cluster_expansion/test_nodes_rosa_hcp.py",
       "category": "functional",
       "subcategory": "z_cluster",
       "squad": "",
-      "test_count": 4,
+      "test_count": 1,
       "test_functions": [
         {
           "name": "test_add_ocs_node_non_default_machinepool",
@@ -29948,91 +28603,42 @@
             "brown_squad",
             "tier4a"
           ],
-          "docstring": "Test to add 1 ocs node with a different instance type via ROSA machinepool\nand wait till rebalance is completed.\n\nRuns only on ROSA HCP clusters where MachinePools are managed via rosa CLI.\n\nSteps:\n1....",
-          "line": 146
-        },
-        {
-          "name": "test_add_remove_client_node_verify_odf",
-          "node_id": "TestAddNodeToClientCluster::test_add_remove_client_node_verify_odf",
-          "marks": [
-            "polarion_id('OCS-7714')",
-            "brown_squad",
-            "runs_on_provider",
-            "ignore_leftovers",
-            "hcp_required",
-            "tier4a"
-          ],
-          "docstring": "Add a worker node to the client cluster, verify ODF client pods\nschedule on it, then remove the node and verify the cluster\nrecovers.\n\nSteps:\n1. Record initial nodepool size and worker nodes\n2. Start ...",
-          "line": 426
-        },
-        {
-          "name": "test_expand_osd_on_hub_verify_client_io",
-          "node_id": "TestExpandOSDOnHub::test_expand_osd_on_hub_verify_client_io",
-          "marks": [
-            "brown_squad",
-            "runs_on_provider",
-            "polarion_id('OCS-7716')",
-            "ignore_leftovers",
-            "hcp_required",
-            "tier4a"
-          ],
-          "docstring": "Add a hub node, expand OSD capacity, verify Ceph rebalance\nwhile client IO runs.\n\nThe added node and OSDs remain after the test. OSD removal\nis not a supported ODF operation.\n\nSteps:\n1. Validate initi...",
-          "line": 612
-        },
-        {
-          "name": "test_restart_osd_node_verify_client_io",
-          "node_id": "TestRestartOSDNodeOnHub::test_restart_osd_node_verify_client_io",
-          "marks": [
-            "brown_squad",
-            "runs_on_provider",
-            "ignore_leftovers",
-            "hcp_required",
-            "tier4a",
-            "polarion_id('OCS-7727')"
-          ],
-          "docstring": "Restart one OSD node on the hub cluster and verify that\nclient IO is not interrupted. The node is restarted via\nEC2 stop/start and comes back automatically.\n\nSteps:\n1. Get OSD running nodes on the hub...",
-          "line": 767
+          "docstring": "Test to add 1 ocs node and wait till rebalance is completed\n\nCompute nodes minimal requirements are:\nCompute node instance type m5.xlarge (4 vCPU 16, GiB RAM)\n\nSteps:\n1. Run create machinepool with no...",
+          "line": 78
         }
       ],
-      "marks": [
-        "ignore_leftovers"
-      ],
+      "marks": [],
       "tiers": [],
       "polarion_ids": [],
       "skip_conditions": [],
       "keywords": [
-        "1....",
         "add",
-        "added",
-        "after",
-        "automatically.",
-        "back",
-        "capacity,",
-        "ceph",
-        "cli.",
-        "client",
-        "cluster",
-        "cluster,",
-        "clusters",
-        "comes",
-        "completed.",
+        "are:",
+        "completed",
+        "compute",
+        "create",
         "default",
-        "different",
-        "expand",
-        "hub",
-        "hub...",
-        "initi...",
-        "initial",
         "instance",
-        "interrupted.",
+        "m5.xlarge",
         "machinepool",
-        "machinepools",
-        "managed",
+        "minimal",
+        "no...",
         "node",
-        "node,",
-        "nodepool"
+        "nodes",
+        "non",
+        "ocs",
+        "ram)",
+        "rebalance",
+        "requirements",
+        "steps:",
+        "test",
+        "till",
+        "type",
+        "vcpu",
+        "wait",
+        "with"
       ],
-      "description": "Test to add 1 ocs node with a different instance type via ROSA machinepool"
+      "description": "Test to add 1 ocs node and wait till rebalance is completed"
     },
     {
       "file_path": "tests/functional/z_cluster/cluster_expansion/test_resize_osd.py",
@@ -30241,7 +28847,7 @@
             "tier1"
           ],
           "docstring": "Test the auto-scaling functionality using the CLI\n\nThis test includes the following steps:\n  - Creating the CR\n  - Triggering threshold by filling the cluster\n  - Verifying SmartScaling behavior post-...",
-          "line": 494
+          "line": 498
         },
         {
           "name": "test_auto_scaling_with_ocs_operator_delete",
@@ -30251,7 +28857,7 @@
             "polarion_id('OCS-6876')"
           ],
           "docstring": "Validate that the StorageAutoScaler functions correctly when the OCS operator pod\nis deleted during and after the autoscaler trigger point is reached.\n\nSteps:\n- Create a StorageAutoScaler CR with a sa...",
-          "line": 520
+          "line": 524
         },
         {
           "name": "test_create_autoscaler_and_delete_before_threshold",
@@ -30268,10 +28874,11 @@
             "skipif_external_mode",
             "skipif_bmpsi",
             "skipif_ibm_power",
-            "ignore_leftovers"
+            "ignore_leftovers",
+            "pytest.mark.skip_resize_pre_conditions"
           ],
           "docstring": "Test that the autoscaler is not triggered if it is deleted\nbefore the threshold condition is met.\n\nScenario:\n- Autoscaler is created\n- Cluster fill starts but autoscaler is deleted before usage thresh...",
-          "line": 583
+          "line": 588
         },
         {
           "name": "test_create_autoscaler_and_shutdown_osd_node",
@@ -30288,10 +28895,11 @@
             "skipif_external_mode",
             "skipif_bmpsi",
             "skipif_ibm_power",
-            "ignore_leftovers"
+            "ignore_leftovers",
+            "pytest.mark.skip_resize_pre_conditions"
           ],
           "docstring": "Test that the autoscaler does not trigger if an OSD node is shut down.\n\nScenario:\n- Autoscaler is created\n- One OSD node is stopped\n- Cluster usage exceeds threshold\n- Autoscaler must not scale due to...",
-          "line": 612
+          "line": 618
         },
         {
           "name": "test_storage_capacity_limit_reached",
@@ -30308,10 +28916,11 @@
             "skipif_external_mode",
             "skipif_bmpsi",
             "skipif_ibm_power",
-            "ignore_leftovers"
+            "ignore_leftovers",
+            "pytest.mark.skip_resize_pre_conditions"
           ],
           "docstring": "Test that the autoscaler does not trigger if the cluster's configured\nstorageCapacityLimit is already reached.\n\nScenario:\n- Autoscaler is created with a capacity limit that is already smaller\nthan wha...",
-          "line": 640
+          "line": 647
         }
       ],
       "marks": [
@@ -30706,14 +29315,13 @@
             "skipif_managed_service",
             "skipif_hci_provider_and_client",
             "pytest.mark.polarion_id('OCS-1085')",
-            "skipif_rosa_hcp",
             "brown_squad",
             "skipif_ibm_cloud",
             "ignore_leftovers",
             "tier4a"
           ],
           "docstring": "Detach and attach worker volume\n\n- Detach the data volume from one of the worker nodes\n- Wait for the volumes to be re-attached back to the worker node\n- Validate cluster functionality, without checki...",
-          "line": 151
+          "line": 150
         },
         {
           "name": "test_detach_attach_2_data_volumes",
@@ -30729,7 +29337,7 @@
             "tier4a"
           ],
           "docstring": "Detach and attach disk from 2 worker nodes\n\n- Detach the data 2 of the data volumes from their worker nodes\n- Wait for the volumes to be re-attached back to the worker nodes\n- Restart the nodes so the...",
-          "line": 225
+          "line": 224
         },
         {
           "name": "test_recovery_from_volume_deletion",
@@ -30743,7 +29351,7 @@
             "tier4a"
           ],
           "docstring": "Test cluster recovery from disk deletion from the platform side.\nBased on documented procedure detailed in\nhttps://bugzilla.redhat.com/show_bug.cgi?id=1823183",
-          "line": 287
+          "line": 286
         },
         {
           "name": "test_recovery_from_volume_deletion_cli_tool",
@@ -30758,7 +29366,7 @@
             "tier4a"
           ],
           "docstring": "Test cluster recovery from disk deletion from the platform side.\nBased on documented procedure detailed in\nhttps://bugzilla.redhat.com/show_bug.cgi?id=1823183",
-          "line": 309
+          "line": 308
         }
       ],
       "marks": [
@@ -30900,7 +29508,7 @@
             "tier4a"
           ],
           "docstring": "Knip-894 Node Replacement proactive(without IO running)",
-          "line": 300
+          "line": 306
         },
         {
           "name": "test_nodereplacement_twice",
@@ -30916,7 +29524,7 @@
             "tier4a"
           ],
           "docstring": "",
-          "line": 352
+          "line": 358
         }
       ],
       "marks": [
@@ -31536,7 +30144,7 @@
             "ignore_leftovers"
           ],
           "docstring": "1. Taint odf nodes with non-ocs taint\n2. Set tolerations on storagecluster, subscription, configmap and ocsinit\n3. check tolerations on all subscription yaml.\n4. Check toleration on all odf pods.\n5. R...",
-          "line": 176
+          "line": 181
         },
         {
           "name": "test_replacement_of_tainted_node",
@@ -31551,7 +30159,7 @@
             "ignore_leftovers"
           ],
           "docstring": "1. Taint odf nodes with non-ocs taint\n2. Set tolerations on storagecluster, subscription, configmap and ocsinit\n3. check tolerations on all subscription yaml.\n4. Check toleration on all odf pods.\n5. R...",
-          "line": 245
+          "line": 250
         },
         {
           "name": "test_negative_custom_taint",
@@ -31566,7 +30174,7 @@
             "ignore_leftovers"
           ],
           "docstring": "Test runs the following steps\n1. Taint odf nodes with non-ocs taint\n2. Set toleration in storagecluster yaml.\n3. Set toleration in wrong subscription yaml.\n4. Check that toleration is not applied on a...",
-          "line": 295
+          "line": 300
         }
       ],
       "marks": [
@@ -31962,7 +30570,7 @@
             "skipif_external_mode",
             "pytest.mark.polarion_id('OCS-2231')"
           ],
-          "docstring": "Important: Postgres configmap is replaced with CNPG in 4.19.\nSkip the test for ocs >= 4.19.\n\nValidate noobaa postgres configmap post OCS upgrade.",
+          "docstring": "Validate noobaa postgres configmap post OCS upgrade",
           "line": 275
         },
         {
@@ -31976,7 +30584,7 @@
             "skipif_external_mode"
           ],
           "docstring": "Testcase to check number of pgs per pool",
-          "line": 329
+          "line": 308
         }
       ],
       "marks": [
@@ -31995,7 +30603,6 @@
         "skipif_external_mode"
       ],
       "keywords": [
-        "4.19.",
         "cache",
         "case",
         "ceph",
@@ -32005,7 +30612,6 @@
         "checks",
         "cluster",
         "cluster's",
-        "cnpg",
         "comparing",
         "config",
         "configmap",
@@ -32014,7 +30620,6 @@
         "current",
         "default",
         "from",
-        "important:",
         "limit",
         "mds",
         "memory",
@@ -32024,54 +30629,12 @@
         "ocs-ci",
         "override",
         "pgs",
-        "pool"
+        "pool",
+        "post",
+        "postgres",
+        "rook"
       ],
       "description": "This test checks ceph default values taken from OCS 4.3 with the"
-    },
-    {
-      "file_path": "tests/functional/z_cluster/test_ceph_mon_healthcheck.py",
-      "category": "functional",
-      "subcategory": "z_cluster",
-      "squad": "brown_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_patch_and_verify_mon_healthcheck",
-          "node_id": "TestCephMonHealthCheck::test_patch_and_verify_mon_healthcheck",
-          "marks": [
-            "ignore_leftovers",
-            "pytest.mark.parametrize('mon_timeout, mon_interval')",
-            "brown_squad",
-            "tier4a"
-          ],
-          "docstring": "Test patch and verify ceph mon healthcheck and verify the new values are respected.\n\nSteps:\n1. Patch mon healthcheck values in StorageCluster\n2. Wait until the mon healthcheck in StorageCluster and Ce...",
-          "line": 107
-        }
-      ],
-      "marks": [
-        "ignore_leftovers",
-        "brown_squad"
-      ],
-      "tiers": [],
-      "polarion_ids": [],
-      "skip_conditions": [],
-      "keywords": [
-        "and",
-        "ce...",
-        "ceph",
-        "healthcheck",
-        "mon",
-        "patch",
-        "respected.",
-        "steps:",
-        "storagecluster",
-        "test",
-        "until",
-        "values",
-        "verify",
-        "wait"
-      ],
-      "description": "Test patch and verify ceph mon healthcheck and verify the new values are respected."
     },
     {
       "file_path": "tests/functional/z_cluster/test_ceph_pg_log_dups_trim.py",
@@ -32346,70 +30909,6 @@
         "rook"
       ],
       "description": "delete_rook_ceph_mon_pod"
-    },
-    {
-      "file_path": "tests/functional/z_cluster/test_enable_multus_existing_cluster.py",
-      "category": "functional",
-      "subcategory": "z_cluster",
-      "squad": "brown_squad",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_enable_multus_on_existing_cluster",
-          "node_id": "TestEnableMultusExistingCluster::test_enable_multus_on_existing_cluster",
-          "marks": [
-            "skipif_managed_service",
-            "pytest.mark.skipif",
-            "brown_squad",
-            "skipif_external_mode",
-            "tier2",
-            "ignore_leftovers"
-          ],
-          "docstring": "Test enabling Multus networking on an existing OCS cluster.\n\nSteps:\n1. Verify StorageCluster is ready\n2. Verify OSD pods are up and running\n3. Install NMState operator and create an instance, then con...",
-          "line": 55
-        }
-      ],
-      "marks": [
-        "skipif_managed_service",
-        "pytest.mark.skipif",
-        "brown_squad",
-        "tier2",
-        "skipif_external_mode",
-        "ignore_leftovers"
-      ],
-      "tiers": [
-        "tier2"
-      ],
-      "polarion_ids": [],
-      "skip_conditions": [
-        "skipif_managed_service",
-        "pytest.mark.skipif",
-        "skipif_external_mode"
-      ],
-      "keywords": [
-        "cluster",
-        "cluster.",
-        "con...",
-        "create",
-        "enable",
-        "enabling",
-        "existing",
-        "install",
-        "instance,",
-        "multus",
-        "networking",
-        "nmstate",
-        "operator",
-        "pods",
-        "ready",
-        "running",
-        "steps:",
-        "storagecluster",
-        "test",
-        "then",
-        "verify"
-      ],
-      "description": "Test enabling Multus networking on an existing OCS cluster."
     },
     {
       "file_path": "tests/functional/z_cluster/test_hugepages.py",
@@ -33066,7 +31565,6 @@
             "skipif_managed_service",
             "brown_squad",
             "skipif_external_mode",
-            "runs_on_provider",
             "ignore_leftovers",
             "pytest.mark.parametrize",
             "pytest.mark.polarion_id('OCS-5646')",
@@ -33075,7 +31573,7 @@
             "pytest.mark.polarion_id('OCS-5657')"
           ],
           "docstring": "Testcase to validate osd, mgr, mon, mds and rgw pod memory and cpu values\nare matching with the predefined set of values post profile updation",
-          "line": 52
+          "line": 50
         },
         {
           "name": "test_change_cluster_resource_profile",
@@ -33084,10 +31582,8 @@
             "pytest.mark.polarion_id('OCS-5656')",
             "pytest.mark.polarion_id('OCS-5645')",
             "skipif_managed_service",
-            "pytest.mark.skipif",
             "brown_squad",
             "skipif_external_mode",
-            "runs_on_provider",
             "ignore_leftovers",
             "pytest.mark.parametrize",
             "pytest.mark.polarion_id('OCS-5646')",
@@ -33096,7 +31592,7 @@
             "pytest.mark.polarion_id('OCS-5657')"
           ],
           "docstring": "Testcase to validate osd, mgr, mon, mds and rgw pod memory and cpu values\nare matching with the predefined set of values post profile updation",
-          "line": 246
+          "line": 168
         }
       ],
       "marks": [
@@ -33105,7 +31601,6 @@
         "skipif_managed_service",
         "brown_squad",
         "skipif_external_mode",
-        "runs_on_provider",
         "ignore_leftovers",
         "pytest.mark.polarion_id('OCS-5646')",
         "skipif_ocs_version('<4.15')",
@@ -34202,54 +32697,6 @@
       "description": "Create disks"
     },
     {
-      "file_path": "tests/libtest/test_data_replication_separation.py",
-      "category": "libtest",
-      "subcategory": "",
-      "squad": "",
-      "test_count": 1,
-      "test_functions": [
-        {
-          "name": "test_create_nad_and_mc",
-          "node_id": "test_create_nad_and_mc",
-          "marks": [
-            "provider_client_ms_platform_required",
-            "libtest"
-          ],
-          "docstring": "Create NAD and MachineConfig required to bridge network interface\nfor data replication separation.\n\nThe function will create a namespace in the format \"clusters-test-cluster\"\nif it doesn't already exi...",
-          "line": 8
-        }
-      ],
-      "marks": [
-        "provider_client_ms_platform_required",
-        "libtest"
-      ],
-      "tiers": [],
-      "polarion_ids": [],
-      "skip_conditions": [],
-      "keywords": [
-        "\"clusters-test-cluster\"",
-        "already",
-        "and",
-        "bridge",
-        "create",
-        "data",
-        "doesn't",
-        "exi...",
-        "format",
-        "function",
-        "interface",
-        "machineconfig",
-        "nad",
-        "namespace",
-        "network",
-        "replication",
-        "required",
-        "separation.",
-        "will"
-      ],
-      "description": "Create NAD and MachineConfig required to bridge network interface"
-    },
-    {
       "file_path": "tests/libtest/test_elasticsearch.py",
       "category": "libtest",
       "subcategory": "",
@@ -34292,72 +32739,6 @@
         "verify"
       ],
       "description": "This test do the following operations:"
-    },
-    {
-      "file_path": "tests/libtest/test_fill_pool_job.py",
-      "category": "libtest",
-      "subcategory": "",
-      "squad": "",
-      "test_count": 2,
-      "test_functions": [
-        {
-          "name": "test_fill_pool_job_with_both_modes",
-          "node_id": "TestFillPoolJob::test_fill_pool_job_with_both_modes",
-          "marks": [
-            "ignore_leftovers",
-            "libtest"
-          ],
-          "docstring": "Run Fill Pool Job using both modes to fill the cluster to a target usage.\nVerifies that the workload completes, logs capacity usage and elapsed time.",
-          "line": 24
-        },
-        {
-          "name": "test_manual_fill_pool_job_cleanup",
-          "node_id": "TestFillPoolJob::test_manual_fill_pool_job_cleanup",
-          "marks": [
-            "ignore_leftovers",
-            "libtest"
-          ],
-          "docstring": "Run Fill Pool Job and then manually delete it to verify cleanup works as expected.",
-          "line": 84
-        }
-      ],
-      "marks": [
-        "ignore_leftovers",
-        "libtest"
-      ],
-      "tiers": [],
-      "polarion_ids": [],
-      "skip_conditions": [],
-      "keywords": [
-        "both",
-        "capacity",
-        "cleanup",
-        "cluster",
-        "completes,",
-        "delete",
-        "elapsed",
-        "expected.",
-        "fill",
-        "job",
-        "logs",
-        "manual",
-        "manually",
-        "modes",
-        "pool",
-        "target",
-        "that",
-        "then",
-        "time.",
-        "usage",
-        "usage.",
-        "using",
-        "verifies",
-        "verify",
-        "with",
-        "workload",
-        "works"
-      ],
-      "description": "Run Fill Pool Job using both modes to fill the cluster to a target usage."
     },
     {
       "file_path": "tests/libtest/test_find_radosnamespace_and_subvolumegroup.py",
@@ -35114,7 +33495,7 @@
       "category": "libtest",
       "subcategory": "",
       "squad": "purple_squad",
-      "test_count": 29,
+      "test_count": 24,
       "test_functions": [
         {
           "name": "test_provider_deploy_OCP_hosted",
@@ -35125,7 +33506,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test deploy hosted OCP",
-          "line": 78
+          "line": 75
         },
         {
           "name": "test_provider_deploy_OCP_hosted_skip_cnv_and_lb",
@@ -35136,7 +33517,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test deploy hosted OCP on provider platform with cnv and metallb ready beforehand",
-          "line": 98
+          "line": 95
         },
         {
           "name": "test_provider_deploy_OCP_hosted_skip_cnv",
@@ -35147,7 +33528,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test deploy hosted OCP on provider platform with cnv ready beforehand",
-          "line": 118
+          "line": 115
         },
         {
           "name": "test_provider_deploy_OCP_hosted_multiple",
@@ -35158,7 +33539,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test deploy hosted OCP on provider platform multiple times",
-          "line": 137
+          "line": 134
         },
         {
           "name": "test_install_odf_on_hosted_cluster",
@@ -35170,7 +33551,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test install ODF on hosted cluster",
-          "line": 146
+          "line": 143
         },
         {
           "name": "test_deploy_OCP_and_setup_ODF_client_on_hosted_clusters",
@@ -35182,7 +33563,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test install ODF on hosted cluster",
-          "line": 162
+          "line": 159
         },
         {
           "name": "test_create_onboarding_key",
@@ -35194,7 +33575,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test create onboarding key",
-          "line": 172
+          "line": 169
         },
         {
           "name": "test_storage_client_connected",
@@ -35206,7 +33587,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test storage client connected",
-          "line": 186
+          "line": 183
         },
         {
           "name": "test_create_hosted_cluster_with_fixture",
@@ -35218,7 +33599,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test create hosted cluster with fixture",
-          "line": 198
+          "line": 195
         },
         {
           "name": "test_create_destroy_hosted_cluster_with_fixture",
@@ -35230,7 +33611,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test create hosted cluster with fixture and destroy cluster abruptly\nImportant that ceph resources associate with the cluster will not be cleaned up",
-          "line": 231
+          "line": 228
         },
         {
           "name": "test_deploy_acm",
@@ -35242,7 +33623,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test deploy dependencies",
-          "line": 269
+          "line": 266
         },
         {
           "name": "test_deploy_cnv",
@@ -35254,7 +33635,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test deploy dependencies",
-          "line": 286
+          "line": 283
         },
         {
           "name": "test_deploy_metallb",
@@ -35266,7 +33647,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test deploy dependencies",
-          "line": 304
+          "line": 301
         },
         {
           "name": "test_download_hcp",
@@ -35278,7 +33659,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test deploy dependencies",
-          "line": 322
+          "line": 319
         },
         {
           "name": "test_mch_status_running",
@@ -35289,7 +33670,7 @@
             "libtest"
           ],
           "docstring": "Get MCH status",
-          "line": 339
+          "line": 336
         },
         {
           "name": "test_verify_native_storage",
@@ -35300,7 +33681,7 @@
             "libtest"
           ],
           "docstring": "Verify native storage client",
-          "line": 348
+          "line": 345
         },
         {
           "name": "test_deploy_mce",
@@ -35310,7 +33691,7 @@
             "libtest"
           ],
           "docstring": "Test deploy mce without installting acm",
-          "line": 376
+          "line": 373
         },
         {
           "name": "test_provider_deploy_ocp_hosted_skip_acm",
@@ -35321,7 +33702,7 @@
             "hci_provider_required"
           ],
           "docstring": "Test deploy hosted OCP on provider platform with cnv ready beforehand\n! Suitable for released version of OCP only (no mce and hyperconverged)",
-          "line": 392
+          "line": 389
         },
         {
           "name": "test_deploy_hyperconverged",
@@ -35331,7 +33712,7 @@
             "libtest"
           ],
           "docstring": "Test deploy hyperconverged operator\n! Hyperconverged is used instead of unreleased CNV, to overcome catalogsource limitations on client clusters",
-          "line": 412
+          "line": 409
         },
         {
           "name": "test_acm_upgrade",
@@ -35342,7 +33723,7 @@
             "libtest"
           ],
           "docstring": "Verify acm upgrade",
-          "line": 429
+          "line": 426
         },
         {
           "name": "test_cnv_upgrade",
@@ -35353,7 +33734,7 @@
             "libtest"
           ],
           "docstring": "Verify cnv upgrade",
-          "line": 440
+          "line": 437
         },
         {
           "name": "test_metallb_upgrade",
@@ -35364,7 +33745,7 @@
             "libtest"
           ],
           "docstring": "Verify metallb upgrade",
-          "line": 451
+          "line": 448
         },
         {
           "name": "test_compute_target_release_image",
@@ -35375,7 +33756,7 @@
             "libtest"
           ],
           "docstring": "Unit test for HypershiftHostedOCP._compute_target_release_image.\n\nIt:\n- patches provider version (get_server_version)\n- patches GA resolver (get_ocp_ga_version)\n- injects the hosted cluster version by...",
-          "line": 568
+          "line": 565
         },
         {
           "name": "test_mce_upgrade",
@@ -35386,62 +33767,7 @@
             "libtest"
           ],
           "docstring": "Verify mce upgrade",
-          "line": 606
-        },
-        {
-          "name": "test_network_setup_exists_or_establish",
-          "node_id": "TestAWSHCPNetworkRouting::test_network_setup_exists_or_establish",
-          "marks": [
-            "purple_squad",
-            "libtest",
-            "aws_platform_required"
-          ],
-          "docstring": "Test that network setup (VPC peering, routing, security groups) exists\nbetween client and management clusters.\n\nIf network is not established and clusters are available, set it up.\nIf clusters are not...",
-          "line": 663
-        },
-        {
-          "name": "test_security_group_ceph_ports",
-          "node_id": "TestAWSHCPNetworkRouting::test_security_group_ceph_ports",
-          "marks": [
-            "purple_squad",
-            "libtest",
-            "aws_platform_required"
-          ],
-          "docstring": "Test that Ceph ports are open in security groups for AWS HCP clusters.\n\nChecks if required Ceph ports are already configured. If not and\nmanagement instance is available, adds the rules.",
-          "line": 741
-        },
-        {
-          "name": "test_network_connectivity_to_management",
-          "node_id": "TestAWSHCPNetworkRouting::test_network_connectivity_to_management",
-          "marks": [
-            "purple_squad",
-            "libtest",
-            "aws_platform_required"
-          ],
-          "docstring": "Test network connectivity from client cluster to management cluster.\n\nUses oc debug to ping the management cluster node from client cluster.\nSkips if clusters are not deployed or kubeconfig is not ava...",
-          "line": 811
-        },
-        {
-          "name": "test_setup_complete_network_and_verify",
-          "node_id": "TestAWSHCPNetworkRouting::test_setup_complete_network_and_verify",
-          "marks": [
-            "purple_squad",
-            "libtest",
-            "aws_platform_required"
-          ],
-          "docstring": "Set up complete network connectivity between AWS HCP client and\nmanagement clusters, then verify it works.\n\nSkips if prerequisites are not met (no clusters, no VPCs, no kubeconfig).",
-          "line": 859
-        },
-        {
-          "name": "test_destroy_first_aws_hcp_cluster",
-          "node_id": "TestAWSHCPDestroy::test_destroy_first_aws_hcp_cluster",
-          "marks": [
-            "purple_squad",
-            "libtest",
-            "aws_platform_required"
-          ],
-          "docstring": "Destroy the first AWS HCP client cluster and clean up all associated\nresources on both AWS and the management cluster.\n\ndestroy_aws_hcp_cluster() handles:\n1. Destroy cluster via hypershift CLI\n2. Veri...",
-          "line": 886
+          "line": 603
         }
       ],
       "marks": [
@@ -35454,34 +33780,34 @@
       "keywords": [
         "(get_ocp_ga_version)",
         "(get_server_version)",
-        "(vpc",
         "abruptly",
         "acm",
-        "adds",
-        "already",
         "and",
         "associate",
-        "associated",
-        "ava...",
-        "available,",
-        "aws",
         "beforehand",
-        "between",
-        "both",
         "by...",
         "catalogsource",
         "ceph",
-        "checks",
-        "clean",
         "cleaned",
         "client",
         "cluster",
-        "cluster.",
         "clusters",
-        "clusters,",
-        "clusters.",
         "cnv",
-        "cnv,"
+        "cnv,",
+        "compute",
+        "connected",
+        "create",
+        "dependencies",
+        "deploy",
+        "destroy",
+        "download",
+        "fixture",
+        "hcp",
+        "hosted",
+        "hyperconverged",
+        "hyperconverged)",
+        "hypershifthostedocp._compute_target_release_image.",
+        "image"
       ],
       "description": "Test deploy hosted OCP"
     },
