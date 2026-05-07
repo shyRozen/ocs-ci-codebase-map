@@ -1,25 +1,20 @@
 ---
 squad: magenta_squad
-test_count: 113
-file_count: 83
-primary_areas: [Workloads, System Tests, Longevity, KCS, FlowTests]
+test_count: 99
+file_count: 71
 ---
 
 # Magenta Squad
 
 ## Test Areas
-- [[tests_functional_workloads]] — 71 tests (CNV 12, OCP registry 7, AMQ 5, PGSQL 4, Jenkins 4, Couchbase 4 files)
-- [[tests_cross_functional_system_test]] — 23 tests (10 files)
-- [[tests_cross_functional_kcs]] — 8 tests (8 files)
-- [[tests_cross_functional_longevity]] — 6 tests, 5-stage longevity (6 files)
-- [[tests_cross_functional_stress]] — 5 tests, CephFS/MCG stress (4 files)
-- [[tests_cross_functional_flowtest]] — 5 tests, node drain + snapshot/clone flows (3 files)
-- [[tests_cross_functional_resilience]] — 5 tests (1 file: ocs_monkey)
-
-## ODF Components
-- [[rook-ceph]] — Cluster health under workloads
-- [[mcg-noobaa]] — NooBaa recovery, bucket notification
-- [[ceph-csi]] — PVC snapshot/clone under load
+- [[tests_functional_workloads]] -- 63 tests
+- [[tests_cross_functional_system_test]] -- 10 tests
+- [[tests_cross_functional_kcs]] -- 8 tests
+- [[tests_cross_functional_longevity]] -- 6 tests
+- [[tests_cross_functional_flowtest]] -- 4 tests
+- [[tests_functional_pv]] -- 4 tests
+- [[tests_cross_functional_stress]] -- 2 tests
+- [[tests_functional_upgrade]] -- 2 tests
 
 ## Key Marks
-`@magenta_squad`, `@tier1`..`@tier4`, `@polarion_id`, `@system_test`
+`@magenta_squad`, `@tier1`..`@tier4`, `@polarion_id`

@@ -1,20 +1,15 @@
 ---
 squad: purple_squad
-test_count: 48
-file_count: 7
-primary_areas: [Deployment, Upgrade, ACM]
+test_count: 38
+file_count: 5
 ---
 
 # Purple Squad
 
 ## Test Areas
-- [[tests_functional_deployment]] — 4 tests (2 files: test_deployment, test_acm)
-- [[tests_functional_upgrade]] — 39 tests (3 files: test_upgrade, test_upgrade_ocp, test_resources)
-- [[tests_libtest]] — 111 tests (2 files: test_metallb, test_provider_create_hosted_cluster)
-
-## ODF Components
-- [[ocs-operator]] — OCS operator deployment
-- [[rook-ceph]] — Rook-Ceph deployment lifecycle
+- [[tests_libtest]] -- 24 tests
+- [[tests_functional_upgrade]] -- 12 tests
+- [[tests_functional_deployment]] -- 2 tests
 
 ## Key Marks
-`@purple_squad`, `@polarion_id`
+`@purple_squad`, `@tier1`..`@tier4`, `@polarion_id`

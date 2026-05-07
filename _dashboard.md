@@ -1,7 +1,6 @@
-# OCS-CI Codebase Map
+# OCS-CI Codebase Map (release-4.20)
 
-> Auto-generated map of the ocs-ci test framework.
-> Source: `~/codcod/new-ocs-ci/ocs-ci/`
+> Auto-generated map for ODF 4.20.
 
 ---
 
@@ -9,93 +8,77 @@
 
 | Metric | Value |
 |--------|-------|
-| Total test files | 485 |
-| Total test functions | 913 |
-| Framework modules | 215+ |
-| Framework LOC | ~215,000 |
-| Squads | 12 |
-| Tiers | 4 (tier1–tier4) |
-| Deployment platforms | 10+ |
+| Test files | 507 |
+| Test functions | 1001 |
+| Squads | 11 |
+| Test areas | 28 |
 
 ---
 
 ## Squads
 
-| Squad | Primary Areas | Test Count |
-|-------|--------------|------------|
-| [[green_squad]] | PV, StorageClass, Encryption, Krkn Chaos | ~130 |
-| [[red_squad]] | MCG, RGW, Object Storage | ~100 |
-| [[brown_squad]] | Z-Cluster, NFS, Upgrade, ODF-CLI, Pods | ~100 |
-| [[blue_squad]] | Monitoring, Prometheus, Alerts | ~53 |
-| [[magenta_squad]] | Workloads, System Test, Longevity, KCS, Stress | ~50 |
-| [[turquoise_squad]] | Disaster Recovery (Metro/Regional DR) | ~37 |
-| [[orange_squad]] | Scale | ~33 |
-| [[black_squad]] | UI (Functional + Cross-Functional) | ~25 |
-| [[purple_squad]] | Deployment, Upgrade, Libtest | ~17 |
-| [[yellow_squad]] | Provider Mode, Data Replication, Managed Service | ~12 |
-| [[grey_squad]] | Performance | ~15 |
-| [[aqua_squad]] | LVMO | ~9 |
+| Squad | Tests |
+|-------|-------|
+| [[red_squad]] | 224 |
+| [[green_squad]] | 167 |
+| [[brown_squad]] | 148 |
+| [[magenta_squad]] | 99 |
+| [[orange_squad]] | 43 |
+| [[turquoise_squad]] | 42 |
+| [[blue_squad]] | 42 |
+| [[black_squad]] | 40 |
+| [[purple_squad]] | 38 |
+| [[grey_squad]] | 33 |
+| [[yellow_squad]] | 28 |
 
----
+## Functional Tests
 
-## Test Areas
-
-### Functional Tests
 | Area | Tests | Files | Squad | Link |
 |------|-------|-------|-------|------|
-| PV | 113 | 84 | green | [[tests_functional_pv]] |
-| Object/MCG | 228 | 76 | red | [[tests_functional_object_mcg]] |
-| Z-Cluster | 115 | 62 | brown | [[tests_functional_z_cluster]] |
-| Monitoring | 44 | 26 | blue | [[tests_functional_monitoring]] |
-| Upgrade | 39 | 10 | mixed | [[tests_functional_upgrade]] |
-| StorageClass | 29 | 23 | green | [[tests_functional_storageclass]] |
-| UI | 28 | 10 | black | [[tests_functional_ui]] |
-| Workloads | 71 | 47 | magenta | [[tests_functional_workloads]] |
-| Disaster Recovery | 45 | 39 | turquoise | [[tests_functional_disaster_recovery]] |
-| Pod & Daemons | 20 | 9 | brown | [[tests_functional_pod_and_daemons]] |
-| Object/RGW | 16 | 12 | red | [[tests_functional_object_rgw]] |
-| NFS | 14 | 1 | brown | [[tests_functional_nfs_feature]] |
-| Encryption | 11 | 5 | green | [[tests_functional_encryption]] |
-| ODF-CLI | 7 | 4 | brown | [[tests_functional_odf_cli]] |
-| Deployment | 4 | 3 | purple | [[tests_functional_deployment]] |
-| Data Replication | 4 | 2 | yellow | [[tests_functional_data_replication_separation]] |
-| External Mode | 1 | 1 | brown | [[tests_functional_external_mode]] |
-| Provider Mode | 1 | 1 | yellow | [[tests_functional_provider_mode]] |
+| object | 235 | 80 | red | [[tests_functional_object]] |
+| pv | 112 | 81 | green | [[tests_functional_pv]] |
+| z_cluster | 108 | 58 | brown | [[tests_functional_z_cluster]] |
+| workloads | 70 | 44 | magenta | [[tests_functional_workloads]] |
+| disaster_recovery | 43 | 36 | turquoise | [[tests_functional_disaster_recovery]] |
+| monitoring | 42 | 20 | blue | [[tests_functional_monitoring]] |
+| upgrade | 36 | 9 | purple | [[tests_functional_upgrade]] |
+| ui | 31 | 13 | black | [[tests_functional_ui]] |
+| storageclass | 29 | 23 | green | [[tests_functional_storageclass]] |
+| pod_and_daemons | 20 | 9 | brown | [[tests_functional_pod_and_daemons]] |
+| nfs_feature | 12 | 1 | brown | [[tests_functional_nfs_feature]] |
+| encryption | 11 | 5 | green | [[tests_functional_encryption]] |
+| odf_cli | 7 | 4 | brown | [[tests_functional_odf_cli]] |
+| data_replication_separation | 4 | 2 | yellow | [[tests_functional_data_replication_separation]] |
+| deployment | 4 | 3 | purple | [[tests_functional_deployment]] |
+| external_mode | 1 | 1 | brown | [[tests_functional_external_mode]] |
+| provider_mode | 1 | 1 | yellow | [[tests_functional_provider_mode]] |
 
-### Cross-Functional Tests
+## Cross-Functional Tests
+
 | Area | Tests | Files | Squad | Link |
 |------|-------|-------|-------|------|
-| Scale | 36 | 28 | orange | [[tests_cross_functional_scale]] |
-| Performance | 34 | 16 | grey | [[tests_cross_functional_performance]] |
-| Krkn Chaos | 24 | 6 | green | [[tests_cross_functional_krkn_chaos]] |
-| System Test | 23 | 14 | magenta | [[tests_cross_functional_system_test]] |
-| UI | 11 | 5 | black | [[tests_cross_functional_ui]] |
-| KCS | 8 | 8 | magenta | [[tests_cross_functional_kcs]] |
-| Longevity | 6 | 6 | magenta | [[tests_cross_functional_longevity]] |
-| Resilience | 5 | 4 | green | [[tests_cross_functional_resilience]] |
-| Stress | 5 | 5 | magenta | [[tests_cross_functional_stress]] |
-| FlowTest | 5 | 3 | magenta | [[tests_cross_functional_flowtest]] |
+| scale | 36 | 24 | orange | [[tests_cross_functional_scale]] |
+| performance | 34 | 16 | grey | [[tests_cross_functional_performance]] |
+| system_test | 23 | 14 | magenta | [[tests_cross_functional_system_test]] |
+| krkn_chaos | 13 | 4 | green | [[tests_cross_functional_krkn_chaos]] |
+| kcs | 8 | 7 | magenta | [[tests_cross_functional_kcs]] |
+| longevity | 6 | 6 | magenta | [[tests_cross_functional_longevity]] |
+| flowtest | 5 | 3 | magenta | [[tests_cross_functional_flowtest]] |
+| resilience | 4 | 3 | green | [[tests_cross_functional_resilience]] |
+| stress | 2 | 2 | magenta | [[tests_cross_functional_stress]] |
 
-### Library Tests
+## Library Tests
+
 | Area | Tests | Files | Link |
 |------|-------|-------|------|
-| Libtest | 111 | 41 | [[tests_libtest]] |
-
----
+| Libtest | 102 | 37 | [[tests_libtest]] |
 
 ## Framework
 
-| Module | Purpose | Link |
-|--------|---------|------|
-| ocs_ci/framework/ | Pytest plugins, config, entry points | [[framework-core]] |
-| ocs_ci/ocs/ | OCS/Ceph resource management | [[framework-ocs]] |
-| ocs_ci/deployment/ | Platform deployment logic | [[framework-deployment]] |
-| ocs_ci/utility/ | Utilities, cloud providers, versioning | [[framework-utility]] |
-| ocs_ci/helpers/ | Test helper functions | [[framework-helpers]] |
-| ocs_ci/ocs/constants.py | Master constants, squad mapping | [[framework-constants]] |
-
----
-
-## Related
-- [[ODF-ZStream-Multi-Agent-Plan-v2]] — Multi-agent pipeline plan
-- [[ODF-ZStream-Jenkins-Reference]] — Jenkins integration
+| Module | Files | Lines | Link |
+|--------|-------|-------|------|
+| core | 8 | 1202 | [[framework-core]] |
+| ocs | 67 | 48543 | [[framework-ocs]] |
+| deployment | 37 | 23108 | [[framework-deployment]] |
+| utility | 65 | 32723 | [[framework-utility]] |
+| helpers | 28 | 21045 | [[framework-helpers]] |
