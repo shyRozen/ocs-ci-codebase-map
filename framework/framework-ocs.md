@@ -1,68 +1,37 @@
 ---
-path: ocs_ci/ocs/
-modules: 173
-total_lines: 98645
+path: ocs_ci/ocs
+modules: 65
+total_lines: 47388
 ---
 
-# Framework OCS
+# Framework: Ocs
 
-Resource classes, cluster management, workload operators, Ceph operations, platform node management.
+## Key Modules
 
-## Top-Level Modules (by size)
-| File | Lines | Purpose |
-|------|-------|---------|
-| cluster.py | 4160 | CephCluster, CephHealthMonitor, LVM |
-| platform_nodes.py | 3876 | Platform-specific node ops (AWS, VMware, BM, etc.) |
-| constants.py | 3871 | All constants (see [[framework-constants]]) |
-| node.py | 3709 | Node operations, drain, restart, scheduling |
-| bucket_utils.py | 3594 | Bucket operations, S3 utils, multipart |
-| ocp.py | 2249 | OCP resource management (generic OCP class) |
-| utils.py | 2241 | General OCS utilities |
-| scale_lib.py | 1964 | Scale test libraries |
-| longevity.py | 1511 | Longevity test orchestration |
-| machine.py | 1362 | Machine/MachineSet operations |
-| ocs_upgrade.py | 1293 | OCS upgrade procedures |
-| perftests.py | 1073 | Performance test base class |
-| amq.py | 1049 | AMQ workload operator |
-| external_ceph.py | 1001 | External Ceph cluster support |
-| exceptions.py | 844 | OCS exception classes |
+| File | Lines |
+|------|-------|
+| cluster.py | 4047 |
+| platform_nodes.py | 3698 |
+| constants.py | 3562 |
+| bucket_utils.py | 3535 |
+| node.py | 3419 |
+| utils.py | 2226 |
+| ocp.py | 2049 |
+| scale_lib.py | 1962 |
+| longevity.py | 1511 |
+| machine.py | 1362 |
+| ocs_upgrade.py | 1115 |
+| perftests.py | 1073 |
+| amq.py | 1054 |
+| external_ceph.py | 1001 |
+| exceptions.py | 785 |
 
-## resources/ Subpackage (key modules)
-| File | Lines | Purpose |
-|------|-------|---------|
-| pod.py | 4702 | Pod class, exec, volume mounts |
-| storage_cluster.py | 3608 | StorageCluster CR management |
-| mcg.py | 1359 | MCG/NooBaa resource management |
-| storageconsumer.py | 1303 | Storage consumer management |
-| pvc.py | 948 | PVC class, creation, deletion |
-| cloud_manager.py | 758 | Cloud provider clients (AWS, Azure, GCP) |
-| stretchcluster.py | 745 | Stretch cluster resource |
-| objectbucket.py | 736 | OBC/OB resources |
-| pv.py | 409 | PV operations |
-
-## Other Subdirectories
-| Dir | Purpose |
-|-----|---------|
-| acm/ | ACM integration |
-| bdi/ | BDI workload |
-| cnv/ | CNV integration |
-| dr/ | DR operations (Ramen) |
-| must_gather/ | Must-gather collection |
-| ui/ | UI page objects, Selenium |
-| tests/ | OCS module self-tests |
-
-## Key Classes
-- **CephCluster** — Ceph cluster operations, health, status
-- **CephHealthMonitor** — Background health monitoring thread
-- **OCP** — Generic OpenShift resource management
-- **Pod** — Pod lifecycle, exec, IO
-- **PVC** — PVC operations
-- **StorageCluster** — StorageCluster CR management
-- **MCG** — NooBaa resource management
-- **Longevity** — Longevity test orchestration
-- **BenchmarkOperator** — Base for perf workloads
-
-## Related
-- [[framework-core]]
-- [[framework-helpers]]
-- [[framework-constants]]
+## Subdirectories
+- acm/
+- bdi/
+- cnv/
+- dr/
+- must_gather/
+- resources/
+- tests/
+- ui/

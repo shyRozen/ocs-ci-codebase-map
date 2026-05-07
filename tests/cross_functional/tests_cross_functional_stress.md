@@ -1,26 +1,24 @@
 ---
 directory: tests/cross_functional/stress/
 squad: magenta_squad
-test_files: 5
-test_functions: 5
-tiers: {tier1: 1, tier2: 0, tier3: 0, tier4: 0}
+test_files: 1
+test_functions: 1
+tiers: {}
 ---
 
 # Stress
 
-CephFS stress tests, MCG stress tests, memory stress with CSI addon.
+## Subdirectories
 
-## Test Files
-| File | Squad | Tests | Key Tests |
-|------|-------|-------|-----------|
-| cephfs/test_*.py | magenta | ~3 | CephFS stress operations |
-| mcg/test_*.py | magenta | ~1 | MCG stress operations |
-| test_memory_stress_with_csiaddon.py | green | ~1 | Memory stress on CSI addon |
+| Dir | Files | Tests |
+|-----|-------|-------|
+| test_noobaa_under_stress.py/ | 1 | 1 |
 
-## Marks Used
-`@magenta_squad`, `@green_squad`, `@tier1`, `@polarion_id`
+## Key Test Files
+
+| File | Tests | Squad |
+|------|-------|-------|
+| test_noobaa_under_stress.py | 1 | magenta_squad |
 
 ## Related
 - [[magenta_squad]]
-- [[green_squad]]
-- [[ceph-csi]]

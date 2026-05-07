@@ -1,28 +1,34 @@
 ---
 directory: tests/functional/pod_and_daemons/
 squad: brown_squad
-test_files: 9
-test_functions: 20
-tiers: {tier1: 4, tier2: 4, tier3: 0, tier4: 3}
+test_files: 6
+test_functions: 10
+tiers: {tier1: 1, tier2: 3, tier4: 1, tier4a: 1}
 ---
 
-# Pod and Daemons
+# Pod And Daemons
 
-Ceph daemon management, pod disruptions, OSD/MON/MDS pod operations, daemon kill/restart tests.
+## Subdirectories
 
-## Test Files
-| File | Tests | Key Tests |
-|------|-------|-----------|
-| test_*.py | 20 | Daemon kill, restart, pod disruptions |
+| Dir | Files | Tests |
+|-----|-------|-------|
+| test_cephtoolbox_pod_nodeaffinity.py/ | 1 | 3 |
+| test_mgr_pods.py/ | 1 | 3 |
+| test_csi_logs_rotation.py/ | 1 | 1 |
+| test_csiaddon_pod_security.py/ | 1 | 1 |
+| test_ephemeral_pod.py/ | 1 | 1 |
+| test_mgr_enable_rook_backend_module.py/ | 1 | 1 |
 
-## Multi-Squad Ownership
-- **brown_squad**: 6 files — daemon operations, pod management
-- **green_squad**: 3 files — CSI plugin pod operations
+## Key Test Files
 
-## Marks Used
-`@brown_squad`, `@green_squad`, `@tier1`, `@tier2`, `@tier4`, `@polarion_id`
+| File | Tests | Squad |
+|------|-------|-------|
+| test_cephtoolbox_pod_nodeaffinity.py | 3 | brown_squad |
+| test_mgr_pods.py | 3 | mixed |
+| test_csi_logs_rotation.py | 1 | brown_squad |
+| test_csiaddon_pod_security.py | 1 | green_squad |
+| test_ephemeral_pod.py | 1 | brown_squad |
+| test_mgr_enable_rook_backend_module.py | 1 | brown_squad |
 
 ## Related
 - [[brown_squad]]
-- [[green_squad]]
-- [[rook-ceph]]
