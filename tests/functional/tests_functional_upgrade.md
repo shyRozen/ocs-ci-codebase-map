@@ -1,37 +1,40 @@
 ---
 directory: tests/functional/upgrade/
-squad: purple_squad
-test_files: 10
-test_functions: 39
-tiers: {tier1: 0, tier2: 2, tier3: 0, tier4: 0}
+squad: brown_squad
+test_files: 9
+test_functions: 22
+tiers: {tier2: 1}
 ---
 
 # Upgrade
 
-OCS/ODF upgrade tests, OCP upgrade, managed service upgrade, resource validation post-upgrade, configuration checks, Ceph health pre-checks.
+## Subdirectories
 
-## Test Files
-| File | Squad | Tests | Key Tests |
-|------|-------|-------|-----------|
-| test_upgrade.py | purple/yellow | ~10 | OCS upgrade flow |
-| test_upgrade_ocp.py | purple | ~5 | OCP upgrade |
-| test_resources.py | purple/brown | ~8 | Post-upgrade resource validation |
-| test_configuration.py | brown | ~4 | Configuration checks |
-| test_storagecluster_upgrade_params.py | brown | ~3 | StorageCluster params |
-| test_upgrade_precheck_ceph_health.py | brown | ~3 | Ceph health pre-check |
-| test_ms_upgrade.py | yellow | ~3 | Managed service upgrade |
+| Dir | Files | Tests |
+|-----|-------|-------|
+| test_noobaa.py/ | 1 | 5 |
+| test_resources.py/ | 1 | 4 |
+| test_upgrade.py/ | 1 | 4 |
+| test_configuration.py/ | 1 | 2 |
+| test_monitoring_after_ocp_upgrade.py/ | 1 | 2 |
+| test_upgrade_sc_allowexpansion_false.py/ | 1 | 2 |
+| test_logging_upgrade.py/ | 1 | 1 |
+| test_storagecluster_upgrade_params.py/ | 1 | 1 |
+| test_upgrade_ocp.py/ | 1 | 1 |
 
-## Multi-Squad Ownership
-- **purple_squad**: test_upgrade, test_upgrade_ocp, test_resources
-- **brown_squad**: test_configuration, test_storagecluster_upgrade_params, test_resources, test_upgrade_precheck_ceph_health
-- **yellow_squad**: test_ms_upgrade, test_upgrade
-- **red_squad**: test_upgrade (NooBaa parts)
-- **magenta_squad**: test_upgrade (workload parts)
+## Key Test Files
 
-## Marks Used
-`@purple_squad`, `@brown_squad`, `@yellow_squad`, `@red_squad`, `@magenta_squad`, `@tier2`, `@polarion_id`, `@pre_upgrade`, `@post_upgrade`
+| File | Tests | Squad |
+|------|-------|-------|
+| test_noobaa.py | 5 | red_squad |
+| test_resources.py | 4 | brown_squad |
+| test_upgrade.py | 4 | purple_squad |
+| test_configuration.py | 2 | brown_squad |
+| test_monitoring_after_ocp_upgrade.py | 2 | magenta_squad |
+| test_upgrade_sc_allowexpansion_false.py | 2 | green_squad |
+| test_logging_upgrade.py | 1 | magenta_squad |
+| test_storagecluster_upgrade_params.py | 1 | brown_squad |
+| test_upgrade_ocp.py | 1 | purple_squad |
 
 ## Related
-- [[purple_squad]]
 - [[brown_squad]]
-- [[ocs-operator]]
