@@ -190,18 +190,24 @@ def _parse_test_file(file_path: Path, ocs_ci_root: Path) -> dict | None:
     subcategory = parts[2] if len(parts) > 3 else ""
     all_marks = list(set(file_marks))
 
+    sorted_keywords = sorted(keywords)[:30]
+    component = _classify_component(
+        rel_path, sorted_keywords, file_path.name,
+    )
+
     return {
         "file_path": rel_path,
         "category": category,
         "subcategory": subcategory,
         "squad": file_squad,
+        "component": component,
         "test_count": len(test_functions),
         "test_functions": test_functions,
         "marks": all_marks,
         "tiers": _extract_tiers(all_marks),
         "polarion_ids": _extract_polarion_ids(all_marks),
         "skip_conditions": _extract_skip_conditions(all_marks),
-        "keywords": sorted(keywords)[:30],
+        "keywords": sorted_keywords,
         "description": _file_description(test_functions, rel_path),
     }
 
@@ -304,6 +310,101 @@ def _file_description(test_functions, rel_path):
                 return first_line[:150]
     names = [f["name"].replace("test_", "") for f in test_functions[:5]]
     return ", ".join(names)[:150]
+
+
+# ---------------------------------------------------------------------------
+# Component classification
+# ---------------------------------------------------------------------------
+
+# Directory → component (most specific first)
+_DIR_COMPONENT_MAP = {
+    "tests/functional/object/mcg/": "mcg",
+    "tests/functional/object/rgw/": "rgw",
+    "tests/functional/pv/": "ceph-csi",
+    "tests/functional/storageclass/": "ceph-csi",
+    "tests/functional/monitoring/": "monitoring",
+    "tests/functional/encryption/": "encryption",
+    "tests/functional/lvmo/": "lvmo",
+    "tests/functional/disaster-recovery/": "disaster-recovery",
+    "tests/functional/nfs_feature/": "nfs",
+    "tests/functional/ui/": "odf-console",
+    "tests/cross_functional/ui/": "odf-console",
+    "tests/functional/odf-cli/": "odf-cli",
+    "tests/functional/upgrade/": "upgrade",
+    "tests/functional/deployment/": "ocs-operator",
+    "tests/functional/pod_and_daemons/": "rook",
+}
+
+# Keyword signals for catch-all directories (z_cluster, etc.)
+_KEYWORD_COMPONENT_RULES = [
+    ({"noobaa", "mcg", "bucket", "obc"}, "mcg"),
+    ({"must-gather", "must_gather", "gather"}, "must-gather"),
+    ({"hugepages", "scc", "performance_profile", "liveness", "disruption"}, "odf-operator"),
+    ({"storagecluster", "storagesystem"}, "ocs-operator"),
+    ({"osd", "mon", "mds", "rook", "rbd", "cephfs", "ceph", "mgr"}, "rook"),
+]
+
+# Filename patterns
+_FILENAME_COMPONENT_RULES = [
+    ("must_gather", "must-gather"),
+    ("noobaa", "mcg"),
+    ("hugepages", "odf-operator"),
+    ("performance_profile", "odf-operator"),
+    ("liveness_probe", "odf-operator"),
+    ("ms_pod_disruptions", "odf-operator"),
+    ("scc", "odf-operator"),
+    ("rook_ceph", "rook"),
+    ("ceph_default", "rook"),
+    ("ceph_pg", "rook"),
+    ("osd_heap", "rook"),
+    ("mon_log", "rook"),
+    ("mon_data", "rook"),
+    ("mds", "rook"),
+    ("storagecluster", "ocs-operator"),
+    ("add_capacity", "ocs-operator"),
+    ("node_expansion", "ocs-operator"),
+    ("resize_osd", "ocs-operator"),
+    ("nodes_restart", "ocs-operator"),
+    ("nodes_maintenance", "ocs-operator"),
+    ("node_replacement", "ocs-operator"),
+    ("disk_failure", "ocs-operator"),
+    ("toleration", "ocs-operator"),
+    ("taint", "ocs-operator"),
+    ("az_failure", "ocs-operator"),
+    ("rolling_shutdown", "ocs-operator"),
+    ("rolling_terminate", "ocs-operator"),
+    ("kernel_crash", "ocs-operator"),
+    ("deployment", "ocs-operator"),
+    ("acm", "ocs-operator"),
+]
+
+
+def _classify_component(rel_path: str, keywords: list[str], filename: str) -> str:
+    """Determine the ODF component a test file belongs to."""
+    # 1. Specific directory match
+    for dir_prefix, comp in _DIR_COMPONENT_MAP.items():
+        if rel_path.startswith(dir_prefix):
+            return comp
+
+    # 2. Filename patterns (strongest signal for catch-all dirs)
+    fname_lower = filename.lower()
+    for pattern, comp in _FILENAME_COMPONENT_RULES:
+        if pattern in fname_lower:
+            return comp
+
+    # 3. Keyword signals
+    kw_set = set(k.lower() for k in keywords)
+    for signal_words, comp in _KEYWORD_COMPONENT_RULES:
+        if kw_set & signal_words:
+            return comp
+
+    # 4. Default by parent directory
+    if "z_cluster" in rel_path:
+        return "ocs-operator"
+    if "cross_functional" in rel_path:
+        return "ocs-operator"
+
+    return ""
 
 
 # ---------------------------------------------------------------------------
@@ -852,7 +953,7 @@ def is_dirty(repo_path):
 
 def stash_changes(repo_path):
     r = _run(
-        ["git", "stash", "push", "-m", "update_map.py auto-stash"],
+        ["git", "stash", "push", "--include-untracked", "-m", "update_map.py auto-stash"],
         repo_path,
     )
     return "Saved working directory" in r.stdout

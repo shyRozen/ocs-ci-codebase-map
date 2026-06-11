@@ -1,41 +1,39 @@
 ---
 directory: tests/functional/pv/
 squad: green_squad
-test_files: 84
+test_files: 79
 test_functions: 113
-tiers: {tier1: 30, tier2: 46, tier3: 3, tier4: 17}
+tiers: {tier1: 13, tier2: 28, tier3: 3, tier4: 11, tier4b: 3, tier4c: 8}
 ---
 
-# PV (Persistent Volumes)
-
-Persistent volume operations, cloning, resizing, snapshots, encryption, space reclaim, metadata features.
+# Pv
 
 ## Subdirectories
-| Dir | Files | Tests | Focus |
-|-----|-------|-------|-------|
-| pv_services/ | 43 | 55 | Core PVC/PV lifecycle, creation, deletion, IO |
-| pv_encryption/ | 12 | 15 | RBD encryption (Vault, KMIP, Azure KMS) |
-| pvc_snapshot/ | 11 | 12 | PVC snapshot create/restore |
-| pvc_clone/ | 6 | 10 | PVC-to-PVC cloning |
-| pvc_resize/ | 6 | 7 | PVC expansion |
-| space_reclaim/ | 5 | 10 | RBD/CephFS space reclamation |
-| add_metadata_feature/ | 1 | 4 | PV metadata annotations |
+
+| Dir | Files | Tests |
+|-----|-------|-------|
+| pv_services/ | 39 | 52 |
+| pv_encryption/ | 12 | 15 |
+| pvc_snapshot/ | 11 | 12 |
+| pvc_clone/ | 6 | 10 |
+| space_reclaim/ | 5 | 10 |
+| add_metadata_feature/ | 1 | 8 |
+| pvc_resize/ | 5 | 6 |
 
 ## Key Test Files
-| File | Tests | Tier | Key Tests |
-|------|-------|------|-----------|
-| pv_services/test_cr_resources_validation.py | 5 | tier1 | Resource validation |
-| pvc_clone/test_pvc_to_pvc_clone.py | 4 | tier1 | PVC clone operations |
-| space_reclaim/test_rbd_space_reclaim.py | 3 | tier2 | RBD space reclaim |
-| pv_services/test_dynamic_pvc_accessmodes_with_reclaim_policies.py | 2 | tier1 | Access modes |
-| pvc_resize/test_pvc_expansion.py | 2 | tier2 | PVC expansion |
-| pv_encryption/test_rbd_pv_encryption.py | 1 | tier1 | RBD PV encryption |
 
-## Marks Used
-`@green_squad`, `@tier1`, `@tier2`, `@tier3`, `@tier4`, `@polarion_id`, `@skipif_ocs_version`
+| File | Tests | Squad |
+|------|-------|-------|
+| test_metadata.py | 8 | green_squad |
+| test_cr_resources_validation.py | 5 | green_squad |
+| test_rwop_pvc.py | 5 | green_squad |
+| test_pvc_to_pvc_clone.py | 4 | green_squad |
+| test_auto_reclaim_space_cronjob.py | 3 | green_squad |
+| test_rbd_space_reclaim.py | 3 | green_squad |
+| test_disable_pv_keyrotation.py | 2 | green_squad |
+| test_encrypted_rbd_volume_expansion.py | 2 | green_squad |
+| test_secrets_on_pods.py | 2 | mixed |
+| test_del_mon_service_and_create_pvc.py | 2 | green_squad |
 
 ## Related
 - [[green_squad]]
-- [[ceph-csi]]
-- [[tests_functional_storageclass]]
-- [[tests_functional_encryption]]

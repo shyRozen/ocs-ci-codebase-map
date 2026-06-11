@@ -1,31 +1,15 @@
 ---
 component: ocs-operator
-squad: purple_squad
-test_areas: [Deployment, Upgrade, Provider Mode, External Mode]
+squad: brown_squad
+test_areas: ['Deployment', 'Upgrade', 'Z-Cluster']
 ---
 
-# OCS Operator
-
-OCS/ODF operator. Manages StorageCluster CR, operator lifecycle, upgrades, provider/client mode, external mode.
+# ocs-operator
 
 ## Test Coverage
-- [[tests_functional_deployment]] — 4 tests, operator deployment
-- [[tests_functional_upgrade]] — 39 tests, OCS/ODF/OCP upgrade
-- [[tests_functional_provider_mode]] — 1 test, provider mode
-- [[tests_functional_external_mode]] — 1 test, external mode
-- [[tests_functional_z_cluster]] — 115 tests (cluster expansion/operations)
-
-## Framework Classes
-- `ocs_ci/ocs/resources/storage_cluster.py` (3608 lines) — StorageCluster CR
-- `ocs_ci/ocs/resources/storageconsumer.py` (1303 lines) — Storage consumer
-- `ocs_ci/ocs/resources/storage_client.py` (572 lines) — Storage client
-- `ocs_ci/ocs/resources/csv.py` — ClusterServiceVersion
-- `ocs_ci/ocs/resources/packagemanifest.py` (309 lines) — PackageManifest
-- `ocs_ci/ocs/ocs_upgrade.py` (1293 lines) — OCS upgrade procedures
-- `ocs_ci/ocs/managedservice.py` (456 lines) — Managed service support
+- [[tests_functional_deployment]] -- 2 tests
+- [[tests_functional_upgrade]] -- 32 tests
+- [[tests_functional_z_cluster]] -- 102 tests
 
 ## Related
-- [[purple_squad]]
-- [[brown_squad]] (cluster operations)
-- [[yellow_squad]] (provider/managed service)
-- [[rook-ceph]]
+- [[brown_squad]]
