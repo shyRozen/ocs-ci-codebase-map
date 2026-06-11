@@ -73,7 +73,7 @@
 | Module | Files | Lines | Link |
 |--------|-------|-------|------|
 | core | 7 | 1180 | [[framework-core]] |
-| ocs | 59 | 41270 | [[framework-ocs]] |
-| deployment | 33 | 17493 | [[framework-deployment]] |
-| utility | 58 | 25868 | [[framework-utility]] |
+| ocs | 59 | 41275 | [[framework-ocs]] |
+| deployment | 33 | 17499 | [[framework-deployment]] |
+| utility | 58 | 26019 | [[framework-utility]] |
 | helpers | 19 | 13687 | [[framework-helpers]] |
