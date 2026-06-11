@@ -8,7 +8,7 @@ test_areas: ['Deployment', 'Upgrade', 'Z-Cluster']
 
 ## Test Coverage
 - [[tests_functional_deployment]] -- 2 tests
-- [[tests_functional_upgrade]] -- 22 tests
+- [[tests_functional_upgrade]] -- 21 tests
 - [[tests_functional_z_cluster]] -- 93 tests
 
 ## Related

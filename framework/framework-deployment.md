@@ -1,7 +1,7 @@
 ---
 path: ocs_ci/deployment
 modules: 36
-total_lines: 18246
+total_lines: 18252
 ---
 
 # Framework: Deployment

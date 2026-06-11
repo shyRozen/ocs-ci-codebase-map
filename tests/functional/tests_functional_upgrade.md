@@ -1,8 +1,8 @@
 ---
 directory: tests/functional/upgrade/
 squad: brown_squad
-test_files: 9
-test_functions: 22
+test_files: 8
+test_functions: 21
 tiers: {tier2: 1}
 ---
 
@@ -18,7 +18,6 @@ tiers: {tier2: 1}
 | test_configuration.py/ | 1 | 2 |
 | test_monitoring_after_ocp_upgrade.py/ | 1 | 2 |
 | test_upgrade_sc_allowexpansion_false.py/ | 1 | 2 |
-| test_logging_upgrade.py/ | 1 | 1 |
 | test_storagecluster_upgrade_params.py/ | 1 | 1 |
 | test_upgrade_ocp.py/ | 1 | 1 |
 
@@ -32,7 +31,6 @@ tiers: {tier2: 1}
 | test_configuration.py | 2 | brown_squad |
 | test_monitoring_after_ocp_upgrade.py | 2 | magenta_squad |
 | test_upgrade_sc_allowexpansion_false.py | 2 | green_squad |
-| test_logging_upgrade.py | 1 | magenta_squad |
 | test_storagecluster_upgrade_params.py | 1 | brown_squad |
 | test_upgrade_ocp.py | 1 | purple_squad |
 

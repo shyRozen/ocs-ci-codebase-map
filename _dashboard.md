@@ -8,8 +8,8 @@
 
 | Metric | Value |
 |--------|-------|
-| Test files | 452 |
-| Test functions | 870 |
+| Test files | 451 |
+| Test functions | 867 |
 | Squads | 11 |
 | Test areas | 24 |
 
@@ -22,7 +22,7 @@
 | [[red_squad]] | 175 |
 | [[green_squad]] | 154 |
 | [[brown_squad]] | 122 |
-| [[magenta_squad]] | 98 |
+| [[magenta_squad]] | 95 |
 | [[blue_squad]] | 55 |
 | [[orange_squad]] | 45 |
 | [[yellow_squad]] | 34 |
@@ -38,12 +38,12 @@
 | object | 173 | 63 | red | [[tests_functional_object]] |
 | pv | 119 | 82 | green | [[tests_functional_pv]] |
 | z_cluster | 93 | 53 | brown | [[tests_functional_z_cluster]] |
-| workloads | 62 | 37 | magenta | [[tests_functional_workloads]] |
+| workloads | 60 | 37 | magenta | [[tests_functional_workloads]] |
 | monitoring | 55 | 24 | blue | [[tests_functional_monitoring]] |
 | ui | 34 | 13 | black | [[tests_functional_ui]] |
 | storageclass | 32 | 24 | green | [[tests_functional_storageclass]] |
 | disaster_recovery | 30 | 25 | turquoise | [[tests_functional_disaster_recovery]] |
-| upgrade | 22 | 9 | brown | [[tests_functional_upgrade]] |
+| upgrade | 21 | 8 | brown | [[tests_functional_upgrade]] |
 | nfs_feature | 12 | 1 | brown | [[tests_functional_nfs_feature]] |
 | pod_and_daemons | 9 | 5 | brown | [[tests_functional_pod_and_daemons]] |
 | odf_cli | 7 | 4 | brown | [[tests_functional_odf_cli]] |
@@ -74,7 +74,7 @@
 | Module | Files | Lines | Link |
 |--------|-------|-------|------|
 | core | 8 | 1033 | [[framework-core]] |
-| ocs | 61 | 43809 | [[framework-ocs]] |
-| deployment | 36 | 18246 | [[framework-deployment]] |
-| utility | 60 | 27495 | [[framework-utility]] |
+| ocs | 61 | 43837 | [[framework-ocs]] |
+| deployment | 36 | 18252 | [[framework-deployment]] |
+| utility | 60 | 28013 | [[framework-utility]] |
 | helpers | 22 | 14828 | [[framework-helpers]] |
