@@ -2,7 +2,7 @@
 directory: tests/functional/object/
 squad: red_squad
 test_files: 80
-test_functions: 235
+test_functions: 234
 tiers: {tier1: 9, tier2: 12, tier3: 1, tier4: 3, tier4b: 2, tier4c: 1}
 ---
 
@@ -12,7 +12,7 @@ tiers: {tier1: 9, tier2: 12, tier3: 1, tier4: 3, tier4b: 2, tier4c: 1}
 
 | Dir | Files | Tests |
 |-----|-------|-------|
-| mcg/ | 70 | 220 |
+| mcg/ | 70 | 219 |
 | rgw/ | 10 | 15 |
 
 ## Key Test Files

@@ -7,7 +7,7 @@ Structured knowledge base of the [ocs-ci](https://github.com/red-hat-storage/ocs
 | Squads | 11 |
 | Test Areas | 28 |
 | Test Files | 507 |
-| Test Functions | 1001 |
+| Test Functions | 1002 |
 | Components | 8 |
 
 Start at `_dashboard.md` for navigation.

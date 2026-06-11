@@ -1,7 +1,7 @@
 ---
 path: ocs_ci/deployment
 modules: 37
-total_lines: 23108
+total_lines: 23162
 ---
 
 # Framework: Deployment
@@ -10,9 +10,9 @@ total_lines: 23108
 
 | File | Lines |
 |------|-------|
-| deployment.py | 4206 |
+| deployment.py | 4217 |
 | hub_spoke.py | 2917 |
-| vmware.py | 2720 |
+| vmware.py | 2756 |
 | baremetal.py | 1826 |
 | ibmcloud.py | 1482 |
 | aws.py | 957 |
@@ -20,11 +20,11 @@ total_lines: 23108
 | metallb.py | 888 |
 | mce.py | 724 |
 | flexy.py | 662 |
-| disconnected.py | 571 |
+| disconnected.py | 577 |
 | assisted_installer.py | 524 |
 | rosa.py | 474 |
 | acm.py | 465 |
-| fusion_data_foundation.py | 369 |
+| fusion_data_foundation.py | 370 |
 
 ## Subdirectories
 - helpers/

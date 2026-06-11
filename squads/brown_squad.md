@@ -1,6 +1,6 @@
 ---
 squad: brown_squad
-test_count: 148
+test_count: 150
 file_count: 73
 ---
 
@@ -8,7 +8,7 @@ file_count: 73
 
 ## Test Areas
 - [[tests_functional_z_cluster]] -- 106 tests
-- [[tests_functional_nfs_feature]] -- 12 tests
+- [[tests_functional_nfs_feature]] -- 14 tests
 - [[tests_functional_upgrade]] -- 10 tests
 - [[tests_functional_pod_and_daemons]] -- 7 tests
 - [[tests_functional_odf_cli]] -- 4 tests
