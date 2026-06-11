@@ -1,7 +1,7 @@
 ---
 path: ocs_ci/deployment
 modules: 38
-total_lines: 20642
+total_lines: 20679
 ---
 
 # Framework: Deployment
@@ -11,7 +11,7 @@ total_lines: 20642
 | File | Lines |
 |------|-------|
 | deployment.py | 4030 |
-| vmware.py | 2717 |
+| vmware.py | 2753 |
 | hosted_cluster.py | 2130 |
 | baremetal.py | 1550 |
 | aws.py | 957 |
@@ -24,7 +24,7 @@ total_lines: 20642
 | rosa.py | 474 |
 | acm.py | 449 |
 | mce.py | 353 |
-| fusion_data_foundation.py | 342 |
+| fusion_data_foundation.py | 343 |
 
 ## Subdirectories
 - helpers/

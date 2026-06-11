@@ -1,7 +1,7 @@
 ---
 path: ocs_ci/helpers
 modules: 26
-total_lines: 19181
+total_lines: 19182
 ---
 
 # Framework: Helpers
@@ -10,7 +10,7 @@ total_lines: 19181
 
 | File | Lines |
 |------|-------|
-| helpers.py | 6728 |
+| helpers.py | 6729 |
 | dr_helpers.py | 2374 |
 | performance_lib.py | 1059 |
 | managed_services.py | 982 |

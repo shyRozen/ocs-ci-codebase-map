@@ -1,7 +1,7 @@
 ---
 path: ocs_ci/utility
 modules: 63
-total_lines: 31287
+total_lines: 31625
 ---
 
 # Framework: Utility
@@ -13,8 +13,8 @@ total_lines: 31287
 | utils.py | 6157 |
 | aws.py | 2888 |
 | kms.py | 2672 |
-| vsphere.py | 1973 |
-| ibmcloud.py | 1827 |
+| ibmcloud.py | 2084 |
+| vsphere.py | 2037 |
 | rosa.py | 1314 |
 | azure_utils.py | 1137 |
 | prometheus.py | 814 |
@@ -23,7 +23,7 @@ total_lines: 31287
 | rhv.py | 576 |
 | assisted_installer.py | 573 |
 | storage_cluster_setup.py | 511 |
-| nfs_utils.py | 454 |
+| nfs_utils.py | 471 |
 | version.py | 453 |
 
 ## Subdirectories

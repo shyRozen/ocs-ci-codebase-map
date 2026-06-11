@@ -1,7 +1,7 @@
 ---
 path: ocs_ci/ocs
 modules: 65
-total_lines: 47388
+total_lines: 47407
 ---
 
 # Framework: Ocs
@@ -12,10 +12,10 @@ total_lines: 47388
 |------|-------|
 | cluster.py | 4047 |
 | platform_nodes.py | 3698 |
-| constants.py | 3562 |
+| constants.py | 3566 |
 | bucket_utils.py | 3535 |
 | node.py | 3419 |
-| utils.py | 2226 |
+| utils.py | 2228 |
 | ocp.py | 2049 |
 | scale_lib.py | 1962 |
 | longevity.py | 1511 |

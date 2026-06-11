@@ -9,7 +9,7 @@
 | Metric | Value |
 |--------|-------|
 | Test files | 478 |
-| Test functions | 933 |
+| Test functions | 934 |
 | Squads | 11 |
 | Test areas | 26 |
 
@@ -19,9 +19,9 @@
 
 | Squad | Tests |
 |-------|-------|
-| [[red_squad]] | 211 |
+| [[red_squad]] | 210 |
 | [[green_squad]] | 152 |
-| [[brown_squad]] | 145 |
+| [[brown_squad]] | 147 |
 | [[magenta_squad]] | 98 |
 | [[blue_squad]] | 42 |
 | [[turquoise_squad]] | 40 |
@@ -35,7 +35,7 @@
 
 | Area | Tests | Files | Squad | Link |
 |------|-------|-------|-------|------|
-| object | 213 | 73 | red | [[tests_functional_object]] |
+| object | 212 | 73 | red | [[tests_functional_object]] |
 | pv | 111 | 79 | green | [[tests_functional_pv]] |
 | z_cluster | 107 | 57 | brown | [[tests_functional_z_cluster]] |
 | workloads | 63 | 39 | magenta | [[tests_functional_workloads]] |
@@ -44,7 +44,7 @@
 | upgrade | 34 | 9 | brown | [[tests_functional_upgrade]] |
 | ui | 33 | 13 | black | [[tests_functional_ui]] |
 | storageclass | 27 | 22 | green | [[tests_functional_storageclass]] |
-| nfs_feature | 12 | 1 | brown | [[tests_functional_nfs_feature]] |
+| nfs_feature | 14 | 1 | brown | [[tests_functional_nfs_feature]] |
 | encryption | 11 | 5 | green | [[tests_functional_encryption]] |
 | pod_and_daemons | 10 | 6 | brown | [[tests_functional_pod_and_daemons]] |
 | odf_cli | 7 | 4 | brown | [[tests_functional_odf_cli]] |
@@ -76,7 +76,7 @@
 | Module | Files | Lines | Link |
 |--------|-------|-------|------|
 | core | 8 | 1133 | [[framework-core]] |
-| ocs | 65 | 47388 | [[framework-ocs]] |
-| deployment | 38 | 20642 | [[framework-deployment]] |
-| utility | 63 | 31287 | [[framework-utility]] |
-| helpers | 26 | 19181 | [[framework-helpers]] |
+| ocs | 65 | 47407 | [[framework-ocs]] |
+| deployment | 38 | 20679 | [[framework-deployment]] |
+| utility | 63 | 31625 | [[framework-utility]] |
+| helpers | 26 | 19182 | [[framework-helpers]] |
