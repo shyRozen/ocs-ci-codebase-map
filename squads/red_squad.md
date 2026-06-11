@@ -1,13 +1,13 @@
 ---
 squad: red_squad
-test_count: 231
+test_count: 230
 file_count: 83
 ---
 
 # Red Squad
 
 ## Test Areas
-- [[tests_functional_object]] -- 224 tests
+- [[tests_functional_object]] -- 223 tests
 - [[tests_functional_upgrade]] -- 5 tests
 - [[tests_cross_functional_performance]] -- 1 tests
 - [[tests_functional_disaster_recovery]] -- 1 tests

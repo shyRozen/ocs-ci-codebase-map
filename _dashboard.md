@@ -9,7 +9,7 @@
 | Metric | Value |
 |--------|-------|
 | Test files | 528 |
-| Test functions | 1050 |
+| Test functions | 1049 |
 | Squads | 11 |
 | Test areas | 28 |
 
@@ -19,7 +19,7 @@
 
 | Squad | Tests |
 |-------|-------|
-| [[red_squad]] | 231 |
+| [[red_squad]] | 230 |
 | [[green_squad]] | 175 |
 | [[brown_squad]] | 157 |
 | [[magenta_squad]] | 101 |
@@ -35,7 +35,7 @@
 
 | Area | Tests | Files | Squad | Link |
 |------|-------|-------|-------|------|
-| object | 243 | 85 | red | [[tests_functional_object]] |
+| object | 242 | 85 | red | [[tests_functional_object]] |
 | z_cluster | 115 | 60 | brown | [[tests_functional_z_cluster]] |
 | pv | 113 | 82 | green | [[tests_functional_pv]] |
 | workloads | 71 | 45 | magenta | [[tests_functional_workloads]] |
@@ -78,7 +78,7 @@
 | Module | Files | Lines | Link |
 |--------|-------|-------|------|
 | core | 8 | 1238 | [[framework-core]] |
-| ocs | 68 | 49890 | [[framework-ocs]] |
-| deployment | 37 | 29293 | [[framework-deployment]] |
-| utility | 66 | 35499 | [[framework-utility]] |
-| helpers | 29 | 23180 | [[framework-helpers]] |
+| ocs | 68 | 49908 | [[framework-ocs]] |
+| deployment | 37 | 29345 | [[framework-deployment]] |
+| utility | 66 | 35710 | [[framework-utility]] |
+| helpers | 29 | 23185 | [[framework-helpers]] |
